@@ -4,6 +4,7 @@ do 'molecules.pm';
 
 ($moleculename) = @ARGV;
 
+do 'config.pm';
 do 'dimensions.pm';
 
 print STDERR "Vacuum width in Bohrs = $xmax-($xmin) + 2*$AA = $vacuum_width\n";
