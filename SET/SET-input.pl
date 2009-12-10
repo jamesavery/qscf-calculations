@@ -6,9 +6,11 @@ do 'molecules.pm';
 
 do 'config.pm';
 do 'dimensions.pm';
+do 'fe-config.pm';
 
 # Left and right electrode get respectively half the source-drain voltage Vsd: V_L = -V/2, V_R = V/2
 ($V_L,$V_R,$V_G) = (-0.5*$Vsd*$eV,0.5*$Vsd*$eV,$Vg*$eV); 
+
 
 
 print << "END"
