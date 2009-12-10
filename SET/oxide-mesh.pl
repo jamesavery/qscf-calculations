@@ -68,8 +68,9 @@ Call BOX3D;
 Physical Volume(1) = {8};	// Vacuum
 Physical Volume(2) = {1};	// Gate oxide
 
-Physical Surface(1) = {55, 51, 56, 47, 34}; // Vacuum boundaries
-Physical Surface(2) = {27, 6, 28, 19, 15};  // Oxide boundaries
-
+Physical Surface(1) = {55, 56, 47, 34}; // Vacuum boundaries
+Physical Surface(2) = {51};             // Vacuum top
+Physical Surface(3) = {27, 6, 28, 19};  // Oxide boundaries
+Physical Surface(4) = {15};	        // Grounding 
 
 END
