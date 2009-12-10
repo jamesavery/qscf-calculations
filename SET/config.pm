@@ -1,3 +1,5 @@
+# This file defines parameters for the Single Electron Transistor environment.
+
 $dielectric_constant = 10.0;	# Dielectric constant of gate oxide.
 $dist_x = 1*$AA;		# Distance from either electrode to
 				# nearest nucleus.
