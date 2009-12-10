@@ -6,14 +6,16 @@
 
 do 'molecules.pm';
 
-($moleculename, $charge,$Vsd,$final_dE) = @ARGV;
+# TODO: Add Vg-surface to mesh and physical surfaces.
+# TODO: Vary thickness, dielectric constant and Vg
+($moleculename, $charge,$Vg,$final_dE) = @ARGV;
 
 do 'config.pm';
 do 'dimensions.pm';
 do 'fe-config.pm';
 
 # Left and right electrode get respectively half the source-drain voltage Vsd: V_L = -V/2, V_R = V/2
-($V_L,$V_R) = (-0.5*$Vsd*$eV,0.5*$Vsd*$eV); 
+$Vg = $Vg*$eV;
 
 ($boxW,$boxH,$boxD) = ($Oxide_W,2*$Oxide_H,$Oxide_W);
 
