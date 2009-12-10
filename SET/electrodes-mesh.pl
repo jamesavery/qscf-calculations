@@ -73,13 +73,13 @@ d = D;
 Call BOX3D;
 
 
-Physical Surface(0) = {19, 6, 23, 27, 15, 28};   // Left electrode
-Physical Surface(1) = {51, 34, 43, 56, 47, 55};  // Right electrode
-Physical Surface(87) = {71, 84, 79, 62};         // Vacuum 
+Physical Surface(91) = {23, 6, 28, 15, 27}; // Left electrode
+Physical Surface(92) = {51, 34, 47, 56, 43};// Right electrode
+Physical Surface(93) = {71, 84, 62, 79};    // Vacuum 
 
-Physical Volume(0) = {1};	   // Left electrode
-Physical Volume(1) = {8};          // Right electrode
-Physical Volume(2) = {36};         // Vacuum 
+Physical Volume(1) = {1};	   // Left electrode
+Physical Volume(2) = {8};          // Right electrode
+Physical Volume(3) = {36};         // Vacuum 
 
 
 
