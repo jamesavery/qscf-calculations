@@ -11,7 +11,7 @@
 
 do 'molecules.pm';
 
-($moleculename, $charge,$Vsd,$Vg,$final_dE) = @ARGV;
+($moleculename, $charge,$Vsd,$final_dE) = @ARGV;
 
 do 'config.pm';
 do 'dimensions.pm';
@@ -63,7 +63,6 @@ calculator<LatticeFEMCalculator>: (
     surfaces = \$:surfaces
     electrontemperature = $convergenceparam{electrontemperature}
   electrontemperature:unit = ev
-    mesh_file = ${moleculename}-set.msh
     gate=\$:gate
     dielectric=\$:dielectric
     charge = $charge
