@@ -4,3 +4,4 @@ $dist_x = 1*$AA;		# Distance from either electrode to
 $dist_y = 1*$AA;		# Distance from gate oxide surface to
 				# nearest nucleus.
 
+$oxide_height    = 50*$AA;	# Thickness of gate oxide.
