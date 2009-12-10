@@ -58,11 +58,11 @@ calculator<LatticeFEMCalculator>: (
     lattice= \$:lattice
     basisset=\$:basissetDZP
     boundaryconditions = [ neumann neumann neumann ]
-  meshcutoff:unit=hartree
-  kpoints:monkhorstpack = [1 1 1]
+    meshcutoff:unit=hartree
+    kpoints:monkhorstpack = [1 1 1]
     surfaces = \$:surfaces
-    electrontemperature = $convergenceparam{electrontemperature}
-  electrontemperature:unit = ev
+    electrontemperature = $convergenceparams{'electrontemperature'}
+    electrontemperature:unit = ev
     gate=\$:gate
     dielectric=\$:dielectric
     charge = $charge
