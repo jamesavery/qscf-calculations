@@ -36,7 +36,7 @@ include:0 = "opv5parameters.in"
 include:1 = "bases/$molecule{$moleculename}{basis}"
 
 
-opv5<Molecule>: ( 
+molecule<Molecule>: ( 
   symmetry = auto
   unit = angstrom
   origin = [0 0 0]
@@ -49,7 +49,7 @@ print <<"END"
 
 
 lattice<Lattice>:(
-	basis=\$:opv5
+	basis=\$:molecule
         translate_basis = [$Hx $Hy $Hz]
 	unitcell = [ [ $boxW 0 0 ] [ 0 $boxH 0 ] [ 0 0 $boxD ] ]	
 	unitcell:unit=bohr
