@@ -65,10 +65,10 @@ calculator<LatticeFEMCalculator>: (
     surfaces = \$:surfaces
     electrontemperature = $convergenceparams{'electrontemperature'}
     electrontemperature:unit = ev
-    gate=\$:gate
     dielectric=\$:dielectric
     charge = $charge
 
+    initial_refinement=$feparams{'initial_refinement'}
     fe_order = $feparams{'fe_order'}
     refinement_strategy   = $feparams{'refinement_strategy'}
     centers_max_diameter  = $feparams{'centers_max_diameter'}
