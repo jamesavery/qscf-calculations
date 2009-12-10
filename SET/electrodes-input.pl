@@ -10,15 +10,14 @@
 
 do 'molecules.pm';
 
-($moleculename, $charge,$Vsd,$Vg,$final_dE) = @ARGV;
+($moleculename, $charge,$Vsd,$final_dE) = @ARGV;
 
 do 'config.pm';
 do 'dimensions.pm';
 do 'fe-config.pm';
 
 # Left and right electrode get respectively half the source-drain voltage Vsd: V_L = -V/2, V_R = V/2
-($V_L,$V_R,$V_G) = (-0.5*$Vsd*$eV,0.5*$Vsd*$eV,$Vg*$eV); 
-
+($V_L,$V_R) = (-0.5*$Vsd*$eV,0.5*$Vsd*$eV); 
 
 print << "END"
 
@@ -70,12 +69,12 @@ calculator<LatticeFEMCalculator>: (
     lattice= \$:lattice
     basisset=\$:basissetDZP
     boundaryconditions = [ neumann neumann neumann ]
-  meshcutoff:unit=hartree
-  kpoints:monkhorstpack = [1 1 1]
+    meshcutoff:unit=hartree
+    kpoints:monkhorstpack = [1 1 1]
     surfaces = \$:surfaces
     volumes  = \$:volumes
-    electrontemperature = $convergenceparam{electrontemperature}
-  electrontemperature:unit = ev
+    electrontemperature = $convergenceparams{'electrontemperature'}
+    electrontemperature:unit = ev
     mesh_file = ${moleculename}-set.msh
     gate=\$:gate
     dielectric=\$:dielectric
