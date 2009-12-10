@@ -4,9 +4,8 @@ do 'molecules.pm';
 
 ($moleculename, $charge,$Vsd,$Vg,$final_dE) = @ARGV;
 
+do 'config.pm';
 do 'dimensions.pm';
-
-$dielectric_constant = 10.0;
 
 # Left and right electrode get respectively half the source-drain voltage Vsd: V_L = -V/2, V_R = V/2
 ($V_L,$V_R,$V_G) = (-0.5*$Vsd*$eV,0.5*$Vsd*$eV,$Vg*$eV); 
