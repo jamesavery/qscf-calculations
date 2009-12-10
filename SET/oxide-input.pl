@@ -6,7 +6,6 @@
 
 do 'molecules.pm';
 
-# TODO: Add Vg-surface to mesh and physical surfaces.
 # TODO: Vary thickness, dielectric constant and Vg
 ($moleculename, $charge,$Vg,$final_dE) = @ARGV;
 
@@ -53,9 +52,10 @@ volumes<PhysicalVolumesParam>:(
 
 surfaces<PhysicalSurfacesParam>:(
 	{id description boundary_type boundary_value} = {
-	    1 "Vacuum boundaries"     dirichlet 0
-	    2 "Oxide boundaries"      dirichlet 0
-
+	    1 "Vacuum boundaries"     neumann 0
+	    2 "Vacuum top"            dirichlet 0
+	    3 "Oxide boundaries"      neumann 0
+	    4 "Ground voltage"        dirichlet $Vg
 	}
 )
 
