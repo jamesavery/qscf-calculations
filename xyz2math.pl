@@ -9,9 +9,9 @@ do "elements.pm";
 if(!($toformat cmp "gamess")){ # No preamble
 } elsif (!($toformat cmp "gaussian")){ # Don't know how to do preamble automatically
 } elsif (!($toformat cmp "mathematica")){
-    print "molecule = {\n";
+    $result .= "molecule = {\n";
 } elsif (!($toformat cmp "qscf")){
-    print "  { atom_labels atoms geometry } = {\n";
+    $result .= "  { atom_labels atoms geometry } = {\n";
 }
 my $i=0;
 foreach $l (@lines){
@@ -20,24 +20,27 @@ foreach $l (@lines){
 	my ($atom,$x,$y,$z) = ($1,eval($2),eval($3),eval($4));
 
 	if(!($toformat cmp "gamess")){
-	    print "$atom$i      ".($elements{$atom})."\t$x $y $z\n";
+	    $result .= "$atom$i      ".($elements{$atom})."\t$x $y $z\n";
 	} elsif (!($toformat cmp "gaussian")){
 	    
 	} elsif (!($toformat cmp "mathematica")){ # must remove final ','
 	    $x =~ s/e/\*\^/g;
 	    $y =~ s/e/\*\^/g;
 	    $z =~ s/e/\*\^/g;
-	    print "\t{\"$atom\",".$elements{$atom}.",{$x,$y,$z}},\n";
+	    $result .= "\t{\"$atom\",".$elements{$atom}.",{$x,$y,$z}},\n";
 	} elsif (!($toformat cmp "qscf")){
-	    print "\t$atom $atom [$x $y $z]\n";
+	    $result .= "\t$atom $atom [$x $y $z]\n";
 	}
     }
 }
 if(!($toformat cmp "gamess")){ # No postscript
 } elsif (!($toformat cmp "gaussian")){ 
-    print "\n\n";
+    $result .= "\n\n";
 } elsif (!($toformat cmp "mathematica")){
-    print "{Null,Null,{Null,Null,Null}}};\n";
+    $result .= "};\n";
+    $result =~ s/,\n\}/\n\}/isg;
 } elsif (!($toformat cmp "qscf")){
-    print "}\n";
+    $result .= "}\n";
 }
+
+print $result;
