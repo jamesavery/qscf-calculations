@@ -15,7 +15,7 @@ do 'fe-config.pm';
 # Left and right electrode get respectively half the source-drain voltage Vsd: V_L = -V/2, V_R = V/2
 ($V_L,$V_R) = (-0.5*$Vsd*$eV,0.5*$Vsd*$eV); 
 
-($Hx, $Hy, $Hz) = ($boxW/2,$vacuum_height/2,$slice_depth/2);
+($boxW,$boxH,$boxD) = ($Oxide_W,2*$Oxide_H,$Oxide_W);
 
 print << "END"
 
@@ -38,24 +38,22 @@ print <<"END"
 lattice<Lattice>:(
 	basis=\$:molecule
         translate_basis = [$Hx $Hy $Hz]
-	unitcell = [ [ $boxW 0 0 ] [ 0 $vacuum_height 0 ] [ 0 0 $boxD ] ]	
+	unitcell = [ [ $boxW 0 0 ] [ 0 $boxH 0 ] [ 0 0 $boxD ] ]	
 	unitcell:unit=bohr
 )
 
 volumes<PhysicalVolumesParam>:(
 	{id description volume_type value} = {
-	   1 "Left electrode"  fixed $V_L
-	   2 "Right electrode" fixed $V_R
-	   3 "Vacuum"          dielectric 1
+	   1 "Vacuum"          dielectric 1
+	   2 "Gate oxide"      dielectric $dielectric_constant
 	}
 )
 
-
 surfaces<PhysicalSurfacesParam>:(
 	{id description boundary_type boundary_value} = {
-	    1 "Left electrode"      dirichlet $V_L
-	    2 "Right electrode"     dirichlet $V_R
-	    3 "Vacuum boundaries"   neumann 0
+	    1 "Vacuum boundaries"     dirichlet 0
+	    2 "Oxide boundaries"      dirichlet 0
+
 	}
 )
 
@@ -63,7 +61,7 @@ surfaces<PhysicalSurfacesParam>:(
 calculator<LatticeFEMCalculator>: (
     lattice= \$:lattice
     basisset=\$:basissetDZP
-    boundaryconditions = [ neumann neumann neumann ]
+    boundaryconditions = [ dirichlet dirichlet dirichlet ]
     meshcutoff:unit=hartree
     kpoints:monkhorstpack = [1 1 1]
     surfaces = \$:surfaces
