@@ -3,7 +3,8 @@
 # This file produces a set-up consisting of a rectangular unit cell
 # with Dirichlet $V_L BVC on the (-x)-face, Dirichlet $V_R BVC on the
 # (+x)-face, and homogeneous von Neumann BVCs on the remaining 4
-# faces. No GMSH-mesh is used.
+# faces. Molecule is in the middle of the unit cell volume. No
+# GMSH-mesh is used.
 #
 # This should give the same result as running electrodes-input.pl,
 # which simulates the left/right-electrodes using fixed regions and a
@@ -20,6 +21,7 @@ do 'fe-config.pm';
 # Left and right electrode get respectively half the source-drain voltage Vsd: V_L = -V/2, V_R = V/2
 ($V_L,$V_R,$V_G) = (-0.5*$Vsd*$eV,0.5*$Vsd*$eV,$Vg*$eV); 
 
+($Hx, $Hy, $Hz) = ($vacuum_width/2,$vacuum_height/2,$slice_depth/2);
 
 print << "END"
 
@@ -42,7 +44,7 @@ print <<"END"
 lattice<Lattice>:(
 	basis=\$:molecule
         translate_basis = [$Hx $Hy $Hz]
-	unitcell = [ [ $boxW 0 0 ] [ 0 $boxH 0 ] [ 0 0 $boxD ] ]	
+	unitcell = [ [ $vacuum_width 0 0 ] [ 0 $vacuum_height 0 ] [ 0 0 $slice_depth ] ]	
 	unitcell:unit=bohr
 )
 
