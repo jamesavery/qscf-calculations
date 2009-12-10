@@ -3,6 +3,13 @@ $nm = 18.897259886;		# 1 nm in Bohrs
 $AA = 1.8897259886;		# 1Å in Bohrs
 
 %molecule = (		# Dimensions are in Ångström
+    "H"   => {		# H-atom for testing
+	basis => "OPV5basis.in",
+	xmin => 0, xmax=>0,
+	ymin => 0, zmax=>0,
+	zmin => 0, ymax=>0,
+	'center of mass' => {'x'=>0,'y'=>0,'z'=>0}
+     }, 
     "C60" => {
 	basis => "C60basis.in",
 	xmin =>-3.34959, xmax => 3.34529,

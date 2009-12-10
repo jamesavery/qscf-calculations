@@ -2,7 +2,8 @@
 
 # This file produces a set-up consisting of three volumes representing
 # respectively left electrode, vacuum, and right electrode. The
-# electrodes are represented by fixed regions.
+# electrodes are represented by fixed regions. Molecule is in the
+# middle of the vacuum volume.
 #
 # This should give the same result as running
 # electrodes-input.simple.pl, which simulates the
@@ -18,6 +19,8 @@ do 'fe-config.pm';
 
 # Left and right electrode get respectively half the source-drain voltage Vsd: V_L = -V/2, V_R = V/2
 ($V_L,$V_R) = (-0.5*$Vsd*$eV,0.5*$Vsd*$eV); 
+
+($Hx, $Hy, $Hz) = ($boxW/2,$vacuum_height/2,$slice_depth/2);
 
 print << "END"
 
@@ -40,27 +43,24 @@ print <<"END"
 lattice<Lattice>:(
 	basis=\$:molecule
         translate_basis = [$Hx $Hy $Hz]
-	unitcell = [ [ $boxW 0 0 ] [ 0 $boxH 0 ] [ 0 0 $boxD ] ]	
+	unitcell = [ [ $boxW 0 0 ] [ 0 $vacuum_height 0 ] [ 0 0 $boxD ] ]	
 	unitcell:unit=bohr
 )
 
 volumes<PhysicalVolumesParam>:(
 	{id description volume_type value} = {
-	   1 "Aluminium oxide" dielectric $dielectric_constant
-	   2 "Vacuum"          dielectric 1
-	   3 "Left electrode"  fixed $V_L
-	   4 "Right electrode" fixed $V_R
+	   1 "Left electrode"  fixed $V_L
+	   2 "Right electrode" fixed $V_R
+	   3 "Vacuum"          dielectric 1
 	}
 )
 
 
 surfaces<PhysicalSurfacesParam>:(
 	{id description boundary_type boundary_value} = {
-%	    0 "Box boundaries (only for box mesh)" dirichlet 0
-	    1 "Vacuum boundaries"   neumann 0
-	    2 "Ground voltage"      dirichlet $V_G
-	    3 "Left electrode"      dirichlet $V_L
-	    4 "Right electrode"     dirichlet $V_R
+	    1 "Left electrode"      dirichlet $V_L
+	    2 "Right electrode"     dirichlet $V_R
+	    3 "Vacuum boundaries"   neumann 0
 	}
 )
 
@@ -75,9 +75,7 @@ calculator<LatticeFEMCalculator>: (
     volumes  = \$:volumes
     electrontemperature = $convergenceparams{'electrontemperature'}
     electrontemperature:unit = ev
-    mesh_file = ${moleculename}-set.msh
-    gate=\$:gate
-    dielectric=\$:dielectric
+    mesh_file = ${moleculename}-electrodes.msh
     charge = $charge
 
     fe_order = $feparams{'fe_order'}
@@ -85,6 +83,9 @@ calculator<LatticeFEMCalculator>: (
     centers_max_diameter  = $feparams{'centers_max_diameter'}
     centers_near_diameter = $feparams{'centers_near_diameter'}
     end_refine = $feparams{'end_refine'}
+
+    initial_refinement=$feparams{'initial_refinement'}
+    final_dE=${final_dE}
 
     write_mesh = $feparams{'write_mesh'}
     write_solution = $feparams{'write_solution'}

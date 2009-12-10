@@ -65,15 +65,16 @@ calculator<LatticeFEMCalculator>: (
     surfaces = \$:surfaces
     electrontemperature = $convergenceparams{'electrontemperature'}
     electrontemperature:unit = ev
-    dielectric=\$:dielectric
     charge = $charge
 
-    initial_refinement=$feparams{'initial_refinement'}
     fe_order = $feparams{'fe_order'}
     refinement_strategy   = $feparams{'refinement_strategy'}
     centers_max_diameter  = $feparams{'centers_max_diameter'}
     centers_near_diameter = $feparams{'centers_near_diameter'}
     end_refine = $feparams{'end_refine'}
+
+    initial_refinement=$feparams{'initial_refinement'}
+    final_dE=${final_dE}
 
     write_mesh = $feparams{'write_mesh'}
     write_solution = $feparams{'write_solution'}

@@ -12,7 +12,6 @@ do 'fe-config.pm';
 ($V_L,$V_R,$V_G) = (-0.5*$Vsd*$eV,0.5*$Vsd*$eV,$Vg*$eV); 
 
 
-
 print << "END"
 
 include:0 = "opv5parameters.in" 
