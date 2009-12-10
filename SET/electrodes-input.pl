@@ -1,34 +1,24 @@
 #!/usr/bin/perl
 
+# This file produces a set-up consisting of three volumes representing
+# respectively left electrode, vacuum, and right electrode. The
+# electrodes are represented by fixed regions.
+#
+# This should give the same result as running
+# electrodes-input.simple.pl, which simulates the
+# left/right-electrodes using boundary value conditions.
+
 do 'molecules.pm';
 
 ($moleculename, $charge,$Vsd,$Vg,$final_dE) = @ARGV;
 
 do 'config.pm';
 do 'dimensions.pm';
+do 'fe-config.pm';
 
 # Left and right electrode get respectively half the source-drain voltage Vsd: V_L = -V/2, V_R = V/2
 ($V_L,$V_R,$V_G) = (-0.5*$Vsd*$eV,0.5*$Vsd*$eV,$Vg*$eV); 
 
-# Global parameters
-$tolerance  = 3.e-4;
-$maxiterations = 25;
-$feoptions = 
-    "fe_order=1\n".
-    "\tfinal_dE = ${final_dE}\n".
-    "\tnew_totalenergy=1\n".
-    "\tno_grid=1\n".
-    "\twrite_mesh=1\n".
-    "\tend_refine=2.5\n".
-    "\tcenters_max_diameter=5\n".
-    "\tcenters_near_diameter=7\n".
-    "\trefinement_strategy=centers_plus_density\n";
-
-
-&Hinputfile("LatticeFEMCalculator",$feoptions,$dist);
-
-sub Hinputfile {
-    my ($Calculator,$FEoptions,$dist) = @_;
 
 print << "END"
 
@@ -55,15 +45,6 @@ lattice<Lattice>:(
 	unitcell:unit=bohr
 )
 
-dielectric<DielectricParam>:(
-	geometry:unit = bohr
-% Gate oxide
-      {constant shape shape:parameters  geometry } = {
-	$dielectric_constant  box   [ $Oxide_w $Oxide_h $Oxide_d ] [ $Oxide_x $Oxide_y $Oxide_z ] 
-      }
-)
-
-
 volumes<PhysicalVolumesParam>:(
 	{id description volume_type value} = {
 	   1 "Aluminium oxide" dielectric $dielectric_constant
@@ -85,21 +66,29 @@ surfaces<PhysicalSurfacesParam>:(
 )
 
 
-calculator<$Calculator>: (
-	lattice= \$:lattice
-	basisset=\$:basissetDZP
-	boundaryconditions = [ neumann neumann neumann ]
-	meshcutoff:unit=hartree
-        kpoints:monkhorstpack = [1 1 1]
-        surfaces = \$:surfaces
-	volumes  = \$:volumes
-	electrontemperature = 0.01
-	electrontemperature:unit = ev
-        mesh_file = ${moleculename}-set.msh
-	gate=\$:gate
-	dielectric=\$:dielectric
-        charge = $charge
-        $FEoptions
+calculator<LatticeFEMCalculator>: (
+    lattice= \$:lattice
+    basisset=\$:basissetDZP
+    boundaryconditions = [ neumann neumann neumann ]
+  meshcutoff:unit=hartree
+  kpoints:monkhorstpack = [1 1 1]
+    surfaces = \$:surfaces
+    volumes  = \$:volumes
+    electrontemperature = $convergenceparam{electrontemperature}
+  electrontemperature:unit = ev
+    mesh_file = ${moleculename}-set.msh
+    gate=\$:gate
+    dielectric=\$:dielectric
+    charge = $charge
+
+    fe_order = $feparams{'fe_order'}
+    refinement_strategy   = $feparams{'refinement_strategy'}
+    centers_max_diameter  = $feparams{'centers_max_diameter'}
+    centers_near_diameter = $feparams{'centers_near_diameter'}
+    end_refine = $feparams{'end_refine'}
+
+    write_mesh = $feparams{'write_mesh'}
+    write_solution = $feparams{'write_solution'}
 )
 
 qscf<ScfParam>: (
@@ -108,12 +97,11 @@ qscf<ScfParam>: (
 	diis:start = 1
 	diis:dampingfactor = 0.8
 	precondition= false
-	tolerance=$tolerance
+        tolerance=$convergenceparams{tolerance}
 	variable=hamiltonian
-	maxiterations=$maxiterations
+        maxiterations=$convergenceparams{maxiterations}
 	verbose=10
 )
 
 END
 
-};
