@@ -4,10 +4,15 @@
 
 do 'molecules.pm';
 
-($moleculename) = @ARGV;
+($moleculename,$Dy,$H) = @ARGV;
 
 do 'config.pm';
 do 'dimensions.pm';
+
+$Oxide_H      = $H*$AA;
+$dist_y       = $Dy*$AA;
+$translate_y  = $Oxide_H+$dist_y-$ymin;
+$Hy           = $translate_y;
 
 print STDERR "Vacuum width in Bohrs = $xmax-($xmin) + 2*$AA = $vacuum_width\n";
 
