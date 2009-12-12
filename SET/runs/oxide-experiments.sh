@@ -14,7 +14,7 @@ generate_mesh(){
     H=$2
     ./oxide-mesh.pl $molecule $Dy $H > $directory/${molecule}-oxide-$Dy-$H.geo
     pushd $directory
-    gmsh -3 ${molecule}-oxide-$Dy-$H.geo
+    gmsh -algo front3d -3 ${molecule}-oxide-$Dy-$H.geo
     popd
 }
 

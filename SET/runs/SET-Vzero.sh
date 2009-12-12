@@ -9,7 +9,7 @@ mkdir -p $directory
 
 ./SET-mesh.pl $molecule > $directory/${molecule}-set.geo
 pushd $directory
-gmsh -3 ${molecule}-set.geo
+gmsh -3 -algo front3d ${molecule}-set.geo
 popd
 ln -sf $PWD/bases $PWD/geometries $PWD/opv5parameters.in $PWD/$molecule/
 
