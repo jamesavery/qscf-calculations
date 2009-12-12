@@ -11,11 +11,16 @@
 
 do 'molecules.pm';
 
-($moleculename, $charge,$Vsd,$final_dE) = @ARGV;
+($moleculename, $charge,$Vsd,$Dx,$H,$final_dE) = @ARGV;
 
 do 'config.pm';
 do 'dimensions.pm';
 do 'fe-config.pm';
+
+$dist_x = $Dx*$AA;
+$vacuum_width=$xmax-$xmin+2*$dist_x;
+$vacuum_height   = $H*$AA;
+$slice_depth     = $H*$AA;
 
 # Left and right electrode get respectively half the source-drain voltage Vsd: V_L = -V/2, V_R = V/2
 ($V_L,$V_R) = (-0.5*$Vsd*$eV,0.5*$Vsd*$eV); 
