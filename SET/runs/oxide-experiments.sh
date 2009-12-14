@@ -43,7 +43,7 @@ for Dy in 0.5 1 2 3 5 10; do
     done
 done
 
-# Exp. 3: As SET-Vzero
+# Exp. 3: As SET-Vzero, but without electrodes.
 H=50
 Dy=1
 for charge in -2.0 -1.0 0.0 1.0 2.0; do
