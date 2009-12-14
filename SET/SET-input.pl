@@ -71,17 +71,18 @@ calculator<LatticeFEMCalculator>: (
     lattice= \$:lattice
     basisset=\$:basissetDZP
     boundaryconditions = [ neumann neumann neumann ]
-  meshcutoff:unit=hartree
-  kpoints:monkhorstpack = [1 1 1]
+    meshcutoff:unit=hartree
+    kpoints:monkhorstpack = [1 1 1]
     surfaces = \$:surfaces
     volumes  = \$:volumes
-    electrontemperature = $convergenceparam{electrontemperature}
-  electrontemperature:unit = ev
+    electrontemperature = $convergenceparams{electrontemperature}
+    electrontemperature:unit = ev
     mesh_file = ${moleculename}-set.msh
     gate=\$:gate
     dielectric=\$:dielectric
     charge = $charge
 
+    final_dE=${final_dE}
     fe_order = $feparams{'fe_order'}
     refinement_strategy   = $feparams{'refinement_strategy'}
     centers_max_diameter  = $feparams{'centers_max_diameter'}
