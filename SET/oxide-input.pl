@@ -22,7 +22,7 @@ $Hy           = $translate_y;
 # source-drain voltage Vsd: V_L = -V/2, V_R = V/2
 $Vg = $Vg*$eV;
 
-($boxW,$boxH,$boxD) = ($Oxide_W,2*$Oxide_H,$Oxide_W);
+($boxW,$boxH,$boxD) = ($Oxide_W,$Oxide_H+$vacuum_height,$Oxide_W);
 
 print << "END"
 
