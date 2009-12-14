@@ -80,7 +80,7 @@ calculator<LatticeFEMCalculator>: (
     volumes  = \$:volumes
     electrontemperature = $convergenceparams{'electrontemperature'}
     electrontemperature:unit = ev
-    mesh_file = ${moleculename}-electrodes.msh
+    mesh_file = ${moleculename}-electrodes-${Dx}-${H}.msh
     charge = $charge
 
     fe_order = $feparams{'fe_order'}
