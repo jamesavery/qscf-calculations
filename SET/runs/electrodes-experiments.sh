@@ -32,6 +32,7 @@ for Dx in 1 2 3 5 10; do
     done
 done
 
+
 # Exp. 2: As SET-groundzero, but without dielectric.
 H=50
 Dx=1
@@ -44,4 +45,13 @@ for charge in -2.0 -1.0 0.0 1.0 2.0; do
     done
 done
 
+# Exp. 2b: As SET-groundzero2, but without dielectric.
+H=50
+Dx=1
+generate_mesh $Dx $H
+for charge in -2.0 -1.0 0.0 1.0 2.0; do
+   for Vsd in -2.0 -1.5 -1.0 -0.5 0.0 0.5 1.0 1.5 2.0; do
+      ./electrodes-input.pl $molecule $charge $Vsd $Dx $H $final_dE > ${directory}/Exp2b.${charge}:${Vsd}:${Dx}.in
+    done
+done
 
