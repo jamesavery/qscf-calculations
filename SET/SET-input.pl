@@ -2,7 +2,7 @@
 
 do 'molecules.pm';
 
-($moleculename, $charge,$Vsd,$Vg,$final_dE) = @ARGV;
+($moleculename, $charge,$Vsd,$Vg) = @ARGV;
 
 do 'config.pm';
 do 'dimensions.pm';
@@ -82,7 +82,7 @@ calculator<LatticeFEMCalculator>: (
     dielectric=\$:dielectric
     charge = $charge
 
-    final_dE=${final_dE}
+    final_dE=$feparams{'final_dE'}
     fe_order = $feparams{'fe_order'}
     refinement_strategy   = $feparams{'refinement_strategy'}
     centers_max_diameter  = $feparams{'centers_max_diameter'}

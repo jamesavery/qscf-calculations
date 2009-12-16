@@ -22,8 +22,10 @@
 				# when doing final total-energy
 				# calculation?
 
-    'initial_refinement' => 3	# For unit-cell meshes, what should the initial 
-                                # refinement be? Doesn't apply when loading meshes.
+    'initial_refinement' => 3,	# For unit-cell meshes, what should the
+                                # initial refinement be? Doesn't apply 
+	                        # when loading meshes.
+    'final_dE' => `cut -f 2 -d = config.sh`
  );
  
 
