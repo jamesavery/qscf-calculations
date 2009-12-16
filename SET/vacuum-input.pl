@@ -1,9 +1,11 @@
+#!/usr/bin/perl
 
 do 'molecules.pm';
 
 ($moleculename,$charge) = @ARGV;
 
 do 'config.pm';
+do 'fe-config.pm';
 
 %cm = $molecule{$moleculename}{'center of mass'};
 
@@ -46,7 +48,7 @@ calculator<LatticeFEMCalculator>: (
     electrontemperature:unit = ev
 
     charge = $charge
-    initial_refinement=${initial_refinement}
+    initial_refinement=$feparams{'initial_refinement'}
     final_dE=$feparams{'final_dE'}
     fe_order = $feparams{'fe_order'}
     refinement_strategy   = $feparams{'refinement_strategy'}
