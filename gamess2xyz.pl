@@ -30,7 +30,7 @@ for($i=0;$i<@lines;$i++){
 	my (@charges,@xs,@ys,@zs) = ();
 	print STDERR "Found coordinates for step $j\n";
 
-	while($lines[$i] cmp "\n"){
+	while(($lines[$i] cmp "\n") && ($lines[$i] cmp "\r\n")){
 	    my ($dummy,$label,$charge,$x,$y,$z) = split(/\s+/,$lines[$i]);
 	    $charge = int($charge);
 	    push @charges, $charge;
