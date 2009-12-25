@@ -38,6 +38,21 @@ $AA = 1.8897259886;		# 1Å in Bohrs
 	zmin =>-2.41489, zmax => 2.41143,
 	'center of mass' => {'x'=>-0.00161484,'y'=>2.27424e-6, 'z'=>0.000248661}
     },
+    "OPV5-B3LYP" => {		# Converged OPV5 geometry optimization using Firefly/cc-pVDZ/B3LYP
+	basis => "OPV5basis.in",
+	xmin =>-16.984, xmax => 16.9813,
+	ymin =>-0.00112056, ymax => 0.0013249,
+	zmin =>-2.39927, zmax => 2.39939,
+	'center of mass' => {'x'=>-0.00140013,'y'=>-2.73793e-6, 'z'=>0.000163514}
+    },
+    "OPV5-PW91" => {		# Converged OPV5 geometry optimization using Firefly/cc-pVDZ/PW91
+	basis => "OPV5basis.in",
+	xmin =>-16.9938, xmax => 16.9912,
+	ymin =>-0.00108166, ymax => 0.00133163,
+	zmin =>-2.41203, zmax => 2.41204,
+	'center of mass' => {'x'=>-0.00142308,'y'=>-5.71626e-6, 'z'=>0.000158929}
+    },
+
     "OPV5-tertbutyl" => {	# B3LYP/ccVDZ optimized OPV5 with tertbutyl termination
 	basis => "OPV5basis.in",
     },
