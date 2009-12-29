@@ -2,9 +2,7 @@
 
 source ./config.sh;
 
-mkdir -p H3e-${final_dE}
-mkdir -p H3x-${final_dE}
-mkdir -p H3q-${final_dE}
+mkdir -p H-3/${final_dE}
 
 for dielectric_constant in 1.0 2.0 5.0 8.0 10.0 20.0 40.0 80.0 200.0 800.0 1600.0 3200.0
 do
@@ -12,8 +10,8 @@ do
     do 
 	for charge in -1.0 -0.5 0.0 0.5 
 	do
-	    ./H-3.pl $charge $dX $dielectric_constant $final_dE \
-		> H3e-${final_dE}/H.${charge}:${dX}:${dielectric_constant}.in
+	    ./H-3.pl $charge $dX $dielectric_constant \
+		> H-3/${final_dE}/e.${charge}:${dX}:${dielectric_constant}.in
 	done
     done
 done
@@ -25,8 +23,8 @@ do
     do 
 	for charge in -1.0 0.0 0.5
 	do
-	    ./H-3.pl $charge $dX $dielectric_constant $final_dE \
-		> H3x-${final_dE}/H.${charge}:${dX}:${dielectric_constant}.in
+	    ./H-3.pl $charge $dX $dielectric_constant \
+		> H-3/${final_dE}/x.${charge}:${dX}:${dielectric_constant}.in
 	done
     done
 done
@@ -38,8 +36,8 @@ do
     do 
 	for charge in -2.0 -1.5 -1.25 -1.0 -0.9 -0.8 -0.7 -0.5 -0.3 -0.2 0.0 0.2 0.5 0.4 0.8 0.9
 	do
-	    ./H-3.pl $charge $dX $dielectric_constant $final_dE \
-		> H3q-${final_dE}/H.${charge}:${dX}:${dielectric_constant}.in
+	    ./H-3.pl $charge $dX $dielectric_constant \
+		> H-3/${final_dE}/q.${charge}:${dX}:${dielectric_constant}.in
 	done
     done
 done
