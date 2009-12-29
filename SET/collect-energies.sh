@@ -2,11 +2,12 @@
 
 source config.sh
 
-molecules=(C60 OPV5-vnl OPV5-tertbutyl-vnl)
+molecules=(C60 OPV5-vnl OPV5-tertbutyl-vnl OPV5.18)
 experiments=(
     groundzero:SET groundzero2:SET 
     oxide:Exp1 oxide:Exp2 oxide:Exp3 
     electrodes:Exp1 electrodes:Exp2 electrodes:Exp2b
+    vacuum:Exp1 Vzero:SET-2 Vzero:SET
 )
 
 for m in ${molecules[*]}; do
