@@ -9,8 +9,9 @@ do 'fe-config.pm';
 
 %cm = $molecule{$moleculename}{'center of mass'};
 
-($BoxW,$BoxH,$BoxD) = ($vacuum_box_size,$vacuum_box_size,$vacuum_box_size);
-($Hx,$Hy,$Hz) = (-$cm{x},-$cm{y},-$cm{z}); # Center of mass is at center of volume
+($boxW,$boxH,$boxD) = ($vacuum_box_size,$vacuum_box_size,$vacuum_box_size);
+# Center of mass is at center of volume
+($Hx,$Hy,$Hz) = ($boxW/2-$cm{x},$boxH/2-$cm{y},$boxD/2-$cm{z}); 
 
 print << "END"
 
