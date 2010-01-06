@@ -45,6 +45,13 @@ $AA = 1.8897259886;		# 1Å in Bohrs
 	zmin =>-2.39927, zmax => 2.39939,
 	'center of mass' => {'x'=>-0.00140013,'y'=>-2.73793e-6, 'z'=>0.000163514}
     },
+    "OPV5-GAMESS-B3LYP" => {	# Converged OPV5 geometry optimization using GAMESS/cc-pVDZ/B3LYP
+	basis => "OPV5basis.in",
+	xmin =>-16.9962, xmax => 16.9934,
+	ymin =>-0.0010763, ymax => 0.00128219,
+	zmin =>-2.40537, zmax => 2.40579,
+	'center of mass' => {'x'=>-0.00139303,'y'=>-6.02668e-6, 'z'=>0.00017679}
+    },
     "OPV5-PW91" => {		# Converged OPV5 geometry optimization using Firefly/cc-pVDZ/PW91
 	basis => "OPV5basis.in",
 	xmin =>-16.9938, xmax => 16.9912,
