@@ -65,10 +65,10 @@ $AA = 1.8897259886;		# 1Å in Bohrs
     },
     "benzene" => {
 	basis => "OPV5basis.in",
-	xmin =>12.4993, xmax => 17.5007,
+	xmin =>-2.50069, xmax => 2.50069,
 	ymin =>0, ymax => 0,
-	zmin =>12.8343, zmax => 17.1657,
-	'center of mass' => {'x'=>15.,'y'=>0, 'z'=>15.}
+	zmin =>-2.16569, zmax => 2.16568,
+	'center of mass' => {'x'=>0.,'y'=>0, 'z'=>0.}
     }
     
     );
