@@ -63,8 +63,12 @@ $AA = 1.8897259886;		# 1Å in Bohrs
     "OPV5-tertbutyl" => {	# B3LYP/ccVDZ optimized OPV5 with tertbutyl termination
 	basis => "OPV5basis.in",
     },
-    "OPV5" => {			# B3LYP/ccVDZ optimized OPV5
+    "benzene" => {
 	basis => "OPV5basis.in",
+	xmin =>12.4993, xmax => 17.5007,
+	ymin =>0, ymax => 0,
+	zmin =>12.8343, zmax => 17.1657,
+	'center of mass' => {'x'=>15.,'y'=>0, 'z'=>15.}
     }
     
     );
