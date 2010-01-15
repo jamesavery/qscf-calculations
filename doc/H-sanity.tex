@@ -1,0 +1,146 @@
+\documentclass[a4paper]{article}
+\usepackage{amsmath,amsfonts,amssymb,graphicx,a4wide}
+\title{Qsim/FEM: Sanity check of dielectrics and conductors}
+\author{James Avery (avery@diku.dk)}
+\begin{document}
+\begin{abstract}
+  The over all purpose of this exercise is to build confidence that
+  the calculations done on the OPV5-molecule in the single electron
+  transistor environment (SET) are correct.  Specifically, it should
+  be verified that the calculation including dielectric materials and
+  electrodes with external potentials work as they should, and that
+  the calculation of total energy taking external potentials into
+  account also works.
+
+  The OPV5-molecule in the SET environment is much too complicated to
+  solve exactly, and it is not easily calculated using standard QM
+  software.  However, in this case it is useful to use a single
+  hydrogen atom exposed to classes of these environments as a
+  check. When the $H^{q+}$ atom is situated at a distance greater than the
+  orbital radius (approx. 6 Bohrs) from any interface, it can be well
+  approximated by a point charge $q$, and we can compare the result
+  obtained from Qsim/FEM with the analytic solution.
+\end{abstract}
+
+\section{Experiments}
+\label{sec:experiments}
+
+\subsection{$H^{q+}$ in vacuum}
+\label{sec:test1}
+This tests the sanity of the plain DFT/FEM code. 
+
+\newcommand{\Evac}[1]{\ensuremath{E^{\text{vc}}\left(#1\right)}}
+\newcommand{\Vext}[1]{\ensuremath{V^{\text{ext}}\left(#1\right)}}
+
+\paragraph{Set-up:}\ \\
+\begin{tabular}[t]{p{9cm}c}
+Gas form is approximated by solving in a huge
+box with Dirichlet 0 boundary conditions. The charge $q$ is varied (with many points) in the half-open interval
+$[-2;1[$. & 
+  \begin{tabular}{c}
+    \includegraphics[width=5cm]{Hq-vacuum2d}    
+  \end{tabular} 
+\end{tabular}
+
+
+
+
+\paragraph{Expected results:}
+The total energy should approximately be a quadratic polynomial in the added charge $q$.
+\begin{equation}
+  \Evac{q} = \Evac{0} + aq + bq^2
+\end{equation}
+
+\paragraph{Results:}
+
+\subsection{A point charge interacting with a single conductor}
+\label{sec:test2}
+This tests the sanity of the way I handle boundary conditions. 
+\paragraph{Set-up:}\ \\
+\begin{tabular}[t]{p{9cm}c}
+Gas form is approximated by solving in a huge
+box with Dirichlet 0 boundary conditions. 
+The distance to the $(x,y) = (0,0)$ plane is varied (with many points) in the interval $[6;3]$, and the 
+charge $q$ is varied (with only a handful points) in the half-open interval
+$[-2;1[$. & 
+  \begin{tabular}{c}
+    \includegraphics[width=5cm]{Hq-conduct1}    
+  \end{tabular} 
+\end{tabular}
+
+\paragraph{Expected results:}
+\begin{equation}
+  E(\Delta x,q) \simeq \Evac{q} + \frac{q}{2\Delta x}
+\end{equation}
+
+\subsection{A point charge interacting with a single dielectric}
+\label{sec:test3}
+
+This tests the sanity of the way I handle dielectrics. 
+
+\paragraph{Set-up:}\ \\
+\begin{tabular}[t]{p{9cm}c}
+  The space is divided into two volumes, one with dielectric constant 1 (vacuum), in which the charge resides,
+  and the second with dielectric constant $\epsilon$.
+
+  The permitivity $\epsilon$ of the dielectric volume is varied in $[1;10000[$ (with few points).
+  The distance to the $(x,y) = (0,0)$ plane is varied (with few points) in the interval $[6;3]$, and the 
+  charge $q$ is varied (with few points) in the half-open interval
+  $[-2;1[$. & 
+  \begin{tabular}{c}
+    \includegraphics[width=5cm]{Hq-dielect1}    
+  \end{tabular} 
+\end{tabular}
+
+\paragraph{Expected results:}
+\begin{equation}
+  E(\Delta x,q,\epsilon) \simeq \Evac{q} + \alpha(\epsilon)\frac{q}{2\Delta x}
+\end{equation}
+where I believe $\alpha$ is
+\begin{equation}
+  \alpha(\epsilon) = \frac{\epsilon-1}{\epsilon+1}
+\end{equation}
+Why? Because I remember something along these lines, and we must have
+\[
+\alpha(1) = 0 \text{ and } \alpha(\infty) = 1
+\]
+
+For $\epsilon = 1$, we should get the same result as for vacuum in
+Expt. \ref{sec:test1}, and for $\epsilon = 10000$, we should get the
+almost the same result as for Expt. \ref{sec:test2}.
+
+
+
+\subsection{A point charge between two conductors}
+\label{sec:test4}
+
+\paragraph{Set-up:}\ \\
+\begin{figure}
+  \centering
+  \includegraphics[width=7cm]{Hq-conduct2}
+  \includegraphics[width=7cm]{Hq-conduct2b}  
+  \caption{
+    {\bf Left}: The image charges induced by the two conductors and the point charge. 
+    {\bf Right}: The external potential $V^{\text{ext}}$ as a function of $x$.
+  }
+\end{figure}
+
+
+
+\paragraph{Expected results:}
+\begin{equation}
+  \label{eq:mirrormirror}
+  \begin{split}
+  E(\Delta x,V,q) &\simeq \Evac{q} + \sum_{k=1}^\infty \frac{(-1)^k}{2k\Delta x} + \Vext{\mathbf{X}_H}    \\
+                  &= \Evac{q} -\frac{\ln 2}{2\Delta x} + \Vext{\mathbf{X}_H} \\
+                  &= \Evac{q} -\frac{\ln 2}{2\Delta x} + \frac{V_s+V_d}{2}
+  \end{split}
+\end{equation}
+
+\end{document}
+
+% 
+% Skrael kartofler - skiver - kog i 10 minutters tid - tag op, dryp af - floede, muskat - 2 knivspidser
+% kartofler i, floede saa det lige daekker, salt og peber paa, bedst med hvid peber.
+% Daek til med staniol, eller koger al piskefloeden ind - hvis der skal mere vaeske, saa brug vand.
+% 200 grader, mindst en time.
