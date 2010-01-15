@@ -24,6 +24,13 @@ $AA = 1.8897259886;		# 1Å in Bohrs
 	zmin =>-2.16172, zmax => 2.16361,
 	'center of mass' => {'x'=>0.0000816435,'y'=>0.0000118029, 'z'=>0.000025241}
     },
+    "OPV5-TB-PW91" => { # Firefly/PW91/cc-pVDZ-optimized OPV5-tertbutyl molecule
+       basis => "OPV5basis.in",
+       xmin =>-19.8337, xmax => 19.8371,
+       ymin =>-2.48477, ymax => 2.49103,
+       zmin =>-2.21392, zmax => 2.21432,
+       'center of mass' => {'x'=>0.000616014,'y'=>0.0000948292, 'z'=>0.000318515}
+    },
     "OPV5-vnl" => {		# Unoptimized OPV5
 	basis => "OPV5basis.in",
 	xmin => -16.9533,  xmax => 16.9665,
