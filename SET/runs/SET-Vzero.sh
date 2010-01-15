@@ -17,8 +17,7 @@ ln -sf $PWD/bases $PWD/geometries $PWD/opv5parameters.in $PWD/$molecule/
 V=0
 for charge in -2.0 -1.0 0.0 1.0 2.0
   do
-  for ground in -4.0 -3.5 -3.0  -2.5 -2.0  -1.5 -1.0  -0.5 \
-                 0.5 1.0  1.5 2.0 2.5 3.0  3.5 4.0
+  for ground in -4.0 -3.0  -2.0 -1.0  0.0  1.0  2.0 3.0 4.0
     do    
     ./SET-input.pl $molecule $charge $V $ground $final_dE > ${directory}/SET.${charge}:${ground}:${V}.in
   done
@@ -27,8 +26,7 @@ done
 V=1
 for charge in -2.0 -1.0 0.0 1.0 2.0
   do
-  for ground in -4.0 -3.5 -3.0  -2.5 -2.0  -1.5 -1.0  -0.5 \
-                 0.5 1.0  1.5 2.0 2.5 3.0  3.5 4.0
+  for ground in -4.0 -3.0 -2.0 0.0 -1.0 1.0  2.0 3.0  4.0
     do    
     ./SET-input.pl $molecule $charge $V $ground $final_dE > ${directory}/SET-2.${charge}:${ground}:${V}.in
   done
