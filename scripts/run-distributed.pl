@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-my ($config,$job,$dir) = @ARGV;
+my ($job,$dir) = @ARGV;
 
 my %capacity;
 my $number_of_procs=0;
@@ -15,6 +15,9 @@ my $my_pid;
 my $my_job;
 my $my_job_length;
 my @my_inputs;
+
+$execproc = "OMP_NUM_THREADS=2 OMP_SCHEDULE=dynamic openmp-qscf";
+#$execproc  = "qscf";
 
 sub trim {
     my $s = $_[0];
@@ -57,7 +60,7 @@ sub readpool {
 
 sub getjobs {
     opendir(JOBDIR,"./$dir");
-    @inputs = grep { /^$job.*?.in$/ } readdir(JOBDIR);
+    @inputs = grep { /^$job\..*?\.in$/ } readdir(JOBDIR);
     $number_of_jobs = $#inputs+1;
     closedir(JOBDIR);
 }
@@ -88,7 +91,7 @@ sub division_of_labour {
     }
 }
 
-&readpool($config);
+&readpool("hosts");
 &getjobs;
 &division_of_labour;
 
@@ -113,13 +116,13 @@ for($p=0;$p<$number_of_procs;$p++){
 #      print STDERR "I own $inputs[$i].\n";
 #  }
 
-# Use fork() and wait() instead. Look up how.
+# Use fork() and wait() instead. Look up how
 chdir $dir;
 for($i=0;$i<@my_inputs;$i+=$capacity{$hostname}){
     print STDERR "Chunk: ${i}-".($i+$capacity{$hostname}-1).".\n";
     my @chunk = &take($i+1,$capacity{$hostname}-1,@my_inputs);
     my $I0 = $my_inputs[$i];
-     system("for I in @chunk; do echo \$I; (((qscf \$I >  `basename \$I .in`.out) 2> `basename \$I .in`.err)&) done; echo I0: ${I0}; ((qscf ${I0} >  `basename ${I0} .in`.out) 2> `basename ${I0} .in`.err)");    
+     system("for I in @chunk; do echo \$I; ((($execproc \$I >  `basename \$I .in`.out) 2> `basename \$I .in`.err)&) done; echo I0: ${I0}; (($execproc ${I0} >  `basename ${I0} .in`.out) 2> `basename ${I0} .in`.err)");    
 
 }
 
