@@ -17,12 +17,13 @@ $vacuum_height   = &min(50*$AA,$vacuum_width*3); # 3 times height of molecule
 $slice_depth     = &min(50*$AA,$vacuum_width*3); # Ditto.
 $electrode_width = 50*$AA;
 
-$translate_y  = $oxide_height+$dist_y-$ymin;		# We want 1Ã… distance from gate to nearest nucleus
+$translate_y  = $oxide_height+$dist_y-$ymin;# We want 1Å distance from gate to nearest nucleus
 
 # Left and right electrode get respectively half the source-drain voltage Vsd: V_L = -V/2, V_R = V/2
 ($V_L,$V_R,$V_G) = (-0.5*$Vsd*$eV,0.5*$Vsd*$eV,$Vg*$eV); 
 
-($boxW,$boxH,$boxD) = ($vacuum_width+2*$electrode_width,$oxide_height+$vacuum_height,$slice_depth);
+($boxW,$boxH,$boxD) = ($vacuum_width+2*$electrode_width,
+		       $oxide_height+$vacuum_height,$slice_depth);
 ($boxw,$boxh,$boxd) = ($boxW/2,$boxH/2,$boxD/2);
 
 ($Oxide_w,$Oxide_h,$Oxide_d) = ($boxw,$Oxide_H/2,$boxd);
