@@ -8,15 +8,11 @@ $nm = 18.897259886;		# 1 nm in Bohrs
 my ($charge,$dX,$dielectric_constant) = @ARGV;
 
 do 'fe-config.pm';
-$feparams{'initial_refinement'}=2;	# Necessary to ensure interface lies on a cell border.
 
-($boxW,$boxH,$boxD) = (400,400,400);
-($boxw,$boxh,$boxd) = ($boxW/2,$boxH/2,$boxD/2);
-($diW,$diH,$diD) = ($boxW/2,$boxH/2,$boxD/2);
-($diw,$dih,$did) = ($diW/2,$diH/2,$diD/2);
-($dix,$diy,$diz) = ($diw,$dih,$did);
+($boxW,$boxH,$boxD) = (600,400,400);
+$diW = 200;
 
-($Hx,$Hy,$Hz) = ($boxw+$dX,$boxh,$boxd);
+($Hx,$Hy,$Hz) = ($diW+$dX,$boxH/2,$boxD/2);
 
 print << "END"
 
@@ -39,13 +35,6 @@ basissetDZP<BasisSetParam>: (
 
 
 
-dielectric<DielectricParam>:(
-	geometry:unit = bohr
-      {constant shape shape:parameters  geometry } = {
-	$dielectric_constant  box   [ $dih $diw $did ] [ $dix $diy $diz ] 
-      }
-)
-
 
 H<Molecule>: ( 
   symmetry = auto
@@ -65,7 +54,24 @@ lattice<Lattice>:(
 )
 
 
+volumes<PhysicalVolumesParam>:(
+	{id description volume_type value} = {
+	   1 "Vacuum"          dielectric 1
+	   2 "Left electrode"  dielectric $dielectric_constant
+	}
+)
+
+
+surfaces<PhysicalSurfacesParam>:(
+	{id description boundary_type boundary_value} = {
+	    1 "Vacuum boundaries"   dirichlet 0
+	    2 "Left electrode"      neumann 0
+	}
+)
+
 calculator<LatticeFEMCalculator>: (	
+    volumes  = \$:volumes
+    surfaces = \$:surfaces
     lattice= \$:lattice
     basisset=\$:basissetDZP
     boundaryconditions = [ dirichlet dirichlet dirichlet ]
@@ -75,7 +81,7 @@ calculator<LatticeFEMCalculator>: (
     electrontemperature:unit = ev
 
     charge = $charge
-    initial_refinement=$feparams{'initial_refinement'}
+    mesh_file = mesh1.msh
     final_dE=$feparams{'final_dE'}
     fe_order = $feparams{'fe_order'}
     refinement_strategy   = $feparams{'refinement_strategy'}
