@@ -11,9 +11,10 @@ my ($charge,$dX) = @ARGV;
 do 'fe-config.pm';
 
 ($boxW,$boxH,$boxD) = (600,400,400);
+$diW = 200;
 $vacuumW = 400;
 
-($Hx,$Hy,$Hz) = ($dX,$boxh,$boxd);
+($Hx,$Hy,$Hz) = ($diW+$dX,$boxH/2,$boxD/2);
 
 $V_L = 0;
 
@@ -83,7 +84,7 @@ calculator<LatticeFEMCalculator>: (
     electrontemperature:unit = ev
 
     charge = $charge
-    mesh_file=H-2.msh
+    mesh_file=mesh1.msh
     final_dE=$feparams{'final_dE'}
     fe_order = $feparams{'fe_order'}
     refinement_strategy   = $feparams{'refinement_strategy'}
@@ -111,4 +112,3 @@ qscf<ScfParam>: (
 
 END
 
-};
