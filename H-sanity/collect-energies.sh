@@ -3,7 +3,7 @@
 source config.sh
 
 experiments=(
-	H-1:H H-2:Ha H-3:e H-3:x H-3:q
+	H-1:H H-2:Ha H-2:Hb H-3:e H-3:x H-3:q
 )
 
     for exp in ${experiments[*]}; do
