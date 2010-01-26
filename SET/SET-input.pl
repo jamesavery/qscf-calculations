@@ -39,7 +39,7 @@ lattice<Lattice>:(
 
 volumes<PhysicalVolumesParam>:(
 	{id description volume_type value} = {
-	   1 "Gate oxide" dielectric $dielectric_constant
+	   1 "Gate oxide"      dielectric $dielectric_constant
 	   2 "Vacuum"          dielectric 1
 	   3 "Left electrode"  fixed $V_L
 	   4 "Right electrode" fixed $V_R
@@ -80,6 +80,7 @@ calculator<LatticeFEMCalculator>: (
 
     write_mesh = $feparams{'write_mesh'}
     write_solution = $feparams{'write_solution'}
+    output_directory = "SET-${charge}-${Vg}-${Vsd}"
 )
 
 qscf<ScfParam>: (
