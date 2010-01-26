@@ -5,7 +5,7 @@ do 'molecules.pm';
 ($moleculename, $charge,$Vsd,$Vg) = @ARGV;
 
 do 'config.pm';
-do 'dimensions.pm';
+do 'kurt-dimensions.pm';
 do 'fe-config.pm';
 
 # Left and right electrode get respectively half the source-drain voltage Vsd: V_L = -V/2, V_R = V/2
@@ -37,18 +37,9 @@ lattice<Lattice>:(
 	unitcell:unit=bohr
 )
 
-dielectric<DielectricParam>:(
-	geometry:unit = bohr
-% Gate oxide
-      {constant shape shape:parameters  geometry } = {
-	$dielectric_constant  box   [ $Oxide_w $Oxide_h $Oxide_d ] [ $Oxide_x $Oxide_y $Oxide_z ] 
-      }
-)
-
-
 volumes<PhysicalVolumesParam>:(
 	{id description volume_type value} = {
-	   1 "Aluminium oxide" dielectric $dielectric_constant
+	   1 "Gate oxide" dielectric $dielectric_constant
 	   2 "Vacuum"          dielectric 1
 	   3 "Left electrode"  fixed $V_L
 	   4 "Right electrode" fixed $V_R
@@ -58,7 +49,6 @@ volumes<PhysicalVolumesParam>:(
 
 surfaces<PhysicalSurfacesParam>:(
 	{id description boundary_type boundary_value} = {
-%	    0 "Box boundaries (only for box mesh)" dirichlet 0
 	    1 "Vacuum boundaries"   neumann 0
 	    2 "Ground voltage"      dirichlet $V_G
 	    3 "Left electrode"      dirichlet $V_L
