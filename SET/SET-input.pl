@@ -69,7 +69,6 @@ calculator<LatticeFEMCalculator>: (
     electrontemperature:unit = ev
     mesh_file = ${moleculename}-set.msh
     gate=\$:gate
-    dielectric=\$:dielectric
     charge = $charge
 
     final_dE=$feparams{'final_dE'}
