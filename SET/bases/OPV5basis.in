@@ -22,7 +22,7 @@ Hdz<PaoParam>: (
 	setupfile="H_pz.UPF"
 	{n   l   energyshift   deltarinner  v0  charge splitnorm  polarized} = {
         1   0      0.005         0.8    20.  0.0     0.0       0      
-        1   0      0.005         0.8    20.  0.0     0.15       0      
+        1   0      0.005         0.8    20.  0.0     0.4       0      
  }
 )
 
@@ -31,7 +31,7 @@ Hdzp<PaoParam>: (
 	setupfile="H_pz.UPF"
 	{n   l   energyshift   deltarinner  v0  charge splitnorm  polarized} = {
         1   0      0.005         0.8    20.  0.0     0.0       0      
-        1   0      0.005         0.8    20.  0.0     0.15       0      
+        1   0      0.005         0.8    20.  0.0     0.4       0      
         2   1      0.005         0.8    20.  0.0     0.0       1      
  }
 )

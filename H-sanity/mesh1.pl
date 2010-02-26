@@ -8,8 +8,8 @@ sub min { return $_[0]<=$_[1]? $_[0]: $_[1]; }
 sub max { return $_[0]<=$_[1]? $_[1]: $_[0]; }
 
 
-($boxW,$boxH,$boxD) = (600,400,400);
-$diW     = 200;
+($boxW,$boxH,$boxD) = (800,400,400);
+$diW     = 400;
 $vacuumW = $boxW-$diW;
 
 print << "END"

@@ -22,7 +22,7 @@ Hdzp<PaoParam>: (
         setupfile="H_pz.UPF"
         {n   l   energyshift   deltarinner  v0  charge splitnorm  polarized} = {
         1   0      0.005         0.8    20.  0.0     0.0       0
-        1   0      0.005         0.8    20.  0.0     0.15       0
+        1   0      0.005         0.8    20.  0.0     0.4       0
         2   1      0.005         0.8    20.  0.0     0.0       1
  }
 )
@@ -46,6 +46,16 @@ H<Molecule>: (
   }
 )
 
+surfaces<PhysicalSurfacesParam>:(
+	{id description boundary_type boundary_value} = {
+	    0 "-x" dirichlet 0
+	    1 "+x" neumann 0
+	    2 "-y" neumann 0
+	    3 "+y" neumann 0
+	    4 "-z" neumann 0
+	    5 "+z" neumann 0
+	}
+)
 
 lattice<Lattice>:(
 	basis=\$:H
@@ -57,7 +67,8 @@ lattice<Lattice>:(
 calculator<LatticeFEMCalculator>: (	
     lattice= \$:lattice
     basisset=\$:basissetDZP
-    boundaryconditions = [ dirichlet dirichlet dirichlet ]
+    boundaryconditions = [ neumann neumann neumann ]
+    surfaces=\$:surfaces
     meshcutoff:unit=hartree
     kpoints:monkhorstpack = [1 1 1]
     electrontemperature = $convergenceparams{electrontemperature}

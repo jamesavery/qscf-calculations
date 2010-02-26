@@ -5,7 +5,7 @@ do 'molecules.pm';
 ($moleculename, $charge,$Vsd,$Vg) = @ARGV;
 
 do 'config.pm';
-do 'dimensions.pm';
+do 'kurt-dimensions.pm';
 do 'fe-config.pm';
 
 # Left and right electrode get respectively half the source-drain voltage Vsd: V_L = -V/2, V_R = V/2

@@ -24,10 +24,7 @@ $translate_y  = $oxide_height+$dist_y-$ymin;# We want 1Å distance from gate to n
 
 ($boxW,$boxH,$boxD) = ($vacuum_width+2*$electrode_width,
 		       $oxide_height+$vacuum_height,$slice_depth);
-($boxw,$boxh,$boxd) = ($boxW/2,$boxH/2,$boxD/2);
 
-($Oxide_w,$Oxide_h,$Oxide_d) = ($boxw,$Oxide_H/2,$boxd);
 ($Oxide_W,$Oxide_H,$Oxide_D) = ($boxW,$oxide_height,$boxD);
-($Oxide_x,$Oxide_y,$Oxide_z) = ($Oxide_w,$Oxide_h,$Oxide_d);
 
-($Hx,$Hy,$Hz) = ($boxw,$translate_y,$boxd);
+($Hx,$Hy,$Hz) = ($boxW/2,$translate_y,$boxD/2);
