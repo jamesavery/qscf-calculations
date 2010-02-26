@@ -10,9 +10,9 @@ my ($charge,$dX) = @ARGV;
 
 do 'fe-config.pm';
 
-($boxW,$boxH,$boxD) = (600,400,400);
-$diW = 200;
-$vacuumW = 400;
+($boxW,$boxH,$boxD) = (800,400,400);
+$diW = 400;
+$vacuumW = $boxW-$diW;
 
 ($Hx,$Hy,$Hz) = ($diW+$dX,$boxH/2,$boxD/2);
 
@@ -25,7 +25,7 @@ Hdzp<PaoParam>: (
         setupfile="H_pz.UPF"
         {n   l   energyshift   deltarinner  v0  charge splitnorm  polarized} = {
         1   0      0.005         0.8    20.  0.0     0.0       0
-        1   0      0.005         0.8    20.  0.0     0.15       0
+        1   0      0.005         0.8    20.  0.0     0.4       0
         2   1      0.005         0.8    20.  0.0     0.0       1
  }
 )
@@ -77,7 +77,7 @@ calculator<LatticeFEMCalculator>: (
     surfaces = \$:surfaces    
     lattice= \$:lattice
     basisset=\$:basissetDZP
-    boundaryconditions = [ dirichlet dirichlet dirichlet ]
+    boundaryconditions = [ neumann neumann neumann ]
     meshcutoff:unit=hartree
     kpoints:monkhorstpack = [1 1 1]
     electrontemperature = $convergenceparams{electrontemperature}

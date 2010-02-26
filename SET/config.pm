@@ -10,4 +10,4 @@ $dist_y = 1*$AA;		# Distance from gate oxide surface to
 $oxide_height    = 50*$AA;	# Thickness of gate oxide.
 
 # Dimensions for vacuum calculation
-$vacuum_box_size = 200*$AA;	
+$vacuum_box_size = 2000*$AA;	

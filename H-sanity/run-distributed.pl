@@ -1,0 +1,1 @@
+../scripts/run-distributed.pl

@@ -2,8 +2,7 @@
 
 source ./config.sh;
 
-mkdir -p H4a-${final_dE}
-mkdir -p H4b-${final_dE}
+mkdir -p H-4/${final_dE}
 
 for bias in -1.0 -0.5 -0.25 -0.125 -0.075 -0.0375 0.0 0.0375 0.075 0.125 0.25 0.5 1.0
 do

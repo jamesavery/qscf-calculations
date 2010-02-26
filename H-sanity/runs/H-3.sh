@@ -3,6 +3,10 @@
 source ./config.sh;
 
 mkdir -p H-3/${final_dE}
+./mesh1.pl > meshes/mesh1.geo
+cd meshes 
+gmsh -3 -algo front3d mesh1.geo
+cd ..
 ln -sf ${PWD}/meshes/mesh1.msh H-3/${final_dE}/
 
 for dielectric_constant in 1.0 2.0 5.0 8.0 10.0 20.0 40.0 80.0 200.0 800.0 1600.0 3200.0

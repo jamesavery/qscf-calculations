@@ -1,1 +1,1 @@
-final_dE=0.008
+final_dE=0.001
