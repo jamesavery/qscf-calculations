@@ -1,0 +1,111 @@
+
+Hdzp<PaoParam>: (
+        label=H
+        setupfile="H_pz.UPF"
+        {n   l   energyshift   deltarinner  v0  charge splitnorm  polarized} = {
+        1   0      0.005         0.8    20.  0.0     0.0       0
+        1   0      0.005         0.8    20.  0.0     0.4       0
+        2   1      0.005         0.8    20.  0.0     0.0       1
+ }
+)
+
+Cdzp<PaoParam>: (
+	label=C
+	setupfile="C_pz.UPF"
+	{n   l   energyshift   deltarinner  v0  charge splitnorm  polarized} = {
+        1   0      0.005         0.8    20.  0.0     0.0       0      
+        1   0      0.005         0.8    20.  0.0     0.15       0      
+        2   1      0.005         0.8    20.  0.0     0.0       0      
+        2   1      0.005         0.8    20.  0.0     0.15       0      
+        3   2      0.005         0.8    20.  0.0     0.0       1      
+ }
+ )
+
+Sdzp<PaoParam>: (
+	label=S
+	setupfile="S_pz.UPF"
+	{n   l   energyshift   deltarinner  v0  charge splitnorm  polarized} = {
+        1   0      0.005         0.8    20.  0.0     0.0       0      
+        1   0      0.005         0.8    20.  0.0     0.15       0      
+        2   1      0.005         0.8    20.  0.0     0.0       0      
+        2   1      0.005         0.8    20.  0.0     0.15       0      
+        3   2      0.005         0.8    20.  0.0     0.0       1      
+ }
+ )
+
+basissetDZP<BasisSetParam>: (
+        paoparam = [ $:Hdzp $:Cdzp ]
+        energycutoff=2500
+        numberofreciprocalpoints=1024
+        dr=0.01
+)
+
+
+
+S<Molecule>: ( 
+  symmetry = auto
+  unit = angstrom
+  origin = [0 0 0]
+  symmetry_frame = [[1 0 0] [0 0 1] [0 1 0]]
+  { atom_labels atoms geometry } = {
+	C C [1.3998 0 0]
+	C C [0.69976 0 1.21225]
+	C C [-0.69976 0 1.21225]
+	C C [-1.39979 0 0]
+	C C [-0.69976 0 -1.21225]
+	C C [0.69976 0 -1.21225]
+	H H [2.50068 0 0]
+	H H [1.25036 0 2.16567]
+	H H [-1.25036 0 2.16567]
+	H H [-2.50068 0 0]
+	H H [-1.25036 0 -2.16567]
+	H H [1.25036 0 -2.16567]
+  }
+)
+
+lattice<Lattice>:(
+	basis=$:S
+        translate_basis = [ 5.1 5.1 5.1  ]
+	unitcell = [ [ 10. 0 0 ] [ 0 10. 0 ] [ 0 0 10. ] ]	
+	unitcell:unit=angstrom
+)
+
+calculator<LatticeCalculator>: (	
+    lattice= $:lattice
+    basisset=$:basissetDZP
+    boundaryconditions = [ dirichlet neumann neumann ]
+    meshcutoff:unit=hartree
+    kpoints:monkhorstpack = [1 1 1]
+    electrontemperature = 0.01
+    electrontemperature:unit = ev
+
+    charge =0.0
+    initial_refinement=1
+    final_dE=0.0001
+
+    meshcutoff:unit=hartree
+    meshcutoff=50
+    kpoints:monkhorstpack = [1 1 1]
+
+    write_solution = all
+    output_directory = "benzenetest.q=0"
+)
+
+scfparams<ScfParam>: (
+	calculator=$:calculator
+	diis:n = 20
+	diis:start = 1
+	diis:dampingfactor = 0.8
+	precondition= false
+        tolerance=1e-6
+	variable=hamiltonian
+        maxiterations=50
+	algorithm = pulaykerker
+	verbose=10
+)
+
+qscf: (
+	scfparam   = $:scfparams
+	calculator = $:calculator
+	verbose=10
+)
