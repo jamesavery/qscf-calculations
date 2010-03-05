@@ -8,7 +8,7 @@ from NanoLanguage import *
 ##
 
 # Set up lattice
-charge = 1
+charge = 2
 vector_a = [10.,  0.0, 0.0]*Angstrom
 vector_b = [0.0,  10., 0.0]*Angstrom
 vector_c = [0.0,  0.0, 10.]*Angstrom
@@ -32,7 +32,7 @@ cartesian_coordinates = [
 [-2.50068+ 5.1,  0+5.1, 0+5.1], 
 [-1.25036+ 5.1,  0+5.1, -2.16567+5.1],
 [1.25036 + 5.1,  0+5.1, -2.16567+5.1] 
-]]*Angstrom;
+]*Angstrom;
 
 
 # Set up configuration
