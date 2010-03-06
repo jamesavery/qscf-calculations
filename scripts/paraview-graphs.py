@@ -6,6 +6,8 @@ warnings.filterwarnings('always');
 
 import sys;
 import math;
+import os;
+import fnmatch;
 
 config = {};
 with open("config/"+sys.argv[1]+".cfg","r") as cfg:
@@ -23,7 +25,9 @@ X      = float(config["midpoint"]);
 length = float(config["line_length"]);
 axis   = int(config["line_axis"]);
 resolution = int(config["resolution"]);
-timesteps  = int(config["number_of_timesteps"]);
+vtufiles = fnmatch.filter(os.listdir(config["output_directory"]),"deltarho-[0-9]*.vtu");
+timesteps = len(vtufiles);
+
 
 x0 = [X,X,X];
 x1 = [X,X,X];
