@@ -86,8 +86,8 @@ calculator<LatticeFEMCalculator>: (
     fe_order = 1
     refinement_strategy   = centers_plus_density
 %    max_cell_size=1
-    centers_max_diameter  = 5
-    centers_near_diameter = 15
+    centers_max_diameter  = 2
+    centers_near_diameter = 7
     end_refine = 2.5
 
     write_mesh = false

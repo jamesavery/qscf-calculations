@@ -83,7 +83,7 @@ calculator<LatticeCalculator>: (
     final_dE=0.0001
 
     meshcutoff:unit=hartree
-    meshcutoff=50
+    meshcutoff=120
     kpoints:monkhorstpack = [1 1 1]
 
     write_solution = all
