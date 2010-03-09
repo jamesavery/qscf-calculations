@@ -79,14 +79,13 @@ calculator<LatticeCalculator>: (
     electrontemperature:unit = ev
 
     charge =-1.0
-    initial_refinement=1
-    final_dE=0.0001
 
     meshcutoff:unit=hartree
     meshcutoff=120
     kpoints:monkhorstpack = [1 1 1]
 
     write_solution = all
+    sample_line = [[9.63755244 9.63755244 0] [9.63755244 9.63755244 18.897259886]]
     output_directory = "benzenetest.q=-1"
 )
 
