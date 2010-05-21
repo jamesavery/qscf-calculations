@@ -1,0 +1,107 @@
+
+Hsz<PaoParam>: (
+	label=H
+	setupfile="H_pz.UPF"
+	{n   l   energyshift   deltarinner  v0  charge splitnorm  polarized} = {
+        1   0      0.005         0.8    20.  0.0     0.0       0       }
+           )
+
+
+
+Hszp<PaoParam>: (
+	label=H
+	setupfile="H_pz.UPF"
+	{n   l   energyshift   deltarinner  v0  charge splitnorm  polarized} = {
+        1   0      0.005         0.8    20.  0.0     0.0       0      
+        2   1      0.005         0.8    20.  0.0     0.0       1      
+ }
+)
+
+Hdz<PaoParam>: (
+	label=H
+	setupfile="H_pz.UPF"
+	{n   l   energyshift   deltarinner  v0  charge splitnorm  polarized} = {
+        1   0      0.005         0.8    20.  0.0     0.0       0      
+        1   0      0.005         0.8    20.  0.0     0.4       0      
+ }
+)
+
+Hdzp<PaoParam>: (
+	label=H
+	setupfile="H_pz.UPF"
+	{n   l   energyshift   deltarinner  v0  charge splitnorm  polarized} = {
+        1   0      0.005         0.8    20.  0.0     0.0       0      
+        1   0      0.005         0.8    20.  0.0     0.4       0      
+        2   1      0.005         0.8    20.  0.0     0.0       1      
+ }
+)
+
+Csz<PaoParam>: (
+	label=C
+	setupfile="C_pz.UPF"
+	{n   l   energyshift   deltarinner  v0  charge splitnorm  polarized} = {
+        1   0      0.005         0.8    20.  0.0     0.0       0      
+        2   1      0.005         0.8    20.  0.0     0.0       0      
+ }
+ )
+
+Cszp<PaoParam>: (
+	label=C
+	setupfile="C_pz.UPF"
+	{n   l   energyshift   deltarinner  v0  charge splitnorm  polarized} = {
+        1   0      0.005         0.8    20.  0.0     0.0       0      
+        2   1      0.005         0.8    20.  0.0     0.0       0      
+        3   2      0.005         0.8    20.  0.0     0.0       1      
+ }
+ )
+
+Cdz<PaoParam>: (
+	label=C
+	setupfile="C_pz.UPF"
+	{n   l   energyshift   deltarinner  v0  charge splitnorm  polarized} = {
+        1   0      0.005         0.8    20.  0.0     0.0       0      
+        1   0      0.005         0.8    20.  0.0     0.15       0      
+        2   1      0.005         0.8    20.  0.0     0.0       0      
+        2   1      0.005         0.8    20.  0.0     0.15       0      
+ }
+ )
+
+Cdzp<PaoParam>: (
+	label=C
+	setupfile="C_pz.UPF"
+	{n   l   energyshift   deltarinner  v0  charge splitnorm  polarized} = {
+        1   0      0.005         0.8    20.  0.0     0.0       0      
+        1   0      0.005         0.8    20.  0.0     0.15       0      
+        2   1      0.005         0.8    20.  0.0     0.0       0      
+        2   1      0.005         0.8    20.  0.0     0.15       0      
+        3   2      0.005         0.8    20.  0.0     0.0       1      
+ }
+ )
+
+basissetSZ<BasisSetParam>: (
+	paoparam = [ $:Hsz $:Csz  ]
+	energycutoff=2500
+	numberofreciprocalpoints=1024
+	dr=0.01
+)
+
+basissetSZP<BasisSetParam>: (
+	paoparam = [ $:Hszp $:Cszp  ]
+	energycutoff=2500
+	numberofreciprocalpoints=1024
+	dr=0.01
+)
+
+basissetDZ<BasisSetParam>: (
+	paoparam = [ $:Hdz $:Cdz ]
+	energycutoff=2500
+	numberofreciprocalpoints=1024
+	dr=0.01
+)
+
+basissetDZP<BasisSetParam>: (
+	paoparam = [ $:Hdzp $:Cdzp ]
+	energycutoff=2500
+	numberofreciprocalpoints=1024
+	dr=0.01
+)
