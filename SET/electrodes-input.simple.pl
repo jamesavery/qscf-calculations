@@ -12,7 +12,7 @@
 
 do 'molecules.pm';
 
-($moleculename, $charge,$Vsd,$final_dE) = @ARGV;
+($moleculename, $charge,$Vsd) = @ARGV;
 
 do 'config.pm';
 do 'dimensions.pm';
@@ -75,6 +75,7 @@ calculator<LatticeFEMCalculator>: (
 
     initial_refinement=$feparams{'initial_refinement'}
     final_dE=${final_dE}
+    final_dC=${final_dC}
 
     write_mesh = $feparams{'write_mesh'}
     write_solution = $feparams{'write_solution'}
