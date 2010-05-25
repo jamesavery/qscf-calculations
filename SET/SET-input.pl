@@ -5,7 +5,7 @@ do 'molecules.pm';
 ($moleculename, $charge,$Vsd,$Vg) = @ARGV;
 
 do 'config.pm';
-do 'kurt-dimensions.pm';
+do 'dimensions.pm';
 do 'fe-config.pm';
 
 # Left and right electrode get respectively half the source-drain voltage Vsd: V_L = -V/2, V_R = V/2
@@ -72,6 +72,7 @@ calculator<LatticeFEMCalculator>: (
     charge = $charge
 
     final_dE=$feparams{'final_dE'}
+    final_dC=$feparams{'final_dC'}
     fe_order = $feparams{'fe_order'}
     refinement_strategy   = $feparams{'refinement_strategy'}
     centers_max_diameter  = $feparams{'centers_max_diameter'}
