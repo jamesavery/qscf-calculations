@@ -3,7 +3,7 @@ scfdefaults<ScfParam>: (
 	diis:start = 1
 	diis:dampingfactor = 0.8
 	precondition= false
-	tolerance=1.e-6
+	tolerance=1.e-7
 	algorithm=pulaykerker
 	variable=hamiltonian
 	maxiterations=90
@@ -19,69 +19,6 @@ tbmodeldefaults<TBModelParam>: (
 	density:mesh:cutoff:unit = hartree
 )
 
-contourdefaults<ContourParam>: (
-	equilibrium:circle:n = 30
-	equilibrium:circle:ecc= 0.3
-	equilibrium:circle:log= 0.3
-	equilibrium:emin:scale= 2.0
-	equilibrium:savedata= true
-	nonequilibrium:line:pointdensity =0.01
-	nonequilibrium:line:pointdensity:unit=ev
-	nonequilibrium:line:eta =1.e-6         
-	nonequilibrium:line:eta:unit=ev
-	nonequilibrium:savedata= false
-	nonequilibrium:line:selfenergy:calculator=krylov
-)
-
-deviceanalysisdefaults<DeviceAnalysisParam>:(
-	transmission = true
-	transmission:range=[-5. 5. 0.05]
-	transmission:range:unit=ev
-	transmission:nonequilibrium:line:eta=1e-6
-	transmission:nonequilibrium:line:eta:unit=hartree
-	transmission:kpoints:monkhorstpack = [ 1 1 1 ]	
-	current = true
-	current:electrodes:temperature:unit=ev
-	current:electrodes:temperature= [0.012 0.012]
-	current:nonequilibrium:line:pointdensity=0.001
-	current:nonequilibrium:line:pointdensity:unit=ev
-	current:nonequilibrium:line:eta=1e-6
-	current:nonequilibrium:line:eta:unit=ev
-	current:kpoints:monkhorstpack = [ 1 1 1 ]	
-	mulliken=true
-	eonsite=true
-	selfenergy:calculator=recursion
-)
-
-latticeanalysisdefaults<LatticeAnalysisParam>:(
-	bandstructure = true
-	bandstructure:kpoints:unit=fractional
-	bandstructure:kpoints=[ [ 0.0 0.0   0.0 ]  
-                                [ 0.0 0.0  0.025 ]
-                                [ 0.0 0.0  0.05 ]
-                                [ 0.0 0.0  0.075 ]
-                                [ 0.0 0.0  0.1 ]
-                                [ 0.0 0.0  0.125 ]
-                                [ 0.0 0.0  0.15 ]
-                                [ 0.0 0.0  0.175 ]
-	                        [ 0.0 0.0  0.2 ]
-                                [ 0.0 0.0  0.225 ]
-	                        [ 0.0 0.0  0.25 ]
-                                [ 0.0 0.0  0.275 ]
-	                        [ 0.0 0.0  0.3 ]
-                                [ 0.0 0.0  0.325 ]
-	                        [ 0.0 0.0  0.35 ]
-                                [ 0.0 0.0  0.375 ]
-	                        [ 0.0 0.0  0.4 ]
-                                [ 0.0 0.0  0.425 ]
-	                        [ 0.0 0.0  0.45 ]
-                                [ 0.0 0.0  0.475 ]
-	                        [ 0.0 0.0  0.5 ]]
-	bandstructure:energy:unit = ev
-	mullikenpopulation=true
-	mulliken=true
-	eonsite=true
-)
 
 
 
