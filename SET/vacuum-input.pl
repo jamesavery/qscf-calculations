@@ -51,6 +51,7 @@ calculator<LatticeFEMCalculator>: (
     charge = $charge
     initial_refinement=$feparams{'initial_refinement'}
     final_dE=$feparams{'final_dE'}
+    final_dC=$feparams{'final_dC'}
     fe_order = $feparams{'fe_order'}
     refinement_strategy   = $feparams{'refinement_strategy'}
     centers_max_diameter  = $feparams{'centers_max_diameter'}
