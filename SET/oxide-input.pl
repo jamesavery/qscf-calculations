@@ -87,6 +87,7 @@ calculator<LatticeFEMCalculator>: (
 
     initial_refinement=$feparams{'initial_refinement'}
     final_dE=$feparams{'final_dE'}
+    final_dC=$feparams{'final_dC'}
 
     write_mesh = $feparams{'write_mesh'}
     write_solution = $feparams{'write_solution'}
