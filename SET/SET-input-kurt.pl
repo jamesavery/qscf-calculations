@@ -2,7 +2,8 @@
 
 do 'molecules.pm';
 
-($moleculename, $charge,$Vsd,$Vg) = @ARGV;
+$moleculename="benzene-kurt";
+($charge,$Vsd,$Vg) = @ARGV;
 
 do 'config.pm';
 do 'kurt-dimensions.pm';
@@ -72,6 +73,8 @@ calculator<LatticeFEMCalculator>: (
     charge = $charge
 
     final_dE=$feparams{'final_dE'}
+    final_dC=$feparams{'final_dC'}
+
     fe_order = $feparams{'fe_order'}
     refinement_strategy   = $feparams{'refinement_strategy'}
     centers_max_diameter  = $feparams{'centers_max_diameter'}
