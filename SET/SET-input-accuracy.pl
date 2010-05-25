@@ -7,6 +7,10 @@ do 'molecules.pm';
 if(!defined($refinement_strategy)){
  $refinement_strategy = "centers_plus_density";
 }
+
+if(!defined($dC)){
+ $dC = 1e6; # Random enormous number.
+}
 do 'config.pm';
 do 'dimensions.pm';
 do 'fe-config.pm';
