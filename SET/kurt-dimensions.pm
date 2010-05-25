@@ -9,7 +9,7 @@ sub max { return $_[0]<=$_[1]? $_[1]: $_[0]; }
 
 $vacuum_width    = 10.63*$AA;
 $vacuum_height   = 7.23*$AA;
-$slice_depth     = 120*$AA;
+$slice_depth     = 12*$AA;
 $electrode_width = 4*$AA;
 $oxide_height    = 3.77*$AA;
 $gate_height     = 1.0*$AA;
