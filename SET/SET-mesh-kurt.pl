@@ -2,7 +2,7 @@
 
 do 'molecules.pm';
 
-($moleculename) = @ARGV;
+$moleculename = "benzene-kurt";
 
 do 'config.pm';
 do 'kurt-dimensions.pm';
