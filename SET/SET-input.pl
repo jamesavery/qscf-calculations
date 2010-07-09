@@ -2,11 +2,12 @@
 
 do 'molecules.pm';
 
-($moleculename, $charge,$Vsd,$Vg) = @ARGV;
+($moleculename, $charge,$Vsd,$Vg,$feconfig) = @ARGV;
 
+if(!defined($feconfig)){ $feconfig = "fe-config"; }
 do 'config.pm';
 do 'dimensions.pm';
-do 'fe-config.pm';
+do "${feconfig}.pm";
 
 # Left and right electrode get respectively half the source-drain voltage Vsd: V_L = -V/2, V_R = V/2
 ($V_L,$V_R,$V_G) = (-0.5*$Vsd*$eV,0.5*$Vsd*$eV,$Vg*$eV); 
