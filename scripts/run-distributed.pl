@@ -1,6 +1,10 @@
 #!/usr/bin/perl
 
-my ($job,$dir) = @ARGV;
+my ($job,$dir,$pool) = @ARGV;
+
+if(!defined($pool)){
+	$pool = "hosts";
+}
 
 my %capacity;
 my $number_of_procs=0;
@@ -16,7 +20,7 @@ my $my_job;
 my $my_job_length;
 my @my_inputs;
 
-$execproc = "OMP_NUM_THREADS=2 OMP_SCHEDULE=dynamic openmp-qscf";
+$execproc = "OMP_NUM_THREADS=4 OMP_SCHEDULE=dynamic openmp-qscf";
 #$execproc  = "qscf";
 
 sub trim {
@@ -91,7 +95,7 @@ sub division_of_labour {
     }
 }
 
-&readpool("hosts");
+&readpool($pool);
 &getjobs;
 &division_of_labour;
 
