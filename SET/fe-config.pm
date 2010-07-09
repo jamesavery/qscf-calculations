@@ -8,12 +8,12 @@
 );
 
 # Parameters for FEM-code
+#    'refinement_strategy' => 'centers_plus_density',
 %feparams = (
     'fe_order' => 1,
     'write_mesh' => "false",		
     'write_solution' => "none",
-#'refinement_strategy' => 'centers_density_plus_curve',
-    'refinement_strategy' => 'centers_plus_density',
+    'refinement_strategy' => 'centers_density_plus_curve',
     'centers_max_diameter'=>4,
     'centers_near_diameter'=>7,	# Any cell within this distance must
 				# have diameter centers_max_diameter
