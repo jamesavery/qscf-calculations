@@ -2,7 +2,7 @@
 
 source config.sh
 
-molecules=(OPV5-vnl OPV5-GAMESS-B3LYP C60 OPV5-tertbutyl-vnl)
+molecules=(`../scripts/which-molecules.pl)
 experiments=(
     groundzero:SET groundzero2:SET 
     oxide:Exp1 oxide:Exp2 oxide:Exp3 
