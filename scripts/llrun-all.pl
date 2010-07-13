@@ -5,7 +5,7 @@ use Cwd 'abs_path';
 ($jobid,@inputfiles) = @ARGV;
 
 $root   = $ENV{'OPV'};
-$srcdir = dirname($inputfiles[0]);
+$srcdir = dirname(abs_path($inputfiles[0]));
 
 $logdir = "/others/avery/outputs/${jobid}";
 system("mkdir -p $logdir");
