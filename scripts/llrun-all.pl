@@ -18,7 +18,7 @@ $logdir = "/others/avery/outputs/${jobid}";
 system("mkdir -p $logdir");
 
 $script = << "END"
-#!/bin/sh
+#!/bin/bash
 # @ output = $logdir/qscf.\$(Host).\$(Cluster).\$(Process).out
 # @ error = $logdir/qscf.\$(Host).\$(Cluster).\$(Process).err
 # @ wall_clock_limit = 48000 
@@ -40,7 +40,7 @@ done ) &
 
 for base in @basenames; do
  echo "Calculating ${jobid}/\${base}";
- openmp-qscf \${base}.in > >(tee \${base}.out) 2> >(tee \${base}.err >&2);
+ (openmp-qscf \${base}.in | tee \${base}.out) 2> >(tee \${base}.err >&2);
 done
 cd ..
 tar czf ${logdir}/${jobid}.\${LOADL_STEP_ID}.tar.gz $jobid 
