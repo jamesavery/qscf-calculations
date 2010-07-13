@@ -6,6 +6,7 @@ use Cwd 'abs_path';
 
 $root   = $ENV{'OPV'};
 $srcdir = dirname($inputfile);
+$input  = basename($inputfile);
 
 if($inputfile =~ /([^\/]+)\/([^\/]+)\/(.+)\.in$/){
     ($molecule,$exp1,$exp2) = ($1,$2,$3);
@@ -33,7 +34,7 @@ hostname
 uname -a
 top -b -n1
 
-openmp-qscf ${exp2}.in 
+openmp-qscf ${input}
 
 END
 ;
