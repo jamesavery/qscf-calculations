@@ -43,7 +43,7 @@ for base in @basenames; do
  (openmp-qscf \${base}.in | tee \${base}.out) 2> \${base}.err;
 done
 cd ..
-tar czf ${logdir}/${jobid}.tar.gz $jobid 
+tar czf ${logdir}/${jobid}.\${LOADL_STEP_ID}.tar.gz $jobid 
 rm -rf $jobid
 
 END
