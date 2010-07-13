@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env pvpython
 import warnings;
 warnings.filterwarnings('ignore');
 from paraview.simple import *;
@@ -6,7 +6,7 @@ warnings.filterwarnings('always');
 
 import sys;
 
-if len(sys.argv) < 3:
+if len(sys.argv) < 2:
     print >> sys.stderr, "Syntax: ./convert_vtk_vtu.py <vtkfiles>";
     sys.exit(-1);
 
