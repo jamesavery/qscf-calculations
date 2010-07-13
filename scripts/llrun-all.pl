@@ -7,7 +7,7 @@ use Cwd 'abs_path';
 $root   = $ENV{'OPV'};
 $srcdir = dirname(abs_path($inputfiles[0]));
 
-if($srcdir =~ /([^\/]+)\/([^\/]+)\/$/){
+if($srcdir =~ /([^\/]+)\/([^\/]+)$/){
     ($molecule,$exp1) = ($1,$2);
 }
 
