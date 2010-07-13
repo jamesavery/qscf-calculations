@@ -22,6 +22,6 @@ WriteString[Streams[][[1]],"\n'"<>name<>"' => {\n\t"
     <>"xmin =>", Min[xs], ", xmax => ", Max[xs], ",\n\t"
     <>"ymin =>", Min[ys], ", ymax => ", Max[ys], ",\n\t"
     <>"zmin =>", Min[zs], ", zmax => ", Max[zs], ",\n\t"
-    <>"'center of mass' => {'x'=>", centerofmass[[1]], "," <> "'y'=>", centerofmass[[2]], ", 'z'=>", centerofmass[[3]], "}\n}"
+    <>"'center of mass' => {'x'=>", CForm[centerofmass[[1]]], "," <> "'y'=>", CForm[centerofmass[[2]]], ", 'z'=>", CForm[centerofmass[[3]]], "}\n}"
      ];
 
