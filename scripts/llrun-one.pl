@@ -1,10 +1,16 @@
 #!/usr/bin/perl
+use File::Basename;
+use Cwd 'abs_path';
 
-($molecule,$exp1,$exp2) = @ARGV;
+($inputfile) = (abs_path($ARGV[0]));
 
-$root   = $ENV{PWD};
-$srcdir = "${root}/${molecule}/${exp1}";
-$inputfile = "${srcdir}/${exp2}.in";
+$root   = $ENV{'OPV'};
+$srcdir = dirname($inputfile);
+
+if($inputfile =~ /([^\/]+)\/([^\/]+)\/(.+)\.in$/){
+    ($molecule,$exp1,$exp2) = ($1,$2,$3);
+}
+
 $logdir = "/others/avery/outputs/${molecule}/${exp1}";
 system("mkdir -p $logdir");
 
@@ -18,6 +24,7 @@ $script = << "END"
 # @ queue
 SCR=/scratch/\$LOADL_STEP_ID/${molecule}/${exp1}/${exp2}
 mkdir -p \$SCR
+cd $root
 cp -R bases opv5parameters.in geometries ${srcdir}/*.msh ${inputfile} \$SCR/
 cd \$SCR
 
