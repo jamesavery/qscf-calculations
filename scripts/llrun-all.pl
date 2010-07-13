@@ -9,7 +9,7 @@ $srcdir = dirname(abs_path($inputfiles[0]));
 
 @basenames = ();
 @fullnames = ();
-foreach i (@inputfiles){
+foreach $i (@inputfiles){
     push @fullnames,abs_path($i);
     push @basenames,basename($i,'.in');
 }
@@ -34,7 +34,10 @@ cd \$SCR
 echo "\$SCR"
 hostname
 uname -a
-top -b -n1 
+( while true; do
+    top -b -n 1 | head -n 30 > ${logdir}/${jobid}.\${LOADL_STEP_ID}.top; sleep 60;
+done ) &
+
 for base in @basenames; do
  echo "Calculating ${jobid}/\${base}";
  (openmp-qscf \${base}.in | tee \${base}.out) 2> \${base}.err;
