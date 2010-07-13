@@ -104,13 +104,13 @@ $AA = 1.8897259886;		# 1Å in Bohrs
 	zmin =>-2.96158, zmax => 0.708976,
 	'center of mass' => {'x'=>-0.0000718192,'y'=>0.000573339, 'z'=>0.225061}
     },
-    'OPV5-tBu-PW91-Lein' => {
-    	hosts => 'lxir020',
-	basis => 'OPV5basis.in',
+   'OPV5-tBu-PW91-Lein' => {
+	hosts => 'all',
+	basis => 'OPV5basis',
 	xmin =>-19.1182, xmax => 19.1179,
-	ymin =>-2.72696, ymax => 2.72378,
-	zmin =>-2.9347, zmax => 0.712431,
-	'center of mass' => {'x'=>0.0000791158,'y'=>-0.000730209, 'z'=>0.224554}
+	ymin =>-0.712431, ymax => 2.9347,
+	zmin =>-2.72696, zmax => 2.72378,
+	'center of mass' => {'x'=>0.0000837006,'y'=>-0.224554, 'z'=>-0.00073013}
     }
 
     );
