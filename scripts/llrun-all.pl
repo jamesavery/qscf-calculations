@@ -7,6 +7,13 @@ use Cwd 'abs_path';
 $root   = $ENV{'OPV'};
 $srcdir = dirname(abs_path($inputfiles[0]));
 
+@basenames = ();
+@fullnames = ();
+foreach i (@inputfiles){
+    push(@fullnames,abs_path($i));
+    push(@basenames,basename($i),'.in');
+}
+
 $logdir = "/others/avery/outputs/${jobid}";
 system("mkdir -p $logdir");
 
@@ -28,8 +35,7 @@ echo "\$SCR"
 hostname
 uname -a
 top -b -n1 
-for a in @inputfiles; do
- base=`basename \$a .in`;
+for base in @basenames; do
  echo "Calculating ${jobid}/\${base}";
  (openmp-qscf \${base}.in | tee \${base}.out) 2> \${base}.err;
 done
