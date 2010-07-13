@@ -106,7 +106,7 @@ $AA = 1.8897259886;		# 1Å in Bohrs
     },
    'OPV5-tBu-PW91-Lein' => {
 	hosts => 'all',
-	basis => 'OPV5basis',
+	basis => 'OPV5basis.in',
 	xmin =>-19.1182, xmax => 19.1179,
 	ymin =>-0.712431, ymax => 2.9347,
 	zmin =>-2.72696, zmax => 2.72378,
