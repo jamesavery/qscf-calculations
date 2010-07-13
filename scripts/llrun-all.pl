@@ -35,8 +35,12 @@ echo "\$SCR"
 hostname
 uname -a
 ( while true; do
-    top -b -n 1 | head -n 30 > ${logdir}/${jobid}.\${LOADL_STEP_ID}.top; sleep 60;
+    hostname > ${logdir}/${jobid}.\${LOADL_STEP_ID}.top; 
+    top -b -n 1 | head -n 30 >> ${logdir}/${jobid}.\${LOADL_STEP_ID}.top; sleep 60;
 done ) &
+toppid=$!
+
+echo "toppid = $toppid\n"
 
 for base in @basenames; do
  echo "Calculating ${jobid}/\${base}";
@@ -46,6 +50,7 @@ cd ..
 tar czf ${logdir}/${jobid}.\${LOADL_STEP_ID}.tar.gz $jobid 
 rm -rf $jobid
 
+killall toppid
 END
 ;
 print $script;
