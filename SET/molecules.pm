@@ -96,6 +96,31 @@ $AA = 1.8897259886;		# 1Å in Bohrs
 	zmin =>-2.16569, zmax => 2.16568,
 	'center of mass' => {'x'=>0.,'y'=>0, 'z'=>0.}
     },
+   'OPV5-LDA-Lein' => {
+	hosts => 'all',
+	basis => 'OPV5basis.in',
+	xmin =>-16.7683, xmax => 16.7683,
+	ymin =>0, ymax => 0,
+	zmin =>-2.3874, zmax => 2.3874,
+	'center of mass' => {'x'=>0.,'y'=>0, 'z'=>0}
+    },
+   'OPV5-BP86-Lein' => {
+	hosts => 'all',
+	basis => 'OPV5basis.in',
+	xmin =>-17.0154, xmax => 17.0154,
+	ymin =>0, ymax => 0,
+	zmin =>-2.39478, zmax => 2.39478,
+	'center of mass' => {'x'=>0.,'y'=>0, 'z'=>0}
+    },
+    'OPV5-PW91-Lein' => {
+	hosts => 'all',
+	basis => 'OPV5basis.in',
+	xmin =>-16.9744, xmax => 16.9744,
+	ymin =>0, ymax => 0,
+	zmin =>-2.38987, zmax => 2.38987,
+	'center of mass' => {'x'=>0,'y'=>0, 'z'=>0.}
+    },
+
     'OPV5-tBu-BP86-Lein' => {
 	hosts => 'lxir020',
 	basis => 'OPV5basis.in',
