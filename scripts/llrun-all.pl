@@ -1,8 +1,12 @@
 #!/usr/bin/perl
+use File::Basename;
+use Cwd 'abs_path';
 
-($jobid,$inputdir) = @ARGV;
+($jobid,@inputfiles) = @ARGV;
 
-$root   = $ENV{PWD};
+$root   = $ENV{'OPV'};
+$srcdir = dirname($inputfiles[0]);
+
 $logdir = "/others/avery/outputs/${jobid}";
 system("mkdir -p $logdir");
 
@@ -12,18 +16,19 @@ $script = << "END"
 # @ error = $logdir/qscf.\$(Host).\$(Cluster).\$(Process).err
 # @ wall_clock_limit = 48000 
 # @ class = large
-# @ resources = ConsumableCpus(8) ConsumableMemory(10gb) 
+# @ resources = ConsumableCpus(4) ConsumableMemory(10gb) 
 # @ queue
 SCR=/scratch/\$LOADL_STEP_ID/${jobid}
 mkdir -p \$SCR
-cp -R bases opv5parameters.in geometries ${inputdir}/* \$SCR/
+cd $root
+cp -R bases opv5parameters.in geometries ${srcdir}/* \$SCR/
 cd \$SCR
 
 echo "\$SCR"
-cat /proc/cpuinfo
 hostname
 uname -a
-for a in *.in; do
+top -b -n1 
+for a in @inputfiles; do
  base=`basename \$a .in`;
  echo "Calculating ${jobid}/\${base}";
  (openmp-qscf \${base}.in | tee \${base}.out) 2> \${base}.err;
