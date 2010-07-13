@@ -8,7 +8,7 @@ $root   = $ENV{'OPV'};
 $srcdir = dirname($inputfile);
 $input  = basename($inputfile);
 
-if($inputfile =~ /([^\/]+)\/([^\/]+)\/(.+)\.in$/){
+if($inputfile =~ /([^\/]+)\/([^\/]+)\/([^\/]+)\.in$/){
     ($molecule,$exp1,$exp2) = ($1,$2,$3);
 }
 
