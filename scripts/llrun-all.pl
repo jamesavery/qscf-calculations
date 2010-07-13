@@ -10,8 +10,8 @@ $srcdir = dirname(abs_path($inputfiles[0]));
 @basenames = ();
 @fullnames = ();
 foreach i (@inputfiles){
-    push(@fullnames,abs_path($i));
-    push(@basenames,basename($i),'.in');
+    push @fullnames,abs_path($i);
+    push @basenames,basename($i,'.in');
 }
 
 $logdir = "/others/avery/outputs/${jobid}";
