@@ -40,7 +40,7 @@ done ) &
 
 for base in @basenames; do
  echo "Calculating ${jobid}/\${base}";
- (openmp-qscf \${base}.in | tee \${base}.out) 2> \${base}.err;
+ (openmp-qscf \${base}.in | tee \${base}.out) 2> >(tee \${base}.err >&2);
 done
 cd ..
 tar czf ${logdir}/${jobid}.\${LOADL_STEP_ID}.tar.gz $jobid 
