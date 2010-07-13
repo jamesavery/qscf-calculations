@@ -44,7 +44,7 @@ uname -a
     top -b -n 1 | head -n 30 >> ${logdir}/${jobid}.\${LOADL_STEP_ID}.top; sleep 60;
    done ) &); toppid=\$!
 
-echo "toppid = $toppid\n"
+echo "toppid = \$toppid\n"
 
 for base in @basenames; do
  echo "Calculating ${jobid}/\${base}";
