@@ -7,6 +7,11 @@ use Cwd 'abs_path';
 $root   = $ENV{'OPV'};
 $srcdir = dirname(abs_path($inputfiles[0]));
 
+if($srcdir =~ /([^\/]+)\/([^\/]+)\/$/){
+    ($molecule,$exp1) = ($1,$2);
+}
+
+
 @basenames = ();
 @fullnames = ();
 foreach $i (@inputfiles){
@@ -14,7 +19,7 @@ foreach $i (@inputfiles){
     push @basenames,basename($i,'.in');
 }
 
-$logdir = "/others/avery/outputs/${jobid}";
+$logdir = "/others/avery/outputs/${jobid}/${molecule}/${exp1}";
 system("mkdir -p $logdir");
 
 $script = << "END"
