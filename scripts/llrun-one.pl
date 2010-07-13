@@ -14,7 +14,7 @@ $script = << "END"
 # @ error = $logdir/${exp2}.\$(Host).\$(Cluster).\$(Process).err
 # @ wall_clock_limit = 24000 
 # @ class = large
-# @ resources = ConsumableCpus(1) ConsumableMemory(1mb) 
+# @ resources = ConsumableCpus(4) ConsumableMemory(4gb) 
 # @ queue
 SCR=/scratch/\$LOADL_STEP_ID/${molecule}/${exp1}/${exp2}
 mkdir -p \$SCR
@@ -22,10 +22,11 @@ cp -R bases opv5parameters.in geometries ${srcdir}/*.msh ${inputfile} \$SCR/
 cd \$SCR
 
 echo "\$SCR"
-cat /proc/cpuinfo
 hostname
 uname -a
-openmp-qscf ${exp2}.in
+top -b -n1
+
+openmp-qscf ${exp2}.in 
 
 END
 ;
