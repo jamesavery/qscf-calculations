@@ -54,7 +54,7 @@ cd ..
 tar czf ${logdir}/${jobid}.\${LOADL_STEP_ID}.tar.gz $jobid 
 rm -rf $jobid
 
-kill toppid
+kill \$toppid
 END
 ;
 print $script;
