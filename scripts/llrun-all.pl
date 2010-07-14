@@ -40,8 +40,9 @@ echo "\$SCR"
 hostname
 uname -a
 (( while true; do
-    hostname > ${logdir}/${jobid}.\${LOADL_STEP_ID}.top; 
-    top -b -n 1 | head -n 30 >> ${logdir}/${jobid}.\${LOADL_STEP_ID}.top; sleep 60;
+    hostname > ${logdir}/qscf.\${LOADL_STEP_ID}.top; 
+    top -b -n1 | head -n 30 >> ${logdir}/qscf.\${LOADL_STEP_ID}.top; 
+    sleep 60;
    done ) &); toppid=\$!
 
 echo "toppid = \$toppid"
