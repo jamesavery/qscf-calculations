@@ -59,7 +59,7 @@ Function BOX3D
 lowerleft[]={0,0,0};
 w = oxidewidth;
 h = oxideheight;
-d = oxidewidth;
+d = D;
 Call BOX3D;
 
 // Vacuum
