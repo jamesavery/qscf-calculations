@@ -55,10 +55,10 @@ done
 # Exp. 3: As SET-Vzero, but without electrodes.
 H=50
 Dy=1
-for charge in -3.0 -2.0 -1.0 0.0 1.0 2.0 3.0 4.0 5.0
- for Vg in -8.0 -4.0 -1.0  0.0 1.0 4.0 8.0
- do
-     ./oxide-input.pl $molecule $charge $Vg $Dy $H  > ${directory}/Exp3.${charge}:${Vg}.in
- done
+for charge in -3.0 -2.0 -1.0 0.0 1.0 2.0 3.0 4.0 5.0; do
+    for Vg in -8.0 -4.0 -1.0  0.0 1.0 4.0 8.0
+    do
+	./oxide-input.pl $molecule $charge $Vg $Dy $H  > ${directory}/Exp3.${charge}:${Vg}.in
+    done
 done
 
