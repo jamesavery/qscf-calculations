@@ -6,6 +6,7 @@ do 'molecules.pm';
 
 ($moleculename,$Dy,$H) = @ARGV;
 
+
 do 'config.pm';
 do 'dimensions.pm';
 
@@ -13,6 +14,8 @@ $Oxide_H      = $H*$AA;
 $dist_y       = $Dy*$AA;
 $translate_y  = $Oxide_H+$dist_y-$ymin;
 $Hy           = $translate_y;
+
+($boxW,$boxH,$boxD) = ($Oxide_W,$Oxide_H+$vacuum_height,$Oxide_W);
 
 print STDERR "Vacuum width in Bohrs = $xmax-($xmin) + 2*$AA = $vacuum_width\n";
 
@@ -22,11 +25,8 @@ divisions=1;
 
 D  = $slice_depth;  // Depth of space-slice
 vacuumheight  = $vacuum_height;
-vacuumwidth   = $vacuum_width;
 oxideheight   = $Oxide_H;
 oxidewidth    = $Oxide_W;
-electrodewidth  = (oxidewidth-vacuumwidth)/2.0;
-electrodeheight = vacuumheight;
 
 Function BOX3D
 
@@ -66,7 +66,7 @@ Call BOX3D;
 lowerleft[]={0,oxideheight,0};
 w = oxidewidth;
 h = vacuumheight;
-d = oxidewidth;
+d = D;
 Call BOX3D;
 
 
