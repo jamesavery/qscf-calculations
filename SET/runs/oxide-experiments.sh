@@ -33,7 +33,7 @@ for H in 10 20 30 40 50 60 70 80 90 100; do
     for Vg in 0.0 2.0 4.0; do
 	for charge in -1.0 0.0 1.0 
 	  do
-	  ./oxide-input.pl $molecule $charge $Vg $Dy $H $final_dE > ${directory}/Exp1.${charge}:${Vg}:${H}.in
+	  ./oxide-input.pl $molecule $charge $Vg $Dy $H > ${directory}/Exp1.${charge}:${Vg}:${H}.in
 	done
     done
 done
@@ -47,7 +47,7 @@ for Dy in 0.5 1 2 3 5 10; do
     generate_mesh $Dy $H
     for Vg in 0 2.0 4.0; do
 	for charge in -1.0 0.0 1.0; do
-	    ./oxide-input.pl $molecule $charge $Vg $Dy $H $final_dE > ${directory}/Exp2.${charge}:${Vg}:${Dy}.in
+	    ./oxide-input.pl $molecule $charge $Vg $Dy $H > ${directory}/Exp2.${charge}:${Vg}:${Dy}.in
 	done
     done
 done
@@ -58,7 +58,7 @@ Dy=1
 for charge in -3.0 -2.0 -1.0 0.0 1.0 2.0 3.0 4.0 5.0
  for Vg in -8.0 -4.0 -1.0  0.0 1.0 4.0 8.0
  do
-     ./oxide-input.pl $molecule $charge $Vg $Dy $H $final_dE > ${directory}/Exp3.${charge}:${Vg}.in
+     ./oxide-input.pl $molecule $charge $Vg $Dy $H  > ${directory}/Exp3.${charge}:${Vg}.in
  done
 done
 
