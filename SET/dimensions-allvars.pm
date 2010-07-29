@@ -9,8 +9,6 @@ sub max { return $_[0]<=$_[1]? $_[1]: $_[0]; }
 
 ($dist_x,$dist_y,$oxideH,$boxW,$boxH,$boxD) = ($dist_x*$AA,$dist_y*$AA,$oxideH*$AA,$boxW*$AA,$boxH*$AA,$boxD*$AA);
 
-print STDERR "2: (dist_x,dist_y,oxideH,boxW,boxH,boxD)=($dist_x,$dist_y,$oxideH,$boxW,$boxH,$boxD)\n";
-
 $vacuum_width    = $xmax-$xmin+2*$dist_x; # We want $dist_x distance from electrodes to nearest nucleus
 $vacuum_height   = $boxH-$oxideH;
 
