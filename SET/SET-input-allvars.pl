@@ -4,9 +4,13 @@ do 'molecules.pm';
 
 ($moleculename, $charge,$Vg,$Vsd,$dist_x,$dist_y,$oxideH,$boxW,$boxH,$boxD,$dielectric_constant,$meshsuffix,$outputdir,$feconfig) = @ARGV;
 
+print STDERR "SET-input-allvars ($moleculename, $charge,$Vg,$Vsd,$dist_x,$dist_y,$oxideH,$boxW,$boxH,$boxD,$dielectric_constant,$meshsuffix,$outputdir,$feconfig)\n";
+
 if(!defined($feconfig)){ $feconfig = "fe-config"; }
 do 'dimensions-allvars.pm';
 do "${feconfig}.pm";
+print STDERR "~>        ($dist_x,$dist_y,$oxideH,$boxW,$boxH,$boxD) Bohrs\n";
+print STDERR "translate ($translate_x,$translate_y,$translate_z) Bohrs\n";
 
 # Left and right electrode get respectively half the source-drain voltage Vsd: V_L = -V/2, V_R = V/2
 ($V_L,$V_R,$V_G) = (-0.5*$Vsd*$eV,0.5*$Vsd*$eV,$Vg*$eV); 
@@ -32,7 +36,7 @@ print <<"END"
 
 lattice<Lattice>:(
 	basis=\$:molecule
-        translate_basis = [$Hx $Hy $Hz]
+        translate_basis = [$translate_x $translate_y $translate_z]
 	unitcell = [ [ $boxW 0 0 ] [ 0 $boxH 0 ] [ 0 0 $boxD ] ]	
 	unitcell:unit=bohr
 )
@@ -67,7 +71,7 @@ calculator<LatticeFEMCalculator>: (
     volumes  = \$:volumes
     electrontemperature = $convergenceparams{electrontemperature}
     electrontemperature:unit = eV
-    mesh_file = ${moleculename}-${meshsuffix}.msh
+    mesh_file = "${moleculename}-${meshsuffix}.msh"
     gate=\$:gate
     charge = $charge
 
