@@ -13,7 +13,7 @@ do 'fe-config.pm';
 ($boxW,$boxH,$boxD) = ($boxW/$AA,$boxH/$AA,$boxD/$AA);
 
 
-system("./SET-input-allvars.pl $moleculename, $charge $Vsd $Vg"
+system("./SET-input-allvars.pl $moleculename $charge $Vsd $Vg"
        ." $Dx $Dy $H"
        ." $boxW $boxH $boxD"
        ." $dielectric_constant"
