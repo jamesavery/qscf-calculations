@@ -20,6 +20,9 @@ generate_mesh(){
 }
 
 
+# Exp. 1-3 all have Vsd=0
+Vsd=0
+
 # Exp. 1
 # Varies oxide lengths H while keeping the distance Dy fixed at 0.1nm.
 # We want to obtain U, Delta, E_C and possibly \alpha as a function of H
@@ -51,10 +54,11 @@ for Dy in 0.5 1 2 3 5 10; do
     done
 done
 
+
 # Exp. 3.
 # Like electrodes-experiments Exp. 1
 # We vary the distance Dx from the nearest nucleus to each of the electrodes,
-# as well as the voltage drop over the electrodes.
+# as well as the gate voltage.
 H=50
 Dy=1
 for Dx in 0.5 1 2 3 5 10; do
@@ -67,3 +71,23 @@ for Dx in 0.5 1 2 3 5 10; do
       done
     done
 done
+
+
+# Exp. 4.
+# Like electrodes-experiments Exp. 1
+# We vary the distance Dx from the nearest nucleus to each of the electrodes,
+# as well as the voltage drop over the electrodes.
+H=50
+Dy=1
+Vg=0
+for Dx in 0.5 1 2 3 5 10; do
+    generate_mesh $Dx $Dy $H
+    for Vsd in 0 0.05 0.10 0.15 0.20 0.25 0.30 0.40 0.50 0.75 1.0
+      do
+      for charge in -1.0 0.0 1.0 
+	do
+	./SET-input-lengths.pl $molecule $charge $Vg $Vsd $Dx $Dy $H > ${directory}/Exp4.${charge}:${Vsd}:${Dx}.in
+      done
+    done
+done
+
