@@ -2,7 +2,7 @@
 
 do 'molecules.pm';
 
-($moleculename, $charge,$Vsd,$Vg,$dist_x,$dist_y,$oxideH,$boxW,$boxH,$boxD,$dielectric_constant,$feconfig) = @ARGV;
+($moleculename, $charge,$Vg,$Vsd,$dist_x,$dist_y,$oxideH,$boxW,$boxH,$boxD,$dielectric_constant,$meshsuffix,$outputdir,$feconfig) = @ARGV;
 
 if(!defined($feconfig)){ $feconfig = "fe-config"; }
 do 'dimensions-allvars.pm';
@@ -66,8 +66,8 @@ calculator<LatticeFEMCalculator>: (
     surfaces = \$:surfaces
     volumes  = \$:volumes
     electrontemperature = $convergenceparams{electrontemperature}
-    electrontemperature:unit = ev
-    mesh_file = ${moleculename}-set.msh
+    electrontemperature:unit = eV
+    mesh_file = ${moleculename}-${meshsuffix}.msh
     gate=\$:gate
     charge = $charge
 
@@ -81,7 +81,7 @@ calculator<LatticeFEMCalculator>: (
 
     write_mesh = $feparams{'write_mesh'}
     write_solution = $feparams{'write_solution'}
-    output_directory = "SET-${charge}-${Vg}-${Vsd}"
+    output_directory = "${outputdir}"
 )
 
 qscf<ScfParam>: (

@@ -16,12 +16,12 @@ ln -sf $PWD/bases $PWD/geometries $PWD/opv5parameters.in $molecule/
 
 for charge in -3.0 -2.0 -1.0 0.0 1.0 2.0 3.0
   do
-  for ground in -6.0 -2.0 0.0 2.0 6.0
+  for Vg in -6.0 -2.0 0.0 2.0 6.0
     do    
-    for V in -5.0 -4.0 -3.0 -2.0 -1.0 0.0 \
+    for Vsd in -5.0 -4.0 -3.0 -2.0 -1.0 0.0 \
               5.0  4.0  3.0  2.0  1.0 
       do
-      ./SET-input.pl $molecule $charge $V $ground > $directory/SET.${charge}:${ground}:${V}.in
+      ./SET-input.pl $molecule $charge $Vg $Vsd > $directory/SET.${charge}:${Vg}:${Vsd}.in
     done
   done
 done
