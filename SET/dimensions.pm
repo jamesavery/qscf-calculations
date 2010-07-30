@@ -15,11 +15,11 @@ $slice_depth = 80;
 $electrodeW  = 50;
 $electrodeH = $vacuumH; 	# Change afterwards to get thinner electrodes.
 
-$translate_y  = $oxide_height+$dist_y-$ymin;# We want 1Å distance from gate to nearest nucleus
+$translate_y  = $oxideH+$dist_y-$ymin;# We want 1Å distance from gate to nearest nucleus
 
 ($boxW,$boxH,$boxD) = ($vacuumW+2*$electrodeW,
-		       $oxide_height+$vacuumH,$slice_depth);
+		       $oxideH+$vacuumH,$slice_depth);
 
-($oxideW,$oxideH,$oxideD) = ($boxW,$oxide_height,$boxD);
+($oxideW,$oxideH,$oxideD) = ($boxW,$oxideH,$boxD);
 
 ($translate_x,$translate_y,$translate_z) = ($boxW/2,$translate_y,$boxD/2);
