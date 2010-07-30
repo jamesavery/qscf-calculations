@@ -15,7 +15,7 @@ generate_mesh(){
     H=$3
     ./SET-mesh-lengths.pl $molecule $Dx $Dy $H > $directory/${molecule}-set-$Dx-$Dy-$H.geo
     pushd $directory
-    gmsh -algo front3d -3 ${molecule}-oxide-$Dy-$H.geo
+    gmsh -algo front3d -3 ${molecule}-set-$Dx-$Dy-$H.geo
     popd
 }
 
