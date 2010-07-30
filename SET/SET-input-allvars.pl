@@ -43,10 +43,11 @@ lattice<Lattice>:(
 
 volumes<PhysicalVolumesParam>:(
 	{id description volume_type value} = {
-	   1 "Gate oxide"      dielectric $dielectric_constant
+	   1 "Left electrode"  fixed $V_L
 	   2 "Vacuum"          dielectric 1
-	   3 "Left electrode"  fixed $V_L
-	   4 "Right electrode" fixed $V_R
+	   3 "Right electrode" fixed $V_R
+	   4 "Gate oxide"      dielectric $dielectric_constant
+
 	}
 )
 
