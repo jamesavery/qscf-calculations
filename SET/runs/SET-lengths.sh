@@ -64,7 +64,7 @@ Dy=1
 Vsd=0
 for Dx in 0.5 1 2 3 5 10; do
     generate_mesh $Dx $Dy $H
-    for Vg in  -8.0 -4.0 -1.0  0.0 1.0 4.0 8.0
+    for Vg in -8.0 -4.0 0.0 4.0 8.0
       do
       for charge in -1.0 0.0 1.0 
 	do
