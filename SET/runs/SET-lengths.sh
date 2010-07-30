@@ -61,9 +61,10 @@ done
 # as well as the gate voltage.
 H=50
 Dy=1
+Vsd=0
 for Dx in 0.5 1 2 3 5 10; do
     generate_mesh $Dx $Dy $H
-    for Vsd in 0 0.10 0.30 0.40 0.50 0.75 1.0
+    for Vg in  -8.0 -4.0 -1.0  0.0 1.0 4.0 8.0
       do
       for charge in -1.0 0.0 1.0 
 	do
