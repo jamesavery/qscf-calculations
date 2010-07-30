@@ -23,8 +23,8 @@ divisions=1;
 D  = $slice_depth;  // Depth of space-slice
 vacuumheight  = $vacuum_height;
 vacuumwidth   = $vacuum_width;
-oxideheight   = $Oxide_H;
-oxidewidth    = $Oxide_W;
+oxideheight   = $oxideH;
+oxidewidth    = $oxideW;
 electrodewidth  = (oxidewidth-vacuumwidth)/2.0;
 electrodeheight = vacuumheight;
 
