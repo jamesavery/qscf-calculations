@@ -53,10 +53,10 @@ volumes<PhysicalVolumesParam>:(
 
 surfaces<PhysicalSurfacesParam>:(
 	{id description boundary_type boundary_value} = {
-	    1 "Vacuum boundaries"   neumann 0
-	    2 "Ground voltage"      dirichlet $V_G
-	    3 "Left electrode"      dirichlet $V_L
-	    4 "Right electrode"     dirichlet $V_R
+	    5 "Vacuum boundaries"   neumann 0
+	    6 "Ground voltage"      dirichlet $V_G
+	    7 "Left electrode"      dirichlet $V_L
+	    8 "Right electrode"     dirichlet $V_R
 	}
 )
 
