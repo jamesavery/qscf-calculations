@@ -10,11 +10,9 @@ $outputdir  = "set-${Dx}-${Dy}-${H}"; # I'm mostly interested in the different m
                                       # need to be added to the path.
 
 do 'config.pm';
-do 'dimensions.pm';		# Calculate box{W,H,D}, but in Bohrs 
+$oxideH = $H;
+do 'dimensions.pm';
 do 'fe-config.pm';
-
-# Input to x-allvars.sh must be in Aangstrom, not in Bohrs.
-($boxW,$boxH,$boxD) = ($boxW,$boxH,$boxD);
 
 
 system("./SET-input-allvars.pl $moleculename $charge $Vg $Vsd"

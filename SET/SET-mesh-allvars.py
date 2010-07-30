@@ -8,7 +8,7 @@ AA = 1.8897259886;		# 1AA in Bohrs
 
 [boxW,boxH,boxD,vacuumW,vacuumH,oxideH,electrodeH] = [ float(p)*AA for p in sys.argv[1:] ];
 
-electrodeW = boxW-vacuumW/2;
+electrodeW = (boxW-vacuumW)/2.0;
 oxideH = boxH-vacuumH;
 
 S = Space([boxW,boxH,boxD]);
@@ -23,9 +23,12 @@ S.buildBoxes();
 
 call(['cat','mesh-scripts/box.gmsh']);
 print """
-
+// World box:        [%g,%g,%g]
+// Vacuum:           [%g,%g]
+// Oxide height:     %g
+// Electrode:        [%g,%g]
 divisions = 1;
-"""+S.gmshBoxes()+"""
+%s
 
 Physical Volume("Left electrode") = {6, 5, 4, 7, 8, 9};
 Physical Volume("Vacuum") = {15, 14, 13, 16, 17, 18};
@@ -36,7 +39,8 @@ Physical Surface("Open boundaries") = {84, 83, 55, 27, 6, 336, 588, 579, 551, 52
 Physical Surface("Left electrode boundary") = {252, 247, 251, 167, 168, 139, 223, 195, 111, 90, 174, 219, 191};
 Physical Surface("Right electrode boundary") = {672, 756, 747, 719, 635, 691, 607, 678, 594, 695, 723, 751, 663};
 Physical Surface("Gate electrode boundary") = {575, 547, 519, 323, 295, 267, 71, 43, 15};
-""";
+""" %(boxW,boxH,boxD,vacuumW,vacuumH,oxideH,electrodeW,electrodeH,S.gmshBoxes());
+
 
 
 

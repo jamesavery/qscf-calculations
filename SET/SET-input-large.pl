@@ -13,8 +13,8 @@ do 'fe-config.pm';
 
 ($boxH,$boxW,$boxD) = ($H*$AA,$W*$AA,$D*$AA);
 
-($Oxide_W,$Oxide_H,$Oxide_D) = ($boxW,$oxide_height,$boxD);
-$vacuum_height = $boxH-$Oxide_H;
+($oxideW,$oxideH,$oxideD) = ($boxW,$oxideH,$boxD);
+$vacuumH = $boxH-$oxideH;
 
 
 system("./SET-input-allvars.pl $moleculename, $charge $Vg $Vsd"

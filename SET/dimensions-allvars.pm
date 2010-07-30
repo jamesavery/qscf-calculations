@@ -1,3 +1,4 @@
+# Dimensions are in Bohr (internal representation)
 sub min { return $_[0]<=$_[1]? $_[0]: $_[1]; }
 sub max { return $_[0]<=$_[1]? $_[1]: $_[0]; }
 
