@@ -6,23 +6,22 @@
 
 do 'molecules.pm';
 
-# TODO: Vary thickness, dielectric constant and Vg
 ($moleculename, $charge,$Vg,$Dy,$H) = @ARGV;
 
 do 'config.pm';
 do 'dimensions.pm';
 do 'fe-config.pm';
 
-$Oxide_H      = $H*$AA;
+$oxideH      = $H*$AA;
 $dist_y       = $Dy*$AA;
-$translate_y  = $Oxide_H+$dist_y-$ymin;
+$translate_y  = $oxideH+$dist_y-$ymin;
 $Hy           = $translate_y;
 
 # Left and right electrode get respectively half the 
 # source-drain voltage Vsd: V_L = -V/2, V_R = V/2
 $Vg = $Vg*$eV;
 
-($boxW,$boxH,$boxD) = ($Oxide_W,$Oxide_H+$vacuum_height,$Oxide_W);
+($boxW,$boxH,$boxD) = ($oxideW,$oxideH+$vacuumH,$oxideW);
 
 print << "END"
 
