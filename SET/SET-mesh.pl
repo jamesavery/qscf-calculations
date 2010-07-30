@@ -7,4 +7,4 @@ do 'molecules.pm';
 do 'config.pm';
 do 'dimensions.pm';
 
-system("./SET-mesh-allvars.pl $moleculename $dist_x $dist_y $oxideH $boxW $boxH $boxD");
+system("./SET-mesh-allvars.py $boxW $boxH $boxD $vacuumW $vacuumH $oxideH $electrodeH");
