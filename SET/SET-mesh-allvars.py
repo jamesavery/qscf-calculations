@@ -1,18 +1,22 @@
+#!/usr/bin/env python
 from mesh import *;
+import sys;
 
-(W,H,D) = (200,200,200);
-(vacuumW,vacuumH) = (30,80);
-(electrodeW,electrodeH) = ((W-vacuumW)/2,vacuumH);
+nm = 18.897259886;		# 1 nm in Bohrs
+AA = 1.8897259886;		# 1Å in Bohrs
+
+(boxW,boxH,boxD,vacuumW,vacuumH,oxideH,electrodeH) = sys.argv;
+(boxW,boxH,boxD,vacuumW,vacuumH,oxideH,electrodeH) = (boxW*AA,boxH*AA,boxD*AA,
+                                                      vacuumW*AA,vacuumH*AA,
+                                                      oxideH*AA,electrodeH*AA);
+electrodeW = W-vacuumW/2;
 oxideH = H-vacuumH;
-
-Db = (D-vacuumW)/2;
-Hb = H-vacuumW;
 
 S = Space([W,H,D]);
 
 S.addVolume(Volume([0,oxideH,0],[electrodeW,electrodeH,D],"Left electrode"));
 S.addVolume(Volume([electrodeW,oxideH,0],[vacuumW,vacuumH,D],"Vacuum"));
-S.addVolume(Volume([electrodeW,oxideH,Db],[vacuumW,vacuumW,vacuumW],"Vacuum around molecule"));
+S.addVolume(Volume([electrodeW,oxideH,(D-vacuumW)/2],[vacuumW,vacuumW,vacuumW],"Vacuum around molecule"));
 S.addVolume(Volume([electrodeW+vacuumW,oxideH,0],[electrodeW,electrodeH,D],"Right electrode"));
 S.addVolume(Volume([0,0,0],[W,oxideH,D],"Gate oxide"));
 
