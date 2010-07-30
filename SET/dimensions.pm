@@ -1,9 +1,10 @@
+# Dimensions are in Aangstrom (input representation)
 sub min { return $_[0]<=$_[1]? $_[0]: $_[1]; }
 sub max { return $_[0]<=$_[1]? $_[1]: $_[0]; }
 
-($xmax,$xmin) = ($molecule{$moleculename}{xmax}*$AA,$molecule{$moleculename}{xmin});
-($ymax,$ymin) = ($molecule{$moleculename}{ymax}*$AA,$molecule{$moleculename}{ymin});
-($zmax,$zmin) = ($molecule{$moleculename}{zmax}*$AA,$molecule{$moleculename}{zmin});
+($xmax,$xmin) = ($molecule{$moleculename}{xmax},$molecule{$moleculename}{xmin});
+($ymax,$ymin) = ($molecule{$moleculename}{ymax},$molecule{$moleculename}{ymin});
+($zmax,$zmin) = ($molecule{$moleculename}{zmax},$molecule{$moleculename}{zmin});
 
 %cm = $molecule{$moleculename}{'center of mass'};
 
