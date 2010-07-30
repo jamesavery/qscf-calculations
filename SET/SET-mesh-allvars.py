@@ -1,11 +1,10 @@
 #!/usr/bin/env python
 from mesh import *;
+from subprocess import call;
 import sys;
 
 nm = 18.897259886;		# 1 nm in Bohrs
 AA = 1.8897259886;		# 1AA in Bohrs
-
-print sys.argv[1:];
 
 [boxW,boxH,boxD,vacuumW,vacuumH,oxideH,electrodeH] = [ float(p)*AA for p in sys.argv[1:] ];
 
@@ -22,8 +21,8 @@ S.addVolume(Volume([0,0,0],[boxW,oxideH,boxD],"Gate oxide"));
 
 S.buildBoxes();
 
+call(['cat','mesh-scripts/box.gmsh']);
 print """
-Include "box.gmsh";
 
 divisions = 1;
 """+S.gmshBoxes()+"""
