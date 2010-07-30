@@ -10,23 +10,23 @@ do 'molecules.pm';
 do 'config.pm';
 do 'dimensions.pm';
 
-$Oxide_H      = $H*$AA;
+$oxideH      = $H*$AA;
 $dist_y       = $Dy*$AA;
-$translate_y  = $Oxide_H+$dist_y-$ymin;
+$translate_y  = $oxideH+$dist_y-$ymin;
 $Hy           = $translate_y;
 
-($boxW,$boxH,$boxD) = ($Oxide_W,$Oxide_H+$vacuum_height,$Oxide_W);
+($boxW,$boxH,$boxD) = ($oxideW,$oxideH+$vacuumH,$oxideW);
 
-print STDERR "Vacuum width in Bohrs = $xmax-($xmin) + 2*$AA = $vacuum_width\n";
+print STDERR "Vacuum width in Bohrs = $xmax-($xmin) + 2*$AA = $vacuumW\n";
 
 print << "END"
 
 divisions=1;
 
 D  = $slice_depth;  // Depth of space-slice
-vacuumheight  = $vacuum_height;
-oxideheight   = $Oxide_H;
-oxidewidth    = $Oxide_W;
+vacuumheight  = $vacuumH;
+oxideheight   = $oxideH;
+oxidewidth    = $oxideW;
 
 Function BOX3D
 
