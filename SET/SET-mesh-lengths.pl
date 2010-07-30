@@ -7,7 +7,5 @@ do 'molecules.pm';
 do 'config.pm';
 do 'dimensions.pm';		# Calculate box{W,H,D}, but in Bohrs 
 
-($boxW,$boxH,$boxD) = ($boxW/$AA,$boxH/$AA,$boxD/$AA);
-
 system("./SET-mesh-allvars.py $boxW $boxH $boxD $vacuumW $vacuumH $oxideH $electrodeH");
 
