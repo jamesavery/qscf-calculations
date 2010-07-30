@@ -32,10 +32,19 @@ cd \$SCR
 echo "\$SCR"
 hostname
 uname -a
-top -b -n1
+cat /proc/cpuinfo
+
+(( while true; do
+    hostname > ${logdir}/qscf.\${LOADL_STEP_ID}.top; 
+    top -b -n1 | head -n 30 >> ${logdir}/qscf.\${LOADL_STEP_ID}.top; 
+    sleep 60;
+   done ) &); toppid=\$!
+
+echo "toppid = \$toppid"
 
 openmp-qscf ${input}
 
+kill \$toppid
 END
 ;
 print $script;
