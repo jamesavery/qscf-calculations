@@ -7,24 +7,26 @@ sub max { return $_[0]<=$_[1]? $_[1]: $_[0]; }
 
 %cm = $molecule{$moleculename}{'center of mass'};
 
-$vacuum_width    = $xmax-$xmin+2*$dist_x; # We want $dist_x distance from electrodes to nearest nucleus
-$vacuum_height   = &min(50*$AA,$vacuum_width*3); # 3 times height of molecule
+$vacuumW    = $xmax-$xmin+2*$dist_x; # We want $dist_x distance from electrodes to nearest nucleus
+$vacuumH   = 80*$AA;
+
+#&min(50*$AA,$vacuumW*3); # 3 times height of molecule
 				       # (including electrons at both
 				       # ends -- approximated by 2x6
 				       # Bohrs): If vacuum volume is
 				       # too thin and tall, we get
 				       # thin, tall mesh cells.
-$slice_depth     = &min(50*$AA,$vacuum_width*3); # Ditto.
-$electrode_width = 50*$AA;
+$slice_depth = 80*$AA; # &min(50*$AA,$vacuumW*3); # Ditto.
+$electrodeW  = 50*$AA;
 
 $translate_y  = $oxide_height+$dist_y-$ymin;# We want 1Å distance from gate to nearest nucleus
 
 # Left and right electrode get respectively half the source-drain voltage Vsd: V_L = -V/2, V_R = V/2
 ($V_L,$V_R,$V_G) = (-0.5*$Vsd*$eV,0.5*$Vsd*$eV,$Vg*$eV); 
 
-($boxW,$boxH,$boxD) = ($vacuum_width+2*$electrode_width,
-		       $oxide_height+$vacuum_height,$slice_depth);
+($boxW,$boxH,$boxD) = ($vacuumW+2*$electrodeW,
+		       $oxide_height+$vacuumH,$slice_depth);
 
-($Oxide_W,$Oxide_H,$Oxide_D) = ($boxW,$oxide_height,$boxD);
+($oxideW,$oxideH,$oxideD) = ($boxW,$oxide_height,$boxD);
 
-($Hx,$Hy,$Hz) = ($boxW/2,$translate_y,$boxD/2);
+($translate_x,$translate_y,$translate_z) = ($boxW/2,$translate_y,$boxD/2);
