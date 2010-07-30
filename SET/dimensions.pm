@@ -18,6 +18,7 @@ $vacuumH   = 80*$AA;
 				       # thin, tall mesh cells.
 $slice_depth = 80*$AA; # &min(50*$AA,$vacuumW*3); # Ditto.
 $electrodeW  = 50*$AA;
+$electrodeH = $vacuumH; 	# Change afterwards to get thinner electrodes.
 
 $translate_y  = $oxide_height+$dist_y-$ymin;# We want 1Å distance from gate to nearest nucleus
 
