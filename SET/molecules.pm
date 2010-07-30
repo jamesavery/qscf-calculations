@@ -19,7 +19,7 @@ $AA = 1.8897259886;		# 1Å in Bohrs
 	zmin =>-3.55242, zmax => 3.53589,
 	'center of mass' => {'x'=>-0.00220283,'y'=>0.00574317,'z'=>-0.0084725}
     },
-    "OPV5-tertbutyl-vnl" => {	# Unoptimized OPV5 with tertbutyl termination
+    "OPV5-tBu-vnl" => {	# Unoptimized OPV5 with tertbutyl termination
     	hosts => "lxir020",
 	basis => "OPV5basis.in",
 	xmin =>-19.2608, xmax => 19.2539,
