@@ -3,22 +3,22 @@ from mesh import *;
 import sys;
 
 nm = 18.897259886;		# 1 nm in Bohrs
-AA = 1.8897259886;		# 1Å in Bohrs
+AA = 1.8897259886;		# 1AA in Bohrs
 
-(boxW,boxH,boxD,vacuumW,vacuumH,oxideH,electrodeH) = sys.argv;
-(boxW,boxH,boxD,vacuumW,vacuumH,oxideH,electrodeH) = (boxW*AA,boxH*AA,boxD*AA,
-                                                      vacuumW*AA,vacuumH*AA,
-                                                      oxideH*AA,electrodeH*AA);
-electrodeW = W-vacuumW/2;
-oxideH = H-vacuumH;
+print sys.argv[1:];
 
-S = Space([W,H,D]);
+[boxW,boxH,boxD,vacuumW,vacuumH,oxideH,electrodeH] = [ float(p)*AA for p in sys.argv[1:] ];
 
-S.addVolume(Volume([0,oxideH,0],[electrodeW,electrodeH,D],"Left electrode"));
-S.addVolume(Volume([electrodeW,oxideH,0],[vacuumW,vacuumH,D],"Vacuum"));
-S.addVolume(Volume([electrodeW,oxideH,(D-vacuumW)/2],[vacuumW,vacuumW,vacuumW],"Vacuum around molecule"));
-S.addVolume(Volume([electrodeW+vacuumW,oxideH,0],[electrodeW,electrodeH,D],"Right electrode"));
-S.addVolume(Volume([0,0,0],[W,oxideH,D],"Gate oxide"));
+electrodeW = boxW-vacuumW/2;
+oxideH = boxH-vacuumH;
+
+S = Space([boxW,boxH,boxD]);
+
+S.addVolume(Volume([0,oxideH,0],[electrodeW,electrodeH,boxD],"Left electrode"));
+S.addVolume(Volume([electrodeW,oxideH,0],[vacuumW,vacuumH,boxD],"Vacuum"));
+S.addVolume(Volume([electrodeW,oxideH,(boxD-vacuumW)/2],[vacuumW,vacuumW,vacuumW],"Vacuum around molecule"));
+S.addVolume(Volume([electrodeW+vacuumW,oxideH,0],[electrodeW,electrodeH,boxD],"Right electrode"));
+S.addVolume(Volume([0,0,0],[boxW,oxideH,boxD],"Gate oxide"));
 
 S.buildBoxes();
 
