@@ -7,7 +7,11 @@ from string import split, join, strip;
 from modules.scanf import sscanf;
 
 def parsepath(f):
-    [molecule,exp1de,exp2] = f.split('/')[-3:];
+    if(path.basename(argv[0]) == "energies.py"):
+        [molecule,exp1de,exp2] = f.split('/')[-3:];
+    else:
+        [molecule,exp1de,jobid,exp2] = f.split('/')[-4:];
+    
 #    print [molecule,exp1de,exp2];
     [exp1,final_dE] = exp1de.split('-');
     exp2 = exp2.split('.')[0];
