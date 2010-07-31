@@ -17,7 +17,7 @@ do 'fe-config.pm';
 $vacuumH = $boxH-$oxideH;
 
 
-system("./SET-input-allvars.pl $moleculename, $charge $Vg $Vsd"
+system("./SET-input-allvars.pl $moleculename $charge $Vg $Vsd"
        ." $dist_x $dist_y $oxideH"
        ." $boxW $boxH $boxD"
        ." $dielectric_constant"
