@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+from __future__ import with_statement;
 from modules.experiments import *;
 from os import environ, path;
 from sys import argv;
