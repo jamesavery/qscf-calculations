@@ -2,7 +2,7 @@
 from __future__ import with_statement;
 import os;
 from sys import argv;
-from scanf import sscanf;
+from modules.scanf import sscanf;
 
 [log,outdir] = argv[1:];
 
