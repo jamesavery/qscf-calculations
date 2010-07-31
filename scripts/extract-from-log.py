@@ -12,7 +12,7 @@ with open(log,'r') as f:
                    if lines[i].startswith("Calculating ")];
 
     for i in splitpoints:
-        (jobid,in) = sscanf(lines[i],"Calculating %s/%s");
-        print (jobid,in);
+        (jobid,inp) = sscanf(lines[i],"Calculating %s/%s");
+        print (jobid,inp);
 
 
