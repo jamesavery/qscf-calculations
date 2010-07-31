@@ -174,7 +174,6 @@ import sys
 import unittest
 from string import whitespace as WHITESPACE
 from string import digits as DIGITS
-from sets import Set
 
 
 __all__ = ['scanf', 'sscanf', 'fscanf']
@@ -414,7 +413,7 @@ characters."""
     return parser(buffer)
 
 
-def isWhitespaceChar(ch, _set=Set(WHITESPACE)):
+def isWhitespaceChar(ch, _set=frozenset(WHITESPACE)):
     """Returns true if the charcter looks like whitespace.
     We follow the definition of C's isspace() function.
     """
@@ -436,10 +435,10 @@ def handleWhitespace(buffer):
 
 ## We keep a few sets as module variables just to incur the cost of
 ## constructing them just once.
-_PLUS_MINUS_SET = Set("+-")
-_DIGIT_SET = Set(DIGITS)
-_OCT_SET = Set("01234567")
-_HEX_SET = Set("0123456789ABCDEFabcdef")
+_PLUS_MINUS_SET = frozenset("+-")
+_DIGIT_SET = frozenset(DIGITS)
+_OCT_SET = frozenset("01234567")
+_HEX_SET = frozenset("0123456789ABCDEFabcdef")
 
 def handleDecimalInt(buffer, optional=False, allowLeadingWhitespace=True):
     """Tries to scan for an integer.  If 'optional' is set to False,
@@ -686,10 +685,10 @@ class ScanfTests(unittest.TestCase):
 
     def testCharacterSetScanning(self):
         b = makeCharBuffer("+++-+++++1234")
-        self.assertEquals("+++", b.scanCharacterSet(Set("+")))
-        self.assertEquals("", b.scanCharacterSet(Set("+")))
-        self.assertEquals("-", b.scanCharacterSet(Set("-")))
-        self.assertEquals("+", b.scanCharacterSet(Set("+"), 1))
+        self.assertEquals("+++", b.scanCharacterSet(frozenset("+")))
+        self.assertEquals("", b.scanCharacterSet(frozenset("+")))
+        self.assertEquals("-", b.scanCharacterSet(frozenset("-")))
+        self.assertEquals("+", b.scanCharacterSet(frozenset("+"), 1))
 
     def testPredicateScanning(self):
         b = makeCharBuffer("+++-+++++1234")
