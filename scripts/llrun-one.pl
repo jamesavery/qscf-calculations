@@ -16,7 +16,7 @@ $logdir = "/others/avery/outputs/${molecule}/${exp1}";
 system("mkdir -p $logdir");
 
 $script = << "END"
-#!/bin/sh
+#!/bin/bash
 # @ output = $logdir/${exp2}.\$(Host).\$(Cluster).\$(Process).out
 # @ error = $logdir/${exp2}.\$(Host).\$(Cluster).\$(Process).err
 # @ wall_clock_limit = 24000 
