@@ -7,13 +7,13 @@ experiments = {
             'order': ['charge']
             }
         },
-    'SET-large': {
+    'large': {
         'SET':  {
             'description': "Full diamond calculation of molecule in SET-environment.",
             'order': ['charge','Vg','Vsd']
             }
         },
-    'SET-Vzero': {
+    'Vzero': {
         'SET':  {
             'description': "Molecule in SET-environment. Fixed Vsd=0, Vg varied.",
             'order': ['charge','Vg','Vsd']
@@ -23,7 +23,7 @@ experiments = {
             'order': ['charge','Vg','Vsd'],
             }
         },
-    'SET-groundzero': {
+    'groundzero': {
         'SET':  {
             'description': "Molecule in SET-environment. Fixed Vg=0, Vsd varied.",
             'order': ['charge','Vg','Vsd'],
