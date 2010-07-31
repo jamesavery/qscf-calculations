@@ -10,7 +10,7 @@ outs   = [f for f in files if f.startswith(jobid) and f.endswith(".tar.gz")];
 ins    = [f for f in files if f.startswith("qscf") and f.endswith(".out")];
 
 inbase  = frozenset([f.split('.')[2] for f in ins]);
-outbase = frozenset([1f.split('.')[2] for f in outs]);
+outbase = frozenset([f.split('.')[2] for f in outs]);
 
 not_done = sort(list(inbase-outbase));
 
