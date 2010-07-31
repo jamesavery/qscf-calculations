@@ -13,7 +13,8 @@ def is_finished(f):
 files = os.listdir(where);
 ins   = [f for f in files if f.startswith(expt) and f.endswith(".in")];
 outs  = [f for f in files
-         if f.startswith(expt) and f.endswith(".out") and is_finished(f)];
+         if (expt == "all" or f.startswith(expt))
+         and f.endswith(".out") and is_finished(f)];
 
 inbase  = frozenset([os.path.splitext(f)[0] for f in ins]);
 outbase = frozenset([os.path.splitext(f)[0] for f in outs]);
