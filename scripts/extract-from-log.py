@@ -4,9 +4,9 @@ import os;
 from sys import argv;
 from scanf import sscanf;
 
-[from,to] = argv[1:];
+[log,outdir] = argv[1:];
 
-with open(from,'r') as f:
+with open(log,'r') as f:
     lines = f.readlines();
     splitpoints = [i for i in range(len(lines))
                    if lines[i].startswith("Calculating ")];
