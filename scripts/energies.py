@@ -1,9 +1,13 @@
 #!/usr/bin/env python
+from __future__ import with_statement;
 from modules.experiments import *;
 from os import environ, path;
 from sys import argv;
 from string import split, join, strip;
 from modules.scanf import sscanf;
+
+files = [path.abspath(f) for f in argv[1:]];
+root = environ['OPV'];
 
 def parsepath(f):
     [molecule,exp1de,exp2] = f.split('/')[-3:];
@@ -53,8 +57,6 @@ def getinfo(files):
         };
 
     
-files = [path.abspath(f) for f in argv[1:]];
-root = environ['OPV'];
 
 expts = list(set([parsepath(f) for f in files]));
 info = [getinfo(f) for f in files];
