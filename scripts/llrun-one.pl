@@ -44,6 +44,9 @@ echo "toppid = \$toppid"
 
 openmp-qscf ${input}
 
+cd ../
+tar czf ${logdir}/${exp1}.\${LOADL_STEP_ID}.tar.gz ${exp2}
+
 kill \$toppid
 END
 ;
