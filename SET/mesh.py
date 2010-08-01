@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from numpy import array;
+from sys import stderr;
 
 class Volume:
 
@@ -68,4 +69,92 @@ class Space:
 
         return script;
 
-    
+    def gmshBoxesAllpoints(self):
+        (xs,ys,zs)   = (self.xs,self.ys,self.zs);
+        box_volumes  = [Volume(self.lowerlefts[i],self.lengths[i],i)
+                        for i in range(len(self.lengths))];
+        volume_names = [self.identifyBox(V) for V in box_volumes];
+        
+        all_points = [(x,y,z) for x in xs for y in ys for z in zs];
+        pointmap   = {};
+        linemap    = {};
+        surfacemap = {};
+        
+        script = "// All points\n";
+        for i in range(len(all_points)):
+            (x,y,z) = all_points[i];
+            pointmap[(x,y,z)] = i+1;
+            script += "Point(%d) = {%g,%g,%g};\n" % (i+1,x,y,z);
+
+        xlines = [(pointmap[(xs[i], y,z)], pointmap[(xs[i+1],y,z)])
+                  for i in range(len(xs)-1) for y in ys for z in zs];
+        ylines = [(pointmap[(x,ys[i],z)], pointmap[(x,ys[i+1],z)])
+                  for i in range(len(ys)-1) for x in xs for z in zs];
+        zlines = [(pointmap[(x,y,zs[i])], pointmap[(x,y,zs[i+1])])
+                  for i in range(len(zs)-1) for x in xs for y in ys];
+
+        all_lines = xlines;
+        all_lines.extend(ylines);
+        all_lines.extend(zlines);
+
+        script += "\n\n// All lines\n";
+        script += "// X-lines\n";
+        for i in range(len(xlines)):
+            (p0,p1) = xlines[i];
+            ID = i+1;
+            linemap[(p0,p1)] = str(ID);
+            linemap[(p1,p0)] = "-"+str(ID);
+            script += "Line(%d) = {%d,%d};\n" % (ID,p0,p1);
+
+        script += "// Y-lines\n";
+        for i in range(len(ylines)):
+            (p0,p1) = ylines[i];
+            ID = i+1+len(xlines);
+            linemap[(p0,p1)] = str(ID);
+            linemap[(p1,p0)] = "-"+str(ID);
+            script += "Line(%d) = {%d,%d};\n" % (ID,p0,p1);
+
+        script += "// Z-lines\n";
+        for i in range(len(zlines)):
+            (p0,p1) = zlines[i];
+            ID = i+1+len(xlines)+len(ylines)
+            linemap[(p0,p1)] = str(ID);
+            linemap[(p1,p0)] = "-"+str(ID);
+            script += "Line(%d) = {%d,%d};\n" % (ID,p0,p1);
+
+        script += "Transfinite Line{%s} = 1;\n" % ",".join([str(i) for i in
+                                                            range(1,len(all_lines)+1)]);
+
+        boxloops = [(0,1,2,3),
+                    (0,1,5,4),
+                    (0,3,7,4),
+                    (1,2,6,5),
+                    (2,3,7,6),
+                    (4,5,6,7)];
+
+        script += "\n\n// All loops\n"
+        for i in range(len(box_volumes)):
+            P = [pointmap[tuple(p)] for p in box_volumes[i].points];
+            for j in range(len(boxloops)):
+                loop     = boxloops[j];
+                loop_id  = i*6+j+1;
+                
+                line_ids = [linemap[(P[loop[k]],P[loop[(k+1)%4]])] for k in range(4)];
+                script += "Line Loop(%d) = {%s,%s,%s,%s};\n" % (loop_id,line_ids[0],line_ids[1],
+                                                                line_ids[2],line_ids[3]);
+                script += "Ruled Surface(%d) = {%d};\n" % (loop_id,loop_id);
+
+            script += "Surface Loop(%d) = {%d,%d,%d,%d,%d,%d};\n"  % (
+                i+1, i*6+1,i*6+2,i*6+3,i*6+4,i*6+5,i*6+6 );
+
+        script += "Transfinite Surface{%s};\n" % ",".join([str(i) for i in
+                                                           range(1,6*len(box_volumes)+1)]);
+        script += "Recombine Surface{%s};\n" % ",".join([str(i) for i in
+                                                         range(1,6*len(box_volumes)+1)]);
+
+        script += "\n\n// All volumes\n"
+        for i in range(len(box_volumes)):
+            script += "Volume(%d) = {%d};\n" % (i+1,i+1);
+            script += "Transfinite Volume{%d};\n" % (i+1);
+            
+        return script;
