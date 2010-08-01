@@ -21,6 +21,8 @@ S.addVolume(Volume([0,0,0],[boxW,oxideH,boxD],"Gate oxide"));
 
 S.buildBoxes();
 
+boxes = S.gmshBoxesAllpoints();
+
 call(['cat','mesh-scripts/box.gmsh']);
 print """
 // World box:        [%g,%g,%g]
@@ -35,11 +37,12 @@ Physical Volume("Vacuum") = {15, 14, 13, 16, 17, 18};
 Physical Volume("Right electrode") = {24, 23, 22, 27, 26, 25};
 Physical Volume("Gate oxide") = {3, 2, 1, 12, 11, 10, 21, 20, 19};
 
-Physical Surface("Open boundaries") = {84, 83, 55, 27, 6, 336, 588, 579, 551, 523, 510, 420, 504, 471, 443, 499, 426, 342, 258};
-Physical Surface("Left electrode boundary") = {252, 247, 251, 167, 168, 139, 223, 195, 111, 90, 174, 219, 191};
-Physical Surface("Right electrode boundary") = {672, 756, 747, 719, 635, 691, 607, 678, 594, 695, 723, 751, 663};
-Physical Surface("Gate electrode boundary") = {575, 547, 519, 323, 295, 267, 71, 43, 15};
-""" %(boxW,boxH,boxD,vacuumW,vacuumH,oxideH,electrodeW,electrodeH,S.gmshBoxes());
+Physical Surface("Open boundaries") = {96, 102, 108, 106, 88, 70, 16, 124, 14, 8, 2, 3, 57, 111, 113, 119, 125, 93, 75};
+Physical Surface("Left electrode boundary") = {42, 48, 54, 38, 39, 21, 20, 26, 32, 44, 50, 34, 52};
+Physical Surface("Right electrode boundary") = {160, 142, 162, 156, 150, 147, 129, 155, 161, 149, 131, 137, 143};
+Physical Surface("Gate electrode boundary") = {13, 7, 1, 67, 61, 55, 109, 115, 121};
+
+""" %(boxW,boxH,boxD,vacuumW,vacuumH,oxideH,electrodeW,electrodeH,boxes);
 
 
 
