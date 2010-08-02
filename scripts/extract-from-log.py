@@ -8,11 +8,9 @@ from modules.scanf import sscanf;
 
 def mkdir_p(path):
     try:
-        os.makedirs(path)
-    except OSError as exc: 
-        if exc.errno == errno.EEXIST:
-            pass
-        else: raise
+        os.makedirs(path);
+    except OSError: 
+        pass;
 
 with open(log,'r') as f:
     lines = f.readlines();
