@@ -47,7 +47,7 @@ H=50
 Dx=1
 for Dy in 0.5 1 2 3 5 10; do
     generate_mesh $Dx $Dy $H
-    for Vg in 0 2.0 4.0; do
+    for Vg in 0.0 2.0 4.0; do
 	for charge in -1.0 0.0 1.0; do
 	    ./SET-input-lengths.pl $molecule $charge $Vg $Vsd $Dx $Dy $H > ${directory}/Exp2.${charge}:${Vg}:${Dy}.in
 	done
@@ -83,7 +83,7 @@ Dy=1
 Vg=0
 for Dx in 0.5 1 2 3 5 10; do
     generate_mesh $Dx $Dy $H
-    for Vsd in 0 0.10 0.30 0.40 0.50 0.75 1.0
+    for Vsd in 0.0 0.10 0.30 0.40 0.50 0.75 1.0
       do
       for charge in -1.0 0.0 1.0 
 	do
