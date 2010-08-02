@@ -9,7 +9,7 @@ class Volume:
         ll = array(lowerleft);
         self.points = [ll+[0,0,0], ll+[0,0,dims[2]],ll+[dims[0],0,dims[2]],ll+[dims[0],0,0],
                        ll+[0,dims[1],0],ll+[0,dims[1],dims[2]],ll+[dims[0],dims[1],dims[2]],ll+[dims[0],dims[1],0]];
-        self.points = map(roundpt,self.points);
+        self.points = [(round(x,5),round(y,5),round(z,5)) for (x,y,z) in self.points];
         self.ll = ll;
         self.dims = array(dims);
         self.name = name;
@@ -46,9 +46,10 @@ class Space:
                       for j in range(len(ys)-1)
                       for k in range(len(zs)-1)];
 
-        self.xs = map(roundpt,xs);
-        self.ys = map(roundpt,ys);
-        self.zs = map(roundpt,zs);
+        self.xs = [round(x,5) for x in xs];
+        self.ys = [round(x,5) for x in ys];
+        self.zs = [round(x,5) for x in zs];
+
         self.lowerlefts = lowerlefts;
         self.lengths = lengths;
 
@@ -70,8 +71,6 @@ class Space:
 
         return script;
 
-    def roundpt(x,y,z):
-        return (round(x,5),round(y,5),round(z,5));
     
     def gmshBoxesAllpoints(self):
         (xs,ys,zs)   = (self.xs,self.ys,self.zs);
