@@ -68,7 +68,7 @@ for Dx in 0.5 1 2 3 5 10; do
       do
       for charge in -1.0 0.0 1.0 
 	do
-	./SET-input-lengths.pl $molecule $charge $Vg $Vsd $Dx $Dy $H > ${directory}/Exp3.${charge}:${Vsd}:${Dx}.in
+	./SET-input-lengths.pl $molecule $charge $Vg $Vsd $Dx $Dy $H > ${directory}/Exp3.${charge}:${Vg}:${Dx}.in
       done
     done
 done
