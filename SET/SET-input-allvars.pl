@@ -21,6 +21,12 @@ print << "END"
 include:0 = "opv5parameters.in" 
 include:1 = "bases/$molecule{$moleculename}{basis}"
 
+// moleculename=$moleculename, charge=$charge,Vg=$Vg,Vsd=$Vsd,
+// dist_x=$dist_x,dist_y=$dist_y,oxideH=$oxideH,boxW=$boxW,boxH=$boxH,boxD=$boxD,
+// dielectric_constant=$dielectric_constant,
+// meshsuffix=$meshsuffix,ouputdir=$outputdir,
+// final_dE=$feparams{'final_dE'},final_dC=$feparams{'final_dC'},fe_order=$feparams{'fe_order'},
+// refinement_strategy=$feparams{'refinement_strategy'}
 
 molecule<Molecule>: ( 
   symmetry = auto
