@@ -45,7 +45,7 @@ done
 # We want to obtain U, Delta, E_C and possibly \alpha as a function of H
 H=50
 Dx=1
-for Dy in 0.5 1 2 3 5 10; do
+for Dy in 0.5 0.75 1 2 3 5 7 10; do
     generate_mesh $Dx $Dy $H
     for Vg in 0.0 2.0 4.0; do
 	for charge in -1.0 0.0 1.0; do
@@ -59,16 +59,16 @@ done
 # Like electrodes-experiments Exp. 1
 # We vary the distance Dx from the nearest nucleus to each of the electrodes,
 # as well as the gate voltage.
-H=50
-Dy=1
-Vsd=0
-for Dx in 0.5 1 2 3 5 10; do
+H=50.0
+Dy=1.0
+Vsd=1.0
+for Dx in 0.5 0.75 1.0 1.5 2 3 5; do
     generate_mesh $Dx $Dy $H
-    for Vg in -8.0 -4.0 0.0 4.0 8.0
+    for Vg in 0.0 2.0 4.0
       do
       for charge in -1.0 0.0 1.0 
 	do
-	./SET-input-lengths.pl $molecule $charge $Vg $Vsd $Dx $Dy $H > ${directory}/Exp3.${charge}:${Vg}:${Dx}.in
+	./SET-input-lengths.pl $molecule $charge $Vg $Vsd $Dx $Dy $H > ${directory}/Exp3.${charge}:${Vg}:${Vsd}:${Dx}.in
       done
     done
 done
@@ -78,9 +78,9 @@ done
 # Like electrodes-experiments Exp. 1
 # We vary the distance Dx from the nearest nucleus to each of the electrodes,
 # as well as the voltage drop over the electrodes.
-H=50
-Dy=1
-Vg=0
+H=50.0
+Dy=1.0
+Vg=0.0
 for Dx in 0.5 1 2 3 5 10; do
     generate_mesh $Dx $Dy $H
     for Vsd in 0.0 0.10 0.30 0.40 0.50 0.75 1.0
