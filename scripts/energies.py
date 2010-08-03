@@ -11,6 +11,8 @@ import re;
 files = [path.abspath(f) for f in argv[1:]];
 root = environ['OPV'];
 
+Hartrees = 27.21138386;                 # 1 Hartree in eV
+
 def unique(l):
     s = list(frozenset(l));
     if(len(s)>1):
@@ -45,13 +47,17 @@ def homolumoenergy(f):
     f = path.splitext(f)[0]+".err";
     with open(f,'r') as file:
         lines  = file.readlines();
-        eline = [i for i in range(len(lines)) if lines[i].startswith("Energies")][-1];
+        try:
+            eline = [i for i in range(len(lines)) if lines[i].startswith("Energies")][-1];
+        except IndexError:
+            return (0,0,0);
+        
         energies = split(lines[eline+1],' ');
         tup = lines[eline-1].split('= ')[1];
         (T,degeneracy,numberElectrons) = sscanf(tup,"(%f,%d,%d)");
 
-        return (float(energies[(numberElectrons-1)/degeneracy]),
-                float(energies[(numberElectrons-1)/degeneracy+1]),
+        return (float(energies[(numberElectrons-1)/degeneracy])*Hartrees,
+                float(energies[(numberElectrons-1)/degeneracy+1])*Hartrees,
                 numberElectrons);
 
 def getinfo(f):
@@ -75,7 +81,11 @@ def mathematica_output(file,finfo,file_list):
     energies = [totalenergy(f)    for f in file_list];
     HLN      = [homolumoenergy(f) for f in file_list];
 
-    print >> file, "order = %s;\n" % mathematica_list(expt['order']);
+    print >> file, "experiment = %s;\n"     % mathematica_list(finfo);
+    print >> file, "parameterOrder = %s;\n" % mathematica_list(expt['order']);
+    print >> file, "valueOrder = %s;\n"     % mathematica_list(['Total energy',
+                                                                ['HOMO energy','LUMO energy',
+                                                                 'Number of electrons']]);
 
     propertylist = [(params[i],energies[i],HLN[i]) for i in range(len(file_list))];
     print >> file, "propertylist = %s;\n" % mathematica_list(propertylist,collapse=True);
