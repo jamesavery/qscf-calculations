@@ -23,7 +23,7 @@ S.buildBoxes();
 
 boxes = S.gmshBoxesAllpoints();
 
-call(['cat','mesh-scripts/box.gmsh']);
+#call(['cat','mesh-scripts/box.gmsh']);
 print """
 // World box:        [%g,%g,%g]
 // Vacuum:           [%g,%g]
