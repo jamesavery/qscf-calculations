@@ -21,7 +21,7 @@ $script = << "END"
 # @ error = $logdir/${exp2}.\$(Host).\$(Cluster).\$(Process).err
 # @ wall_clock_limit = 24000 
 # @ class = large
-# @ resources = ConsumableCpus(4) ConsumableMemory(4gb) 
+# @ resources = ConsumableCpus(4) ConsumableMemory(16gb) 
 # @ queue
 SCR=/scratch/\$LOADL_STEP_ID/${molecule}/${exp1}/${exp2}
 mkdir -p \$SCR
