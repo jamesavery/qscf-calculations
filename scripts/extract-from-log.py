@@ -47,5 +47,6 @@ with open(os.path.splitext(log)[0]+".err",'r') as f:
         [i,j] = splitpoints[k:k+2];
         outputs = lines[i:j+1];
 
-        with open(prefix+"/"+jobid+"/"+inputfile+".err",'w') as g:
+	print "Errfile %d : (%s,%s)" % (k,jobids[k],inputfiles[k]);
+        with open(prefix+"/"+jobids[k]+"/"+inputfiles[k]+".err",'w') as g:
             g.writelines(outputs);
