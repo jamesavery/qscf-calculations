@@ -88,7 +88,7 @@ except ValueError:
     print >> stderr, "Only one experiment at a time for now.";
     exit(-1);
 
-if argv[0] == "energies-math.py":
+if path.basename(argv[0]) == "energies-math.py":
     mathematica_output(stdout,finfo,files);
 else:
     print >> stderr, "More output formats to come.";
