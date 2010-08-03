@@ -37,7 +37,7 @@ with open(log,'r') as f:
         with open(prefix+"/"+jobid+"/"+inputfile+".out",'w') as g:
             g.writelines(outputs);
 
-with open(path.splitext(log)[0]+".err",'r') as f:
+with open(os.path.splitext(log)[0]+".err",'r') as f:
     lines = f.readlines();
     splitpoints = [i for i in range(len(lines))
                    if lines[i].startswith("No ScfParam")];
