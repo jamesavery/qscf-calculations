@@ -25,8 +25,8 @@ def parsepath(f):
     else:
         [molecule,exp1de,jobid,exp2] = f.split('/')[-4:];
     
-#    print [molecule,exp1de,exp2];
-    [exp1,final_dE] = exp1de.split('-');
+    print >> stderr, [molecule,exp1de,jobid,exp2];
+    [exp1,final_dE] = exp1de.rsplit('-',1);
     exp2 = exp2.split('.')[0];
 
     return (molecule, exp1, exp2, final_dE);
@@ -90,15 +90,33 @@ def mathematica_output(file,finfo,file_list):
     propertylist = [(params[i],energies[i],HLN[i]) for i in range(len(file_list))];
     print >> file, "propertylist = %s;\n" % mathematica_list(propertylist,collapse=True);
 
+def python_output(file,finfo,file_list):
+    expt  = experiments[finfo[1]][finfo[2]];
+    params   = [fileparameters(f) for f in file_list];
+    energies = [totalenergy(f)    for f in file_list];
+    HLN      = [homolumoenergy(f) for f in file_list];
+
+    print >> file, "experiment = %s;\n"     % repr(finfo);
+    print >> file, "parameterOrder = %s;\n" % repr(expt['order']);
+    print >> file, "valueOrder = %s;\n"     % repr(['Total energy',
+                                                                ['HOMO energy','LUMO energy',
+                                                                 'Number of electrons']]);
+
+    propertylist = [(params[i],energies[i],HLN[i]) for i in range(len(file_list))];
+    print >> file, "propertylist = %s;\n" % repr(propertylist);
+
 
  
 try:
     finfo = unique([parsepath(f) for f in files]);
 except ValueError:
     print >> stderr, "Only one experiment at a time for now.";
+    print >> stderr, list(frozenset([parsepath(f) for f in files]));
     exit(-1);
 
 if path.basename(argv[0]) == "energies-math.py":
     mathematica_output(stdout,finfo,files);
 else:
-    print >> stderr, "More output formats to come.";
+    python_output(stdout,finfo,files);
+
+
