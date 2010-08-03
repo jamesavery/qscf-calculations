@@ -78,7 +78,7 @@ def mathematica_output(file,finfo,file_list):
     print >> file, "order = %s;\n" % mathematica_list(expt['order']);
 
     propertylist = [(params[i],energies[i],HLN[i]) for i in range(len(file_list))];
-    print >> file, "propertylist = %s;\n" % mathematica_list(propertylist);
+    print >> file, "propertylist = %s;\n" % mathematica_list(propertylist,collapse=True);
 
 
  
