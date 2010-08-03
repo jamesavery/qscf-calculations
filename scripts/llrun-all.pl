@@ -26,9 +26,9 @@ $script = << "END"
 #!/bin/bash
 # @ output = $logdir/qscf.\$(Host).\$(Cluster).\$(Process).out
 # @ error = $logdir/qscf.\$(Host).\$(Cluster).\$(Process).err
-# @ wall_clock_limit = 48000 
+# @ wall_clock_limit = 48000
 # @ class = large
-# @ resources = ConsumableCpus(4) ConsumableMemory(10gb) 
+# @ resources = ConsumableCpus(4) ConsumableMemory(16gb) 
 # @ queue
 SCR=/scratch/\$LOADL_STEP_ID/${jobid}
 mkdir -p \$SCR
