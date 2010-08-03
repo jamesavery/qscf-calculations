@@ -71,11 +71,11 @@ getData[molecule_,dE_,exp1_,exp2_] := Module[{info,tidx,tE,dims,order,data,param
 
       info["params"]      = Union[info[#]]& /@ order;
       info["dims"]        = {1};
-      info["indextable"]  = #[[1]]&/@data,dims;
-      info["energytable"] = #[[2]]&/@data,dims;
-      info["HOMOtable"]   = #[[3,1]]&/@data,dims;
-      info["LUMOtable"]   = #[[3,2]]&/@data,dims;
-      info["Ntable"]      = #[[3,3]]&/@data,dims;
+      info["indextable"]  = #[[1]]&/@data;
+      info["energytable"] = #[[2]]&/@data;
+      info["HOMOtable"]   = #[[3,1]]&/@data;
+      info["LUMOtable"]   = #[[3,2]]&/@data;
+      info["Ntable"]      = #[[3,3]]&/@data;
   ];
   Return[info];
 ];
