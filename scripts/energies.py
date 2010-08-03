@@ -18,7 +18,7 @@ def unique(l):
     return s[0];
 
 def parsepath(f):
-    if(path.basename(argv[0]) == "energies.py"):
+    if(path.abspath(argv[0]).startswith(root)):
         [molecule,exp1de,exp2] = f.split('/')[-3:];
     else:
         [molecule,exp1de,jobid,exp2] = f.split('/')[-4:];
