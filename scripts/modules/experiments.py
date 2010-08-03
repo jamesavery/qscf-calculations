@@ -18,7 +18,7 @@ experiments = {
             'description': "Molecule in SET-environment. Fixed Vsd=0, Vg varied.",
             'order': ['charge','Vg','Vsd']
             },
-        'SET2': {
+        'SET-2': {
             'description': "Molecule in SET-environment. Fixed Vsd=1V, Vg varied.",
             'order': ['charge','Vg','Vsd'],
             }
