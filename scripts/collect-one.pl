@@ -20,5 +20,5 @@ $outfile="${outdir}/${exp1}-${exp2}.m";
 `mkdir -p ${outdir}`;
 print "Generating ${outfile} from $m/${exp1}-$dE/${exp2}.*.out\n";
 
-`energies-math.pl $path ${exp2} > ${outfile}`;
+`energies-math.py ${exp2}.*.out > ${outfile}`;
 
