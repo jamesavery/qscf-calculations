@@ -39,4 +39,4 @@ for functional in listdir(molecule):
     if energy_f != {}:
         energies[functional] = energy_f;
 
-print mathematica_repr(energies);
+print "results = %s;\n" % mathematica_repr(energies);
