@@ -13,6 +13,8 @@ def mathematica_repr(x,collapse=False):
                 return "%f*^%d" % (m,e);
             else:
                 return "%f" % x;
+    elif type(x) == dict:
+        return mathematica_list([(mathematica_repr(k),mathematica_repr(x[k])) for k in x.keys()]);
     else:
         return repr(x);
 
