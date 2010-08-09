@@ -8,7 +8,7 @@ from modules.convert import *;
 
 energies = {};
 
-for functional in listdir(molecule):
+for functional in [d for d in listdir(molecule) if not d.endswith(".sh")]:
     energy_f = {};    
     for basis in listdir(molecule+"/"+functional):
         jobpath = molecule+"/"+functional+"/"+basis;
