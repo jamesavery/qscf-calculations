@@ -20,10 +20,12 @@ def firefly_energy(filename):
         else:
             converged = True;
             
-        energyline = [float(l.split('=')[1]) for l in output.readlines()
+        energyline = [float(l.split('=')[1]) for l in lines
                       if l.lstrip().startswith("TOTAL ENERGY")];
+        
         if(len(energyline)!=1):
             print >> stderr, "No total energy found in %s!" % filename;
+            raise ValueError;
         else:
             return (converged,energyline[0]);
 
@@ -37,12 +39,12 @@ def gaussian_energy(filename):
             if elines == []:
                 print >> stderr, "Can't find Erem-energy!";
                 raise ValueError;
-                
+            else:
                 [iteration,energy] = sscanf(elines[-1],"Matrix for removal %d Erem= %f");
                 converged = False;
-            else:
-                energy = float(elines[0].split('=')[1].lstrip().split()[0]);
-                converged = True;
+        else:
+            energy = float(elines[0].split('=')[1].lstrip().split()[0]);
+            converged = True;
                 
         return (converged,energy);
 
