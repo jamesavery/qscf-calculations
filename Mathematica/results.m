@@ -1,4 +1,29 @@
-getData[molecule_,dE_,exp1_,exp2_] := Module[{info,tidx,tE,dims,order,data,params,energy},
+zip[a_,b_]     := Table[{a[[i]],b[[i]]},{i,Length[a]}];
+unzip[pairs_]  := {#[[1]]&/@pairs,#[[2]]&/@pairs};
+
+getCheck[program_,molecule_,functional_,basis_] := Module[{rootdir,result,k,v,q,e,Hartrees},
+  Hartrees = 27.21138386;
+  rootdir = Environment["OPV"];
+  result = Get[rootdir<>"/results/"<>molecule<>"/"<>program<>"/vacuum.m"];
+
+  {{k,v}} = Select[result,#[[1]] == functional&];
+  {{k,v}} = Select[v,#[[1]] == basis&];
+  {{k,q}} = Select[v,#[[1]] == "q"&];
+  {{k,e}} = Select[v,#[[1]] == "energy"&];
+  {{k,converged}} = Select[v,#[[1]] == "converged"&];
+
+  Return[ {q,e,converged} ];
+];
+
+getCheckList[program_,molecule_] := Module[{rootdir,result},
+  rootdir = Environment["OPV"];
+  result = Get[rootdir<>"/results/"<>molecule<>"/"<>program<>"/vacuum.m"];
+  Return[ Table[{result[[i,1]],result[[i,2,j,1]]},
+  {i,Length[result]},{j,Length[result[[i,2]]]}] ];
+];
+
+
+getData[molecule_,dE_,exp1_,exp2_] := Module[{info,tidx,tE,dims,order,Table[data,params,energy},
   rootdir = Environment["OPV"];
   Get[rootdir<>"/results/"<>molecule<>"/"<>ToString[dE]<>"/"<>exp1<>"-"<>exp2<>".m"];
 
@@ -20,6 +45,7 @@ getData[molecule_,dE_,exp1_,exp2_] := Module[{info,tidx,tE,dims,order,data,param
       info["Vsd"]    = #[[1,3]]&/@ info["data"];
       ,
   {exp1,exp2}=={"SET-lengths","Exp1"},
+      Print["SET-lengths/1"];
       info["order"] = {"q","Vg","oxideH"}; 
       info["data"] = Sort[propertylist];
       info["q"]      = #[[1,1]]&/@ info["data"];
@@ -27,6 +53,7 @@ getData[molecule_,dE_,exp1_,exp2_] := Module[{info,tidx,tE,dims,order,data,param
       info["oxideH"] = #[[1,3]]&/@ info["data"];
       ,
   {exp1,exp2}=={"SET-lengths","Exp2"},
+      Print["SET-lengths/2"];
       info["order"] = {"q","Vg","dist_y"}; 
       info["data"] = Sort[propertylist];
       info["q"]      = #[[1,1]]&/@ info["data"];
@@ -34,6 +61,7 @@ getData[molecule_,dE_,exp1_,exp2_] := Module[{info,tidx,tE,dims,order,data,param
       info["dist_y"] = #[[1,3]]&/@ info["data"];
       ,
   {exp1,exp2}=={"SET-lengths","Exp3"},
+      Print["SET-lengths/3"];
       info["order"] = {"q","Vg","Vsd","dist_x"}; 
       info["data"] = Sort[propertylist];
       info["q"]      = #[[1,1]]&/@ info["data"];
@@ -42,6 +70,7 @@ getData[molecule_,dE_,exp1_,exp2_] := Module[{info,tidx,tE,dims,order,data,param
       info["dist_x"] = #[[1,4]]&/@ info["data"];
       ,
   {exp1,exp2}=={"SET-lengths","Exp4"},
+      Print["SET-lengths/4"];
       info["order"] = {"q","Vsd","dist_x"}; 
       info["data"] = Sort[propertylist];
       info["q"]      = #[[1,1]]&/@ info["data"];
