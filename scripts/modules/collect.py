@@ -5,9 +5,10 @@ from sys import argv, stderr;
 from modules.convert import *;
 from modules.scanf   import sscanf;
 
-def firefly_energy(filename):
-    with open(filename) as output:
-        lines = output.readlines();
+Hartrees = 27.21138386;
+
+def firefly_energy(F):
+        lines = F.readlines();
         converged = [l for l in lines if l.lstrip().startswith("DENSITY CONVERGED")]
         unconverged = [l for l in lines if l.lstrip().startswith("SCF IS UNCONVERGED")]
 
@@ -27,10 +28,9 @@ def firefly_energy(filename):
             print >> stderr, "No total energy found in %s!" % filename;
             raise ValueError;
         else:
-            return (converged,energyline[0]);
+            return (converged,energyline[0]*Hartrees);
 
-def gaussian_energy(filename):
-    with open(filename,'r') as F:
+def gaussian_energy(F):
         lines = F.readlines();
         elines = [l.strip() for l in lines if l.lstrip().startswith('SCF Done:') ];
         if elines == []:
@@ -46,7 +46,8 @@ def gaussian_energy(filename):
             energy = float(elines[0].split('=')[1].lstrip().split()[0]);
             converged = True;
                 
-        return (converged,energy);
+        return (converged,energy*Hartrees);
+
 
 energy_fn = {
     'Gaussian':gaussian_energy,
@@ -67,7 +68,9 @@ def collect_molecule(program,molecule):
             for q in charges:
                 outpath = jobpath+"/"+q+"/output.log";
                 try:
-                    (converged,energy)    = energy_fn[program](outpath);
+                    with open(outpath,'r') as stream:
+                        (converged,energy)    = energy_fn[program](stream);
+
                     energy_b[float(q)]    = energy;
                     converged_b[float(q)] = converged;
                 except IOError:
