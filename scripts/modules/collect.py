@@ -7,14 +7,15 @@ from modules.scanf   import sscanf;
 
 Hartrees = 27.21138386;
 
-def firefly_energy(F):
+def firefly_energy(filename):
+    with open(filename,'r') as F:
         lines = F.readlines();
         converged = [l for l in lines if l.lstrip().startswith("DENSITY CONVERGED")]
         unconverged = [l for l in lines if l.lstrip().startswith("SCF IS UNCONVERGED")]
 
         if len(converged) != 1:
             if len(unconverged) != 1:
-                print >> stderr, "Output file incomplete: no convergence statement.";
+                print >> stderr, "Output file incomplete: no convergence statement in %s." % filename;
                 raise ValueError;
             print >> stderr, unconverged[0];
             converged = False;
@@ -30,14 +31,15 @@ def firefly_energy(F):
         else:
             return (converged,energyline[0]*Hartrees);
 
-def gaussian_energy(F):
+def gaussian_energy(filename):
+    with open(filename,'r') as F:
         lines = F.readlines();
         elines = [l.strip() for l in lines if l.lstrip().startswith('SCF Done:') ];
         if elines == []:
             print >> stderr, "%s did not converge. Getting Erem." % filename;
             elines = [l.lstrip() for l in lines if l.lstrip().startswith("Matrix for removal")];
             if elines == []:
-                print >> stderr, "Can't find Erem-energy!";
+                print >> stderr, "Can't find Erem-energy in %s!" % filename;
                 raise ValueError;
             else:
                 [iteration,energy] = sscanf(elines[-1],"Matrix for removal %d Erem= %f");
@@ -49,21 +51,22 @@ def gaussian_energy(F):
         return (converged,energy*Hartrees);
 
 
-def ATK_energy(F):
-    lines = F.readlines();
-    converged = (len([l for l in lines if l.startswith("| Calculation Converged")])==1);
-    elines    = [l for l in lines if l.startswith("| Total energy")];
-
-    if not converged:
-        unconverged = [l for l in lines if "did not converge" in l];
-        if len(unconverged) != 1:
-            print >> stderr, "Output file incomplete: no convergence statement.";
-            raise ValueError;
-        print >> stderr, unconverged[0];
-
-    [energy] = sscanf(elines[0],"| Total energy = %f eV");
-
-    return (converged,energy);          # Energy is already in eV.
+def ATK_energy(filename):
+    with open(filename,'r') as F:
+        lines = F.readlines();
+        converged = (len([l for l in lines if l.startswith("| Calculation Converged")])==1);
+        elines    = [l for l in lines if l.startswith("| Total energy")];
+        
+        if not converged:
+            unconverged = [l for l in lines if "did not converge" in l];
+            if len(unconverged) != 1:
+                print >> stderr, "Output file incomplete: no convergence statement in %s." % filename;
+                raise ValueError;
+            print >> stderr, unconverged[0];
+            
+        [energy] = sscanf(elines[0],"| Total energy = %f eV");
+            
+        return (converged,energy);          # Energy is already in eV.
 
 energy_fn = {
     'Gaussian':gaussian_energy,
@@ -86,8 +89,7 @@ def collect_molecule(program,molecule):
                 outpath = jobpath+"/"+q+"/output.log";
                 print >> stderr, outpath;
                 try:
-                    with open(outpath,'r') as stream:
-                        (converged,energy)    = energy_fn[program](stream);
+                    (converged,energy)    = energy_fn[program](outpath);
 
                     energy_b[float(q)]    = energy;
                     converged_b[float(q)] = converged;
