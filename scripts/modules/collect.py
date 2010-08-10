@@ -49,9 +49,22 @@ def gaussian_energy(F):
         return (converged,energy*Hartrees);
 
 
+def ATK_energy(filename):
+    lines = F.readlines();
+    converged = (len([l for l in lines if l.startswith("| Calculation Converged")])==1);
+    elines    = [l for l in lines if l.startswith("| Total energy")];
+
+    if converged:
+        [energy] = sscanf(elines[0],"| Total energy = %f eV");
+    else:
+        energy = float('nan');          # TODO: Check what happens when ATK doesn't converge.
+
+    return (converged,energy);          # Energy is already in eV.
+
 energy_fn = {
     'Gaussian':gaussian_energy,
-    'Firefly':firefly_energy
+    'Firefly':firefly_energy,
+    'ATK': ATK_energy
 };
 
 def collect_molecule(program,molecule):
