@@ -30,7 +30,7 @@ def ATK_energy(l):
 string_matches = {
     'qscf' : {
         'converged-match':       "Converged in",
-        'unconverged-match':     "WARNING: Did not converge",
+        'unconverged-match':     "WARNING:  Did not converge",
         'energy-match':          "Total potential energy",
         'unit':                   eV,
         'get-energy':             qscf_energy,
