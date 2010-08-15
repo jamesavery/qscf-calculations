@@ -9,7 +9,7 @@ VEtable[M_] := Module[{Vect,qs,Vgs,Hs},
 
   VE = Table[{#[[1]],#[[2]]}& /@ Select[Vect[[i,j]], #[[3]] == True&],{i,Length[qs]},{j,Length[P]}];
 
-  Return[VE];
+  Return[Select[#,#!={}&]&/@VE];
 ];
 
 VElines[M_] := Module[{VE,qs,Vgs,P,lines},
