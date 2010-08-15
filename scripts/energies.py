@@ -39,7 +39,12 @@ def fileparameters(f):
                  
 def totalenergy(f):
     f = path.splitext(f)[0]+".out";
-    return output_energy(string_matches["qscf"],f);
+    try:
+        return output_energy(string_matches["qscf"],f);
+    except IOError:
+        print >> stderr, "Cannot read %s!" % f;
+    except ValueError:
+        print >> stderr, "Error in %s!" % f;
     
 def homolumoenergy(f):
     f = path.splitext(f)[0]+".err";
