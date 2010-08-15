@@ -2,7 +2,7 @@
 from __future__ import with_statement;
 from modules.experiments import *;
 from modules.convert import *;
-from modules.colles  import *;
+from modules.collect  import *;
 from modules.scanf import sscanf;
 from os import environ, path;
 from sys import argv,stdout,stderr;
