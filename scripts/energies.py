@@ -43,8 +43,10 @@ def totalenergy(f):
         return output_energy(string_matches["qscf"],f);
     except IOError:
         print >> stderr, "Cannot read %s!" % f;
+        return (False,1);
     except ValueError:
         print >> stderr, "Error in %s!" % f;
+        return (False,2);
     
 def homolumoenergy(f):
     f = path.splitext(f)[0]+".err";
