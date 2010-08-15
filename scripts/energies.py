@@ -2,6 +2,7 @@
 from __future__ import with_statement;
 from modules.experiments import *;
 from modules.convert import *;
+from modules.colles  import *;
 from modules.scanf import sscanf;
 from os import environ, path;
 from sys import argv,stdout,stderr;
@@ -38,11 +39,8 @@ def fileparameters(f):
                  
 def totalenergy(f):
     f = path.splitext(f)[0]+".out";
-    with open(f,'r') as file:
-        eline = [l for l in file.readlines() if l.startswith("Total potential")][0];
-        energy = sscanf(eline,"Total potential energy  = %f eV")[0];
-        return energy;
-
+    return output_energy(string_matches["qscf"],f);
+    
 def homolumoenergy(f):
     f = path.splitext(f)[0]+".err";
     with open(f,'r') as file:
@@ -64,10 +62,11 @@ def getinfo(f):
     finfo = parsepath(f);
     expt  = experiments[finfo[1]][finfo[2]];
     params = zip(expt['order'],fileparameters(f));
-    energy = totalenergy(f);
+    (converged,energy) = totalenergy(f);
     (EH,EL,Nel) = homolumoenergy(f);
 
     return {
+        'converged':converged,
         'energy':energy,
         'homo':EH,
         'lumo':EL,
@@ -78,31 +77,35 @@ def getinfo(f):
 def mathematica_output(file,finfo,file_list):
     expt  = experiments[finfo[1]][finfo[2]];
     params   = [fileparameters(f) for f in file_list];
-    energies = [totalenergy(f)    for f in file_list];
+    ces      = [totalenergy(f)    for f in file_list];
+    converged = [c for (c,e) in ces];
+    energies  = [e for (c,e) in ces];
     HLN      = [homolumoenergy(f) for f in file_list];
 
     print >> file, "experiment = %s;\n"     % mathematica_list(finfo);
     print >> file, "parameterOrder = %s;\n" % mathematica_list(expt['order']);
     print >> file, "valueOrder = %s;\n"     % mathematica_list(['Total energy',
                                                                 ['HOMO energy','LUMO energy',
-                                                                 'Number of electrons']]);
+                                                                 'Number of electrons'],'Converged']);
 
-    propertylist = [(params[i],energies[i],HLN[i]) for i in range(len(file_list))];
+    propertylist = [(params[i],energies[i],HLN[i],converged[i]) for i in range(len(file_list))];
     print >> file, "propertylist = %s;\n" % mathematica_list(propertylist,collapse=True);
 
 def python_output(file,finfo,file_list):
     expt  = experiments[finfo[1]][finfo[2]];
     params   = [fileparameters(f) for f in file_list];
-    energies = [totalenergy(f)    for f in file_list];
+    ces      = [totalenergy(f)    for f in file_list];
+    converged = [c for (c,e) in ces];
+    energies  = [e for (c,e) in ces];
     HLN      = [homolumoenergy(f) for f in file_list];
 
     print >> file, "experiment = %s;\n"     % repr(finfo);
     print >> file, "parameterOrder = %s;\n" % repr(expt['order']);
     print >> file, "valueOrder = %s;\n"     % repr(['Total energy',
                                                                 ['HOMO energy','LUMO energy',
-                                                                 'Number of electrons']]);
+                                                                 'Number of electrons'],'Converged']);
 
-    propertylist = [(params[i],energies[i],HLN[i]) for i in range(len(file_list))];
+    propertylist = [(params[i],energies[i],HLN[i],converged[i]) for i in range(len(file_list))];
     print >> file, "propertylist = %s;\n" % repr(propertylist);
 
 
