@@ -6,73 +6,86 @@ from modules.convert import *;
 from modules.scanf   import sscanf;
 
 Hartrees = 27.21138386;
+eV       = 1.0;
 
-def firefly_energy(filename):
+def qscf_energy(l):
+    [energy] = sscanf(l,"Total potential energy  = %f eV");
+    return energy;
+
+def firefly_energy(l):
+    return float(l.split('=')[1]);
+
+def gaussian_energy(l):
+    return float(l.split('=')[1].lstrip().split()[0]);
+
+def gaussian_unconverged_energy(l):
+    [iteration,energy] = sscanf(l,"Matrix for removal %d Erem= %f");
+    return energy;
+
+def ATK_energy(l):
+    [energy] = sscanf(l,"| Total energy = %f eV");
+    return energy;
+
+
+string_matches = {
+    'qscf' : {
+        'converged-match':       "Converged in",
+        'unconverged-match':     "WARNING: Did not converge",
+        'energy-match':          "Total potential energy",
+        'unit':                   eV,
+        'get-energy':             qscf_energy,
+        'get-unconverged-energy': qscf_energy
+        },
+    'Firefly':{
+        'converged-match':        "DENSITY CONVERGED",
+        'unconverged-match':      "SCF IS UNCONVERGED",
+        'energy-match':           "TOTAL ENERGY",
+        'unit':                   Hartrees,
+        'get-energy':             firefly_energy,
+        'get-unconverged-energy': firefly_energy
+        },
+    'Gaussian':{
+        'converged-match':        "SCF Done:",
+        # Doesn't ensure unconverged, but makes sure we have an unconverged energy
+        'unconverged-match':      "Matrix for removal", 
+        'energy-match':           "SCF Done",
+        'unit':                   Hartrees,
+        'get-energy':             gaussian_energy,
+        'get-unconverged-energy': gaussian_unconverged_energy        
+        },
+    'ATK':{
+        'converged-match':        "| Calculation Converged",
+        'unconverged-match':      "# Warning: The calculation did not converge",
+        'energy-match':           "| Total energy",
+        'unit':                   eV,
+        'get-energy':             ATK_energy,
+        'get-unconverged-energy': ATK_energy        
+        }
+};
+
+def output_energy(I,filename):
     with open(filename,'r') as F:
         lines = F.readlines();
-        converged = [l for l in lines if l.lstrip().startswith("DENSITY CONVERGED")]
-        unconverged = [l for l in lines if l.lstrip().startswith("SCF IS UNCONVERGED")]
+        converged   = [l for l in lines if l.strip().startswith(I['converged-match'])];
+        unconverged = [l for l in lines if l.strip().startswith(I['unconverged-match'])];
 
         if len(converged) != 1:
-            if len(unconverged) != 1:
+            if len(unconverged) == 0:   # For Gaussian, we simply use Erem-lines, of which there are many!
                 print >> stderr, "Output file incomplete: no convergence statement in %s." % filename;
                 raise ValueError;
-            print >> stderr, unconverged[0];
+            print >> stderr, "%s: %s" % (filename,unconverged[0]);
+            energyline = [I['get-unconverged-energy'](l) for l in lines if l.lstrip().startswith(I['energy-match'])];
             converged = False;
         else:
+            energyline = [I['get-energy'](l) for l in lines if l.lstrip().startswith(I['energy-match'])];
             converged = True;
-            
-        energyline = [float(l.split('=')[1]) for l in lines
-                      if l.lstrip().startswith("TOTAL ENERGY")];
-        
+
         if(len(energyline)!=1):
             print >> stderr, "No total energy found in %s!" % filename;
             raise ValueError;
         else:
-            return (converged,energyline[0]*Hartrees);
-
-def gaussian_energy(filename):
-    with open(filename,'r') as F:
-        lines = F.readlines();
-        elines = [l.strip() for l in lines if l.lstrip().startswith('SCF Done:') ];
-        if elines == []:
-            print >> stderr, "%s did not converge. Getting Erem." % filename;
-            elines = [l.lstrip() for l in lines if l.lstrip().startswith("Matrix for removal")];
-            if elines == []:
-                print >> stderr, "Can't find Erem-energy in %s!" % filename;
-                raise ValueError;
-            else:
-                [iteration,energy] = sscanf(elines[-1],"Matrix for removal %d Erem= %f");
-                converged = False;
-        else:
-            energy = float(elines[0].split('=')[1].lstrip().split()[0]);
-            converged = True;
-                
-        return (converged,energy*Hartrees);
-
-
-def ATK_energy(filename):
-    with open(filename,'r') as F:
-        lines = F.readlines();
-        converged = (len([l for l in lines if l.startswith("| Calculation Converged")])==1);
-        elines    = [l for l in lines if l.startswith("| Total energy")];
+            return (converged,energyline[0]*I['unit']);
         
-        if not converged:
-            unconverged = [l for l in lines if "did not converge" in l];
-            if len(unconverged) != 1:
-                print >> stderr, "Output file incomplete: no convergence statement in %s." % filename;
-                raise ValueError;
-            print >> stderr, unconverged[0];
-            
-        [energy] = sscanf(elines[0],"| Total energy = %f eV");
-            
-        return (converged,energy);          # Energy is already in eV.
-
-energy_fn = {
-    'Gaussian':gaussian_energy,
-    'Firefly':firefly_energy,
-    'ATK': ATK_energy
-};
 
 def collect_molecule(program,molecule):
     energies = {};
@@ -89,7 +102,7 @@ def collect_molecule(program,molecule):
                 outpath = jobpath+"/"+q+"/output.log";
                 print >> stderr, outpath;
                 try:
-                    (converged,energy)    = energy_fn[program](outpath);
+                    (converged,energy)    = output_energy(string_matches[program],outpath);
 
                     energy_b[float(q)]    = energy;
                     converged_b[float(q)] = converged;
