@@ -21,7 +21,7 @@ generate_mesh(){
 
 
 # Exp. 1-3 all have Vsd=0
-Vsd=0
+Vsd=0.0
 
 # Exp. 1
 # Varies oxide lengths H while keeping the distance Dy fixed at 0.1nm.
@@ -45,7 +45,7 @@ done
 # We want to obtain U, Delta, E_C and possibly \alpha as a function of H
 H=50
 Dx=1
-for Dy in 0.5 0.75 1 2 3 5 7 10; do
+for Dy in 0.0 0.125 0.25 0.5 0.75 1 2 3 5; do
     generate_mesh $Dx $Dy $H
     for Vg in 0.0 2.0 4.0; do
 	for charge in -1.0 0.0 1.0; do
@@ -61,14 +61,13 @@ done
 # as well as the gate voltage.
 H=50.0
 Dy=1.0
-Vsd=1.0
-for Dx in 0.5 0.75 1.0 1.5 2 3 5; do
+for Dx in 0.0 0.125 0.25 0.5 0.75 1.0 1.5 2 3 5; do
     generate_mesh $Dx $Dy $H
     for Vg in 0.0 2.0 4.0
       do
       for charge in -1.0 0.0 1.0 
 	do
-	./SET-input-lengths.pl $molecule $charge $Vg $Vsd $Dx $Dy $H > ${directory}/Exp3.${charge}:${Vg}:${Vsd}:${Dx}.in
+	./SET-input-lengths.pl $molecule $charge $Vg $Vsd $Dx $Dy $H > ${directory}/Exp3.${charge}:${Vg}:${Dx}.in
       done
     done
 done
