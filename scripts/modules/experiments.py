@@ -43,7 +43,7 @@ experiments = {
         'Exp3': {
             'description': "Molecule in SET-environment. Fixed dist_y=1AA, oxideH=50AA, Vsd=0\n"
                           +"dist_x and Vg varied.",
-            'order': ['charge','Vg','dist_x']
+            'order': ['charge','Vg','Vsd','dist_x']
             },
         'Exp4': {
             'description': "Molecule in SET-environment. Fixed dist_y=1AA, oxideH=50AA, Vsd=0\n"
