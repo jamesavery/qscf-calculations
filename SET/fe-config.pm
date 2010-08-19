@@ -10,7 +10,7 @@
 # Parameters for FEM-code
 #    'refinement_strategy' => 'centers_plus_density',
 %feparams = (
-    'fe_order' => 1,
+    'fe_order' => `grep fe_order config.sh | cut -f 2 -d = `,
     'write_mesh' => "false",		
     'write_solution' => "none",
     'refinement_strategy' => 'centers_density_plus_curve',
