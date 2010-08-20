@@ -2,8 +2,9 @@
 use File::Basename;
 use Cwd 'abs_path';
 
-$gb = 1024*1024*1024;
-($maxcpu,$maxmem) = (8,16*$gb);
+$gbinkb = 1024*1024;
+($maxcpu,$maxmem) = (8,20);
+$maxmemkb = $maxmem*$gbinkb;
 
 ($jobid,@inputfiles) = @ARGV;
 
@@ -29,9 +30,9 @@ $script = << "END"
 #!/bin/bash
 # @ output = $logdir/qscf.\$(Host).\$(Cluster).\$(Process).out
 # @ error = $logdir/qscf.\$(Host).\$(Cluster).\$(Process).err
-# @ wall_clock_limit = 12000
+# @ wall_clock_limit = 30000
 # @ class = large
-# @ resources = ConsumableCpus($maxcpu) ConsumableMemory(16gb) 
+# @ resources = ConsumableCpus($maxcpu) ConsumableMemory(${maxmem}gb) 
 # @ queue
 SCR=/scratch/\$LOADL_STEP_ID/${jobid}
 mkdir -p \$SCR
@@ -45,11 +46,15 @@ export OMP_NUM_THREADS=$maxcpu
 
 # Limit memory usage -- LoadLeveler does nothing at all to enforce
 # this either.  
-ulimit -m $maxmem
+ulimit -m $maxmemkb
+# Hmmm. Apparently, ulimit -m has NO EFFECT AT ALL. It's necessary to limit the virtual memory,
+# which doesn't make any goddamn fucking sense. But here it is anyway.
+ulimit -v $maxmemkb
 
 echo "\$SCR"
 hostname
 uname -a
+# All right, top is now properly cleaned up..
 (( while true; do
      hostname > ${logdir}/qscf.\${LOADL_STEP_ID}.top; 
      top -b -n1 | head -n 30 >> ${logdir}/qscf.\${LOADL_STEP_ID}.top; 
@@ -63,12 +68,12 @@ for base in @basenames; do
 done
 cd ..
 tar czf ${logdir}/${jobid}.\${LOADL_STEP_ID}.tar.gz $jobid 
-cd ..
-rm -rf \$LOADL_STEP_ID
+rm -rf \$jobid
 
 
 # Kill anything that might still be running.
-top -n 1 -b | grep avery | grep lljob | cut -f 1 -d ' ' | xargs kill -9
+top -n 1 -b | grep avery | grep lljob | cut -f 1 -d a | xargs kill -9
+echo "ALL DONE." > ${logdir}/qscf.\${LOADL_STEP_ID}.top; 
 
 END
 ;
