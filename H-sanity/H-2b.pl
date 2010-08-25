@@ -19,9 +19,9 @@ $diW = $boxW/2.0;
 $V_L = 0;
 
 print << "END"
-% box = [$boxW,$boxH,$boxD]
-% diW = $diW
-% dX  = $dX
+% box in Bohrs = [$boxW,$boxH,$boxD]
+% diW in Bohrs = $diW
+% dX  in Bohrs = $dX
 % translate = [$Hx,$Hy,$Hz]
 % V         = $V_L
 
