@@ -100,6 +100,7 @@ calculator<LatticeFEMCalculator>: (
 
     write_mesh = $feparams{'write_mesh'}
     write_solution = $feparams{'write_solution'}
+    output_directory = ${charge}-${dX}
 )
 
 qscf<ScfParam>: (
