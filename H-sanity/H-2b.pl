@@ -5,6 +5,7 @@
 
 $eV = 0.0367493254;		# 1 eV in Hartrees
 $nm = 18.897259886;		# 1 nm in Bohrs
+$AA = $nm/10.0;
 
 my ($charge,$dX) = @ARGV;
 
