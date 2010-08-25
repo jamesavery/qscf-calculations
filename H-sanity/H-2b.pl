@@ -21,6 +21,7 @@ $V_L = 0;
 print << "END"
 % box = [$boxW,$boxH,$boxD]
 % diW = $diW
+% dX  = $dX
 % translate = [$Hx,$Hy,$Hz]
 % V         = $V_L
 
