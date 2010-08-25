@@ -18,6 +18,10 @@ $diW = $boxW/2.0;
 $V_L = 0;
 
 print << "END"
+% box = [$boxW,$boxH,$boxD]
+% diW = $diW
+% translate = [$Hx,$Hy,$Hz]
+% V         = $V_L
 
 Hdzp<PaoParam>: (
         label=H
