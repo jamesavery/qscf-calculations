@@ -10,9 +10,8 @@ my ($charge,$dX) = @ARGV;
 
 do 'fe-config.pm';
 
-($boxW,$boxH,$boxD) = (800,400,400);
-$diW = 400;
-$vacuumW = $boxW-$diW;
+($boxW,$boxH,$boxD) = (1600*$AA,800*$AA,800*$AA);
+$diW = $boxW/2.0;
 
 ($Hx,$Hy,$Hz) = ($diW+$dX,$boxH/2,$boxD/2);
 
@@ -40,16 +39,16 @@ basissetDZP<BasisSetParam>: (
 
 volumes<PhysicalVolumesParam>:(
 	{id description volume_type value} = {
-	   1 "Vacuum"          dielectric 1
-	   2 "Left electrode"  fixed $V_L
+	   1 "Left electrode"  fixed $V_L
+	   2 "Vacuum"          dielectric 1
 	}
 )
 
 
 surfaces<PhysicalSurfacesParam>:(
 	{id description boundary_type boundary_value} = {
-	    1 "Vacuum boundaries"   neumann 0
-	    2 "Left electrode"      dirichlet $V_L
+	    1 "Left electrode"      dirichlet $V_L
+	    2 "Vacuum boundaries"   dirichlet 0
 	}
 )
 
