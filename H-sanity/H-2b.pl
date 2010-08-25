@@ -85,6 +85,7 @@ calculator<LatticeFEMCalculator>: (
     charge = $charge
     mesh_file=mesh1.msh
     final_dE=$feparams{'final_dE'}
+    final_dC=$feparams{'final_dC'}
     fe_order = $feparams{'fe_order'}
     refinement_strategy   = $feparams{'refinement_strategy'}
     centers_max_diameter  = $feparams{'centers_max_diameter'}
