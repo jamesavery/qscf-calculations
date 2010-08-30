@@ -7,6 +7,7 @@ from modules.scanf import sscanf;
 from os import environ, path;
 from sys import argv,stdout,stderr;
 from string import split, join, strip;
+from math import ceil;
 import re;
 
 files = [path.abspath(f) for f in argv[1:]];
@@ -43,10 +44,10 @@ def totalenergy(f):
         return output_energy(string_matches["qscf"],f);
     except IOError:
         print >> stderr, "Cannot read %s!" % f;
-        return (False,1);
+        return (False,float('nan'));
     except ValueError:
         print >> stderr, "Error in %s!" % f;
-        return (False,2);
+        return (False,float('nan'));
     
 def homolumoenergy(f):
     f = path.splitext(f)[0]+".err";
@@ -59,10 +60,12 @@ def homolumoenergy(f):
         
         energies = split(lines[eline+1],' ');
         tup = lines[eline-1].split('= ')[1];
-        (T,degeneracy,numberElectrons) = sscanf(tup,"(%f,%d,%d)");
+        print >> stderr, tup;
+        (T,degeneracy,numberElectrons) = sscanf(tup,"(%f,%d,%f)");
 
-        return (float(energies[(numberElectrons-1)/degeneracy])*Hartrees,
-                float(energies[(numberElectrons-1)/degeneracy+1])*Hartrees,
+        N = int(ceil(numberElectrons)-1)/degeneracy;
+        return (float(energies[N])*Hartrees,
+                float(energies[N+1])*Hartrees,
                 numberElectrons);
 
 def getinfo(f):
