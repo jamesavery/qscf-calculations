@@ -4,7 +4,7 @@ molecule=$1
 
 source config.sh;
 
-directory=$molecule/Vzero-${final_dE}
+directory=$molecule/natVzero-${final_dE}
 mkdir -p $directory
 
 ./natSET-mesh.pl $molecule > $directory/${molecule}-natSET.geo
@@ -19,7 +19,7 @@ for charge in -5.0 -4.0 -3.0 -2.0 -1.0 0.0 1.0 2.0 3.0 4.0 5.0
   do
   for Vg in -4.0 0.0 1.0 4.0
     do    
-    ./SET-input.pl $molecule $charge $Vg $Vsd > ${directory}/SET.${charge}:${Vg}:${Vsd}.in
+    ./natSET-input.pl $molecule $charge $Vg $Vsd > ${directory}/natSET.${charge}:${Vg}:${Vsd}.in
   done
 done
 
@@ -28,7 +28,7 @@ for charge in -5.0 -4.0 -3.0 -2.0 -1.0 0.0 1.0 2.0 3.0 4.0 5.0
   do
   for Vg in -4.0 0.0 1.0 4.0
     do    
-    ./SET-input.pl $molecule $charge $Vg $Vsd > ${directory}/SET-2.${charge}:${Vg}:${Vsd}.in
+    ./natSET-input.pl $molecule $charge $Vg $Vsd > ${directory}/natSET-2.${charge}:${Vg}:${Vsd}.in
   done
 done
 
