@@ -52,13 +52,20 @@ experiments = {
             }
         },
     'SET-dimensions': {
-        'description': "Molecule in SET-environment. Dimensions of 'world box' increased",
-        'vacuum': ['charge','boxW'],
-        'SET-2':  ['charge','Vg','boxW']
+        'vacuum': { 'order': ['charge','boxW'] },
+        'SET-2':  { 'order': ['charge','Vg','boxW'] }
         },
     'SET-accuracy': {
-        'description': "Molecule in SET-environment. Vsd=2V. final_dE varied and approximate "
+        'SET-2': {
+            'description': "Molecule in SET-environment. Vsd=2V. final_dE varied and approximate "
                      + "diamond plot is calculated for each accuracy to determine convergence.",
-        'SET-2': ['charge','Vg','Vsd','final_dE']
+           'order': ['charge','Vg','Vsd','final_dE']
+           }
+        },
+    'sanity' : {
+        'Exp2b' : {
+          'description': "H atom at distance dX from metal surface (V=0).",
+          'order': ['charge','dX']
         }
+    }
     };
