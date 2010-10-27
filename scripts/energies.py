@@ -48,6 +48,18 @@ def totalenergy(f):
     except ValueError:
         print >> stderr, "Error in %s!" % f;
         return (False,float('nan'));
+
+def oneelectronenergies(f):
+    f = path.splitext(f)[0]+".err";
+    with open(f,'r') as file:
+        lines  = file.readlines();
+        try:
+            eline = [i for i in range(len(lines)) if lines[i].startswith("Energies")][-1];
+        except IndexError:
+            return (0,0,0);
+        
+        energies = split(lines[eline+1],' ');
+        return energies;
     
 def homolumoenergy(f):
     f = path.splitext(f)[0]+".err";
