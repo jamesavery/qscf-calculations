@@ -60,7 +60,7 @@ def homolumoenergy(f):
         
         energies = split(lines[eline+1],' ');
         tup = lines[eline-1].split('= ')[1];
-        print >> stderr, tup;
+#        print >> stderr, tup;
         (T,degeneracy,numberElectrons) = sscanf(tup,"(%f,%d,%f)");
 
         N = int(ceil(numberElectrons)-1)/degeneracy;
@@ -92,6 +92,7 @@ def mathematica_output(file,finfo,file_list):
     energies  = [e for (c,e) in ces];
     HLN      = [homolumoenergy(f) for f in file_list];
 
+    print >> stderr, expt;
     print >> file, "experiment = %s;\n"     % mathematica_list(finfo);
     print >> file, "parameterOrder = %s;\n" % mathematica_list(expt['order']);
     print >> file, "valueOrder = %s;\n"     % mathematica_list(['Total energy',
