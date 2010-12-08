@@ -8,6 +8,8 @@ def mathematica_repr(x,collapse=False):
     elif type(x) == float:
         if(x==int(x)):
             return repr(x);
+	elif(x==float('nan')):
+	    return "NaN";
         else:
             e = floor(log(fabs(x))/log(10));
             if e <= -5 or e > 6:
