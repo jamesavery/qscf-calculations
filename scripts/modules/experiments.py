@@ -73,6 +73,10 @@ experiments = {
            }
         },
     'sanity' : {
+        'Exp2a' : {                     # Possibly obsolete
+          'description': "H atom at distance dX from metal surface (V=0) (method a).",
+          'order': ['charge','dX']
+        },
         'Exp2b' : {
           'description': "H atom at distance dX from metal surface (V=0).",
           'order': ['charge','dX']
