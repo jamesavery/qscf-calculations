@@ -38,6 +38,7 @@ string_matches = {
         },
     'Firefly':{
         'converged-match':        "DENSITY CONVERGED",
+        'converged-match-2':      "ENERGY CONVERGED",
         'unconverged-match':      "SCF IS UNCONVERGED",
         'energy-match':           "TOTAL ENERGY",
         'unit':                   Hartrees,
@@ -66,7 +67,8 @@ string_matches = {
 def output_energy(I,filename):
     with open(filename,'r') as F:
         lines = F.readlines();
-        converged   = [l for l in lines if l.strip().startswith(I['converged-match'])];
+        converged   = [l for l in lines if l.strip().startswith(I['converged-match']) or
+					   ('converged-match-2' in I and l.strip().startswith(I['converged-match-2']))];
         unconverged = [l for l in lines if l.strip().startswith(I['unconverged-match'])];
 
         if len(converged) != 1:
