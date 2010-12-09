@@ -80,6 +80,10 @@ experiments = {
         'Exp2b' : {
           'description': "H atom at distance dX from metal surface (V=0).",
           'order': ['charge','dX']
+        },
+        'Exp3x' : {
+          'description': "H atom at distance dX from dielectric surface (V=0).",
+          'order': ['charge','dX','epsilon']
         }
     }
     };
