@@ -7,12 +7,12 @@ sub max { return $_[0]<=$_[1]? $_[1]: $_[0]; }
 
 %cm = $molecule{$moleculename}{'center of mass'};
 
-$vacuumW = 10.63;
-$vacuumH   = 7.23;
+$vacuumW  	 = 10.63;
+$vacuumH    	 = 7.23;
 $slice_depth     = 12;
 $electrodeW 	 = 4;
-$oxideH    = 3.77;
-$gateH     = 1.0;
+$oxideH    	 = 3.77;
+$gateH     	 = 1.0;
 $dist_y          = 1.23;
 $translate_y     = 6;
 
@@ -26,7 +26,7 @@ $translate_y     = 6;
 print STDERR "(boxW,boxH,boxD) = ($boxW,$boxH,$boxD) - should be ($bW,$bH,$bD)\n";
 
 ($oxideW,$oxideH,$oxideD) = ($boxW,$oxideH,$boxD);
-$electrodeH = $boxH-$vacuumH-$gateH;
+$electrodeH = $boxH-$oxideH;
 
 ($Hx,$Hy,$Hz) = ($boxW/2,$translate_y,$boxD/2);
 
